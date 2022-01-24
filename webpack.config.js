@@ -14,7 +14,6 @@ module.exports = {
     clean: true,
   },
   mode: 'production',
-  devtool: 'eval-source-map',
   module: {
     rules: [
       {
@@ -61,7 +60,9 @@ module.exports = {
       new CssMinimizerPlugin({
         test: /\.(css|scss)$/,
       }),
-      new TerserPlugin(),
+      new TerserPlugin({
+        test: /\.js(\?.*)?$/i,
+      }),
     ]
   }
 }
