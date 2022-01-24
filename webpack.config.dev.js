@@ -1,8 +1,6 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
-const TerserPlugin = require('terser-webpack-plugin');
 
 module.exports = {
   entry: './src/index.js',
@@ -11,9 +9,8 @@ module.exports = {
     filename: 'bundle.js',
     hashFunction: "xxhash64",
     publicPath: '/',
-    clean: true,
   },
-  mode: 'production',
+  mode: 'development',
   devtool: 'eval-source-map',
   module: {
     rules: [
@@ -55,13 +52,11 @@ module.exports = {
      
     
   ],
-  optimization: {
-    minimize: true,
-    minimizer: [
-      new CssMinimizerPlugin({
-        test: /\.(css|scss)$/,
-      }),
-      new TerserPlugin(),
-    ]
-  }
+  devServer: {
+		static: path.join(__dirname, 'dist'),
+		compress: true,
+		historyApiFallback: true,
+		port: 3006,
+		open: true,
+	}
 }
