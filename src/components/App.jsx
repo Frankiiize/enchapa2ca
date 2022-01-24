@@ -5,6 +5,9 @@ const App = () => {
     <>
       <h1>Soy una App en React</h1>
       <img src={foto} />
+      <footer>
+        <p>frankiize</p>
+      </footer>
     </>
   )
 }
