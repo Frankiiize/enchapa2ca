@@ -1,8 +1,10 @@
 import React from "react";
+import {fireBaseApp} from '../services/firebaseConfig.js'
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Home } from "../pages/Home.jsx";
 import { Header } from "./Header.jsx";
 const App = () => {
+  console.log(fireBaseApp)
   return(
     <>
       <BrowserRouter>
