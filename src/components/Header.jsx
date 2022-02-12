@@ -6,7 +6,7 @@ import logo from "../assets/images/logo.jpg";
 import "../styles/components/header.css";
 import { SearchInput } from "./SearchInput.jsx";
 const Header = () => {
-  const [ fakeUser, setFakeUser ] = useState(true);
+  const [ fakeUser, setFakeUser ] = useState(false);
   const [ searchValue, setSearchValue ] = useState('');
   const handleSearch = (ev) => {
     setSearchValue(ev.target.value)
@@ -34,9 +34,10 @@ const Header = () => {
                   </Link>
                 </li>
               </ul>
-            : <FaUserAlt size={30} color={"white"} />
+            : <Link to="/login">
+                <FaUserAlt size={30} color={"white"} />
+              </Link> 
           }
-          
       </nav>
       <SearchInput
         handleSearch={handleSearch}
