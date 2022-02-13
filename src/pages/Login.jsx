@@ -1,37 +1,9 @@
-import React, { useEffect, useRef, useState } from "react";
-import { getAuth, onAuthStateChanged, signInWithEmailAndPassword } from 'firebase/auth';
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
+import { authContext } from "../context/AuthContext";
 
 const Login = () => {
-  const [ user, setUser ] = useState(null);
-  const auth = getAuth();
-  
-  useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
-      user 
-        ? (setUser(user.auth.currentUser)) 
-        : (setUser(null), console.log('userlogOut'))
-    })
-    console.log(user)
-  },[user])
-
-
-  const singIn = (email, password) => {
-    signInWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-
-        const user = userCredential.user;
-        setUser(user.auth.currentUser );
-
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        console.log({errorCode, errorMessage})
-      })
-
-
-  }
+  const { user, singIn } = useContext(authContext);
 
   const form = useRef(null)
   const regex = /^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i;

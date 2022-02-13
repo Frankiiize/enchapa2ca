@@ -23,14 +23,13 @@
   object-fit: contain;
 }
 .headerCointaner__user{
-  width: 100px;
+  min-width: 100px;
 }
 
 .headerCointainer__user--userImg{
   object-fit: contain;
   width: 42px;
   height: 42px;
-  margin-right: 10px;
 }
 .headerCointainer__user--login{
   display: flex;
@@ -38,6 +37,10 @@
   text-transform: capitalize;
   text-decoration: none;
   color: var(--white-color);
+  padding: 5px;
+}
+.headerCointainer__user--login span{
+  margin-right: 10px ;
 }
 .headerContainer__links{
   display: flex;

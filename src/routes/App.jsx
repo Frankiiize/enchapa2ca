@@ -2,13 +2,16 @@ import React from "react";
 import {fireBaseApp} from '../services/firebaseConfig.js'
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Home } from "../pages/Home.jsx";
-import { Header } from "./Header.jsx";
+import { Header } from "../components/Header.jsx";
 import { CreateAccount } from "../pages/CreateAccount.jsx";
 import { Login } from "../pages/Login.jsx";
+import { ProviderAuth } from "../context/AuthContext.js";
+import { FooterMenu } from "../components/FooterMenu.jsx";
 
 const App = () => {
   return(
     <>
+    <ProviderAuth>
       <BrowserRouter>
         <Header/>
           <Routes>
@@ -21,7 +24,9 @@ const App = () => {
 
             <Route path="*" element={<h1>PAGE NOT FOUND</h1>} />
           </Routes>
+          <FooterMenu />
       </BrowserRouter>
+    </ProviderAuth>
     </>
   )
 }
