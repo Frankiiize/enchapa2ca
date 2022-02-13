@@ -1,12 +1,64 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
+import { getAuth, onAuthStateChanged, signInWithEmailAndPassword } from 'firebase/auth';
 import { Link } from "react-router-dom";
 
 const Login = () => {
+  const [ user, setUser ] = useState(null);
+  const auth = getAuth();
+  
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      user 
+        ? (setUser(user.auth.currentUser)) 
+        : (setUser(null), console.log('userlogOut'))
+    })
+    console.log(user)
+  },[user])
+
+
+  const singIn = (email, password) => {
+    signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+
+        const user = userCredential.user;
+        setUser(user.auth.currentUser );
+
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log({errorCode, errorMessage})
+      })
+
+
+  }
+
+  const form = useRef(null)
+  const regex = /^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i;
+
+  const handleSubmit = (ev) => {
+    ev.preventDefault();
+    const formData = new FormData(form.current);
+    const data = {
+      username: formData.get('email'),
+      password: formData.get('password')
+    }
+    if(regex.test(data.username) && data.password.length >1){
+      console.log(data);
+      singIn(data.username, data.password);
+    }
+    else{
+      console.log('error invalid user or password')
+    }
+
+  }
+
+  
   return(
     <>
       <h2>Bienvenido a <span>enchapados</span></h2>
       <p>ingresa a tu cuenta</p>
-      <form>
+      <form ref={form}>
         <label htmlFor="email">
           <input 
             id="email"
@@ -25,7 +77,7 @@ const Login = () => {
             placeholder="contraseña"
           />
         </label>
-        <button type="submit">entrar</button>
+        <button onClick={handleSubmit} type="submit">entrar</button>
       </form>
       <div>
         <Link to="/recuperarCuenta">
