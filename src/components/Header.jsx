@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import { MdFavorite, MdOutlineShoppingCart, MdSearch } from "react-icons/md";
 import { FaUserAlt } from 'react-icons/fa'
 import { Link } from "react-router-dom";
-import logo from "../assets/images/logo.jpg";
+import logo from "../assets/images/logoEnchapadoWHITE.png";
+import smileBg from '../assets/images/enchapadoSmileBgWHITE.png'
 import "../styles/components/header.css";
 import { SearchInput } from "./SearchInput.jsx";
 const Header = () => {
@@ -18,7 +19,7 @@ const Header = () => {
       <nav>
           <div className="headerContainer__logoWrapper">
             <Link to="/">
-              <h1 >Enchapa2</h1>
+              <img src={logo} alt="logo enchapados" />
             </Link>
           </div>
           {!!fakeUser
@@ -34,9 +35,13 @@ const Header = () => {
                   </Link>
                 </li>
               </ul>
-            : <Link to="/login">
-                <FaUserAlt size={30} color={"white"} />
+            : 
+            <div className="headerCointaner__user">
+              <Link className="headerCointainer__user--login" to="/login">
+                <img className="headerCointainer__user--userImg" src={smileBg} />
+                 <span>entrar</span> 
               </Link> 
+            </div>
           }
       </nav>
       <SearchInput
