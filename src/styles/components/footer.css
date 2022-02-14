@@ -5,6 +5,11 @@ footer{
   bottom: 0;
   background-color: var(--brand-color);
   display: grid;
-  grid-template-columns: repeat(3,minmax(100px, 1fr));
   column-gap: 5px;
+}
+.frankiiize {
+  text-align: end;
+  padding-right: 20px;
+  padding-bottom: 20px;
+  color: var(--white-color);
 }

@@ -1,8 +1,8 @@
 import React from "react";
 import '../styles/components/footer.css'
-import creditCard from '../assets/images/tarjeta.png';
-import deliveryBox from '../assets/images/caja.png'
-import ubiactionPin from '../assets/images/ubication.png'
+import creditCard from '../assets/images/tarjeta.svg';
+import deliveryBox from '../assets/images/caja.svg'
+import ubiactionPin from '../assets/images/pin.svg'
 import { InfoCard } from "./InfoCard.jsx";
 const Footer = () => {
   return(
@@ -24,15 +24,9 @@ const Footer = () => {
           description={'Direccion: Valencia Norte - Av.Bolivar'}
         />
 
-        {/* <div className="footerInfoContainer__delivery">
-          <h3>¿Te lo enviamos?</h3>
-          <img src={deliveryBox} alt="imagen caja de envio" />
-        </div>
+        <span className="frankiiize">Developed by Frankiize </span>
 
-        <div className="footerInfoContainer__ubication">
-          <h3>Ubicanos</h3>
-          <img src={ubiactionPin} alt="imagen caja de envio" />
-        </div> */}
+    
         
 
        

@@ -1,5 +1,6 @@
 .footerInfoContainer__card{
   width: 100%;
+  min-height: 100px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -9,32 +10,27 @@
   position: relative;
   
 }
-.footerInfoContainer__card-divisor{
-  position: absolute;
-  height: 90px;
-  width: 1px;
-  background-color: var(--white-color);
-  right: -5px;
-  top:50%;
-  transform: translateY(-50%);
-  opacity: 0.4;
-}
 .footerInfoContainer__card picture{
+  padding: 5px;
   margin-top: 20px;
 }
 .footerInfoContainer__card picture img {
+  padding: 5px;
   object-fit: contain;
   width: 100%;
-  max-width: 60px;
+  max-width: 50px;
   object-position: center;
 }
+
 .footerInfoContainer__card h3 {
+  padding: 5px;
   font-size: var(--fs-body-text);
-  margin-top: 20px;
+  margin-top: 5px;
 }
 
 .footerInfoContainer__card span{
-  margin-top: 20px;
-  padding-bottom: 20px;
+  padding: 5px;
+  margin-top: 10px;
+  padding-bottom: 10px;
   font-size: var(--fs-small);
 }
