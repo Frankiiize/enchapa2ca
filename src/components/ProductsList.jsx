@@ -1,19 +1,11 @@
 import React from "react";
-import shoppingCart from '../assets/icons/shoppingCart.svg'
+import { ProductsCard } from "./ProductsCard.jsx";
 
-const ProductsList = ({newProducts}) => {
+const ProductsList = ({products, sectionClass}) => {
   return(
-      <ul className="Products__list">
-          {newProducts.map((product) => (
-            <li className="Products__item" key={product.id}>
-              <img className="Products__item-img" src={product.img}/>
-              <h3>{product.name}</h3>
-              <div className="Products__item-description">
-                <span>precio</span>
-                <span><span>$</span>{product.price}</span>
-              </div> 
-              <img className="Products__item-cart" src={shoppingCart} alt="shopping cart"/>
-            </li>
+      <ul className={sectionClass}>
+          {products.map((product) => (
+            <ProductsCard key={product.id} product={product} />
           ))}
       </ul>
   )

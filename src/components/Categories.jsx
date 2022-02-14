@@ -1,15 +1,34 @@
-import React from "react";
+import React, { useState } from "react";
 import '../styles/components/categories.css'
 const Categories = ({categories}) => {
+  
+  const [ showCategories, setShowCategories ] = useState(false);
+  console.log(showCategories)
+
+  const handleCategoieSelected = (id) => {
+    console.log(id)
+  }
+
   return(
-    <ul className="categoriesContainer">
-        {categories.map((item) => (
-            <li className="categoriesContainer__item" key={item.id}>
-              <img className="categoriesContainer__item-img" src={item.img} />
-              <h3 className="categoriesContainer__item-name">{item.name}</h3>
-            </li>
-        ))}
-    </ul>
+    <div className="filters">
+      <button onClick={() => setShowCategories(!showCategories)} className="categorieContainer">
+        <span>Categorias</span>
+          {!!showCategories &&
+            <ul className="categorieContainer__list">
+            <div className="categorieContainer__list-triangle"></div>
+              {categories.map((categorie) => (
+                  <li 
+                    className="categorieContainer__list-item"
+                    onClick={() => handleCategoieSelected(categorie.id)}
+                    key={categorie.id}
+                    >
+                    <span>{categorie.name}</span>
+                  </li>
+                ))}
+            </ul>
+          }
+      </button>
+    </div>
   )
 }
 

@@ -1,6 +1,7 @@
 .footerContainer{
   max-width:600px;
-  margin:0 auto;
+  min-height: 68px;
+  margin: 0 auto;
   position:relative;
   display:flex;
   justify-content: flex-end;

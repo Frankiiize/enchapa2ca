@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import { MdFavorite, MdOutlineShoppingCart, MdSearch } from "react-icons/md";
 import { FaUserAlt } from 'react-icons/fa'
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import logo from "../assets/images/logoEnchapadoWHITE.png";
 import smileBg from '../assets/images/enchapadoSmileBgWHITE.png'
 import "../styles/components/header.css";
@@ -14,6 +14,7 @@ const Header = () => {
     setSearchValue(ev.target.value)
     console.log(searchValue)
   }
+  const location = useLocation();
   return(
     <>
       <header className="headerContainer">
@@ -45,9 +46,7 @@ const Header = () => {
             </div>
           }
       </nav>
-      <SearchInput
-        handleSearch={handleSearch}
-      /> 
+      {(!!user || location.pathname === '/')&& <SearchInput  handleSearch={handleSearch} /> }
     </header>
     </>
 

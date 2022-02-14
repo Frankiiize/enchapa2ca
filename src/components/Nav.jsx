@@ -1,11 +1,18 @@
-import React from "react";
+import React, { useContext}  from "react";
 import "../styles/components/nav.css"
 import homeIcon from '../assets/icons/HomeIcon.svg';
 import OrderHistoryIcon from '../assets/icons/OrderHistoryIcon.svg';
 import SearchIcon from '../assets/icons/Search5.svg';
 import SmileUserINVER from '../assets/icons/smileINVER.svg'
 import { Link } from "react-router-dom";
+import { authContext } from "../context/AuthContext";
+
 const Nav = () => {
+  const { user } = useContext(authContext);
+  console.log(user)
+  if(!user) {
+    return <span></span>
+  }
   return(
     <div className="footerContainer">
      

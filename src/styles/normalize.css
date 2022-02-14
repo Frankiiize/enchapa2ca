@@ -61,7 +61,7 @@ body {
   line-height: 1.5;
   margin: 0 auto;
   overscroll-behavior: none;
-  padding-bottom: 65px;
+  /* padding-bottom: 65px; */
 }
 
 /* A elements that don't have a class get default styles */
@@ -75,7 +75,6 @@ picture {
 }
 
 /* Inherit fonts for inputs and buttons */
-input,
 button,
 textarea,
 select {
@@ -96,4 +95,17 @@ select {
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
+}
+
+*::-webkit-scrollbar{
+  width: 7px;
+  height: 7px;
+}
+*::-webkit-scrollbar-thumb{
+  background-color: var(--sucess-color);
+  opacity: 0.5;
+}
+*::-webkit-scrollbar-thumb{
+  background-color:  var(--sucess-color);
+  border-radius: 10px;
 }

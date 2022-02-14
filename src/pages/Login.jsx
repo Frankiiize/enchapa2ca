@@ -1,8 +1,11 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
+import React, { useContext, useRef } from "react";
+import "../styles/pages/loginPage.css"
 import { Link } from "react-router-dom";
 import { authContext } from "../context/AuthContext";
+import { LoginForm } from "../components/Forms.jsx";
 
 const Login = () => {
+
   const { user, singIn } = useContext(authContext);
 
   const form = useRef(null)
@@ -15,7 +18,7 @@ const Login = () => {
       username: formData.get('email'),
       password: formData.get('password')
     }
-    if(regex.test(data.username) && data.password.length >1){
+    if(regex.test(data.username) && data.password.length > 8){
       console.log(data);
       singIn(data.username, data.password);
     }
@@ -27,43 +30,26 @@ const Login = () => {
 
   
   return(
-    <>
-      <h2>Bienvenido a <span>enchapados</span></h2>
-      <p>ingresa a tu cuenta</p>
-      <form ref={form}>
-        <label htmlFor="email">
-          <input 
-            id="email"
-            name="email"
-            type="email"
-            autoComplete="username"
-            placeholder="email"
-          />
-        </label>
-        <label htmlFor="password">
-          <input 
-            id="password"
-            name="password"
-            type="password"
-            autoComplete="current-password"
-            placeholder="contraseña"
-          />
-        </label>
-        <button onClick={handleSubmit} type="submit">entrar</button>
-      </form>
-      <div>
-        <Link to="/recuperarCuenta">
-        ¿Olvidaste tu contraseña?
-        </Link>
-      </div>
-      <div>
-        <span>¿no tienes cuenta?</span>
-        <Link to="/recuperarCuenta">
-          registrate
-        </Link>
-      </div>
+    <section className="login">
+      <h2 className="login__title">Bienvenido a <span>enchapados</span></h2>
+      <p>Ingresa a tu cuenta</p>
 
-    </>
+      <LoginForm handleSubmit={handleSubmit} form={form} />
+
+      <div className="login__links">
+        <Link to="/recuperarCuenta">
+          ¿Olvidaste tu contraseña?
+        </Link>
+        <div>
+        <span>¿no tienes cuenta?</span>
+          <Link to="/createAccount">
+            registrate
+          </Link>
+        </div>
+      </div>
+     
+
+    </section>
   )
 
 }

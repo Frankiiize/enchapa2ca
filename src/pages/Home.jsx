@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 import { authContext } from "../context/AuthContext.js";
 
 import { Categories } from "../components/Categories.jsx";
-import { SectionProducts } from "../components/SectionProducts.jsx";
+import { SectionProducts } from "../layouts/SectionProducts.jsx";
 import { Footer } from "../components/Footer.jsx";
 import { Hero } from "../components/Hero.jsx";
 
@@ -11,6 +11,7 @@ import imgFAKE from '../assets/images/imagenFAKE.jpg';
 import productFAKE from '../assets/images/produtcFAKE.jpg';
 
 import '../styles/pages/home.css'
+import { ProductsList } from "../components/ProductsList.jsx";
 
 const categorias = [
   {
@@ -112,13 +113,25 @@ const Home  = () => {
     logOut();
   }
   //LOGOUTH REMOVER BOTTON
-  const topCategories = categories.slice(0,8);
+  console.log(categories)
   return(
     <main>
      <Hero />
+
+      <Categories categories={categories} />
       
-      <SectionProducts products={newProducts} title={'nuevos productos'}/>
-      <SectionProducts products={newProducts} title={'¡popular!'}/>
+
+      <SectionProducts  sectionClass={"Products"} button={false}>
+        <ProductsList sectionClass={"Products__grid"} products={newProducts} />
+      </SectionProducts>
+      
+      <SectionProducts title={'nuevos productos'} sectionClass={'Products'} button={true}>
+        <ProductsList sectionClass={"Products__list"}  products={newProducts}  />
+      </SectionProducts>
+
+      <SectionProducts  title={'nuevos productos'} sectionClass={'Products'} button={true}>
+        <ProductsList sectionClass={"Products__list"} products={newProducts} />
+      </SectionProducts>
     
       <button onClick={handleLogOut}>salir</button>
       <Footer/>

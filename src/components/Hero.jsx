@@ -33,7 +33,7 @@ const Hero = () => {
         className="mySwiper">
           {heroImg.map((img, index) => (
             <SwiperSlide key={`${img}-${index}`}>
-              <img style={style} src={img.src} alt="imagenes producto"/>
+              <img  style={style} src={img.src} alt="imagenes producto"/>
             </SwiperSlide>
           ))}
         </Swiper>
