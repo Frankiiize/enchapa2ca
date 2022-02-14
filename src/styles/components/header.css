@@ -41,6 +41,7 @@
 }
 .headerCointainer__user--login span{
   margin-right: 10px ;
+  font-size: var(--fs-body-text);
 }
 .headerContainer__links{
   display: flex;

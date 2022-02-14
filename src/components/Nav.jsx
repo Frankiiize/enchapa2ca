@@ -1,43 +1,43 @@
 import React from "react";
-import "../styles/components/footer.css"
+import "../styles/components/nav.css"
 import homeIcon from '../assets/icons/HomeIcon.svg';
 import OrderHistoryIcon from '../assets/icons/OrderHistoryIcon.svg';
 import SearchIcon from '../assets/icons/Search5.svg';
 import SmileUserINVER from '../assets/icons/smileINVER.svg'
 import { Link } from "react-router-dom";
-const FooterMenu = () => {
+const Nav = () => {
   return(
-    <footer className="footerContainer">
-      <nav className="footerNav">
+    <div className="footerContainer">
+     
         <ul>
           <li>
-            <Link className="footerNav__links" to="/">
+            <Link className="footerContainer__links" to="/">
               <img src={homeIcon} />
               <span>home</span>
             </Link>
           </li>
           <li>
-            <Link className="footerNav__links"  to="/historialCompras">
+            <Link className="footerContainer__links"  to="/historialCompras">
               <img src={OrderHistoryIcon} />
               <span>historial</span>
             </Link>
           </li>
           <li>
-            <button className="footerNav__links" >
+            <button className="footerContainer__links" >
               <img src={SearchIcon} />
               <span>buscar</span>
             </button>
           </li>
           <li>
-            <Link className="footerNav__links"  to="perfil">
+            <Link className="footerContainer__links"  to="perfil">
               <img src={SmileUserINVER} />
               <span>perfil</span>
             </Link>
           </li>
         </ul>
-      </nav>
-    </footer>
+     
+    </div>
   )
 }
 
-export { FooterMenu };
+export { Nav };

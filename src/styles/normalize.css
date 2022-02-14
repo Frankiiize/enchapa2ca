@@ -3,12 +3,21 @@
   /* variables COLORS*/
   --brand-color : #437DBC;
   --black-color: #4F4F4F;
+  --black-title-color: #4A4A4A;
   --white-color: #f5f5f5;
   --error-color: #FF7272;
   --sucess-color: #39c4a1;
   
   /* variables FONTS*/
   --font-primary: 'Montserrat', sans-serif;
+  --fs-small: 1.2rem;
+  --fs-details: 1.4rem;
+  --fs-body-text: 1.8rem;
+  --fs-subtitle: 2.0rem;
+  --fs-title: 2.4rem;
+  --fs-bigger: 3.2rem;
+
+
 }
 
 /* Box sizing rules */
@@ -20,24 +29,17 @@
   padding: 0;
 }
 
-/* Remove default margin */
-body,
-h1,
-h2,
-h3,
-h4,
-p,
-figure,
-blockquote,
-dl,
-dd {
-  margin: 0;
-}
+
 
 /* Remove list styles on ul, ol elements with a list role, which suggests default styling will be removed */
 ul,
 ol {
   list-style: none;
+}
+html{
+  font-size: 62.5%;
+  font-family: var(--font-primary);
+
 }
 
 /* Set core root defaults */
@@ -47,10 +49,13 @@ html:focus-within {
 
 /* Set core body defaults */
 body {
+ 
   width: 100%;
   min-height: 100vh;
   line-height: 1.5;
-  font-family: var(--font-primary);
+  margin: 0 auto;
+  overscroll-behavior: none;
+  padding-bottom: 65px;
 }
 
 /* A elements that don't have a class get default styles */

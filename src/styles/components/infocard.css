@@ -1,0 +1,36 @@
+.footerInfoContainer__card{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  text-align: center;
+  color: var(--white-color);
+  position: relative;
+  
+}
+.footerInfoContainer__card-divisor{
+  position: absolute;
+  height: 90px;
+  width: 1px;
+  background-color: var(--white-color);
+  right: -5px;
+  opacity: 0.4;
+}
+.footerInfoContainer__card picture{
+  max-width: 100px;
+  max-height: 90px;
+}
+.footerInfoContainer__card picture img {
+  object-fit: contain;
+  max-width: 50px;
+  object-position: center;
+}
+.footerInfoContainer__card h3 {
+  font-size: var(--fs-body-text);
+}
+
+.footerInfoContainer__card span{
+  padding-bottom: 20px;
+  font-size: var(--fs-small);
+}

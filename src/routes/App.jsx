@@ -6,7 +6,7 @@ import { Header } from "../components/Header.jsx";
 import { CreateAccount } from "../pages/CreateAccount.jsx";
 import { Login } from "../pages/Login.jsx";
 import { ProviderAuth } from "../context/AuthContext.js";
-import { FooterMenu } from "../components/FooterMenu.jsx";
+import { Nav } from "../components/Nav.jsx";
 
 const App = () => {
   return(
@@ -24,7 +24,7 @@ const App = () => {
 
             <Route path="*" element={<h1>PAGE NOT FOUND</h1>} />
           </Routes>
-          <FooterMenu />
+          <Nav />
       </BrowserRouter>
     </ProviderAuth>
     </>
