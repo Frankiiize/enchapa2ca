@@ -1,13 +1,16 @@
 import React, { useContext, useState } from "react";
-
 import { authContext } from "../context/AuthContext.js";
-import imgFAKE from '../assets/images/imagenFAKE.jpg';
-import productFAKE from '../assets/images/produtcFAKE.jpg';
-import { Categories } from "../components/Categories.jsx";
 
-import '../styles/pages/home.css'
+import { Categories } from "../components/Categories.jsx";
 import { SectionProducts } from "../components/SectionProducts.jsx";
 import { Footer } from "../components/Footer.jsx";
+import { Hero } from "../components/Hero.jsx";
+
+
+import imgFAKE from '../assets/images/imagenFAKE.jpg';
+import productFAKE from '../assets/images/produtcFAKE.jpg';
+
+import '../styles/pages/home.css'
 
 const categorias = [
   {
@@ -109,17 +112,13 @@ const Home  = () => {
     logOut();
   }
   //LOGOUTH REMOVER BOTTON
-  console.log(categories)
   const topCategories = categories.slice(0,8);
-  console.log(topCategories)
   return(
     <main>
-
+     <Hero />
       
-
-
-      <SectionProducts products={nuevosProductos} title={'nuevos productos'}/>
-      <SectionProducts products={nuevosProductos} title={'¡popular!'}/>
+      <SectionProducts products={newProducts} title={'nuevos productos'}/>
+      <SectionProducts products={newProducts} title={'¡popular!'}/>
     
       <button onClick={handleLogOut}>salir</button>
       <Footer/>
