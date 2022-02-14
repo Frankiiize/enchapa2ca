@@ -5,7 +5,7 @@ const InfoCard = ({imagen, title, description}) => {
   return(
     <div className="footerInfoContainer__card">
       <picture>
-        <img style={{}} src={imagen} alt="imagen tarjeta de credito"/>
+        <img src={imagen} alt="imagen tarjeta de credito"/>
       </picture>
       <h3>{title}</h3>
       <span>{description}</span>

@@ -2,7 +2,7 @@
   width: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
+  justify-content: flex-start;
   align-items: center;
   text-align: center;
   color: var(--white-color);
@@ -18,19 +18,21 @@
   opacity: 0.4;
 }
 .footerInfoContainer__card picture{
-  max-width: 100px;
-  max-height: 90px;
+  margin-top: 20px;
 }
 .footerInfoContainer__card picture img {
   object-fit: contain;
-  max-width: 50px;
+  width: 100%;
+  max-width: 60px;
   object-position: center;
 }
 .footerInfoContainer__card h3 {
   font-size: var(--fs-body-text);
+  margin-top: 20px;
 }
 
 .footerInfoContainer__card span{
+  margin-top: 20px;
   padding-bottom: 20px;
   font-size: var(--fs-small);
 }
