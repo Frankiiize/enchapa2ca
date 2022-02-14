@@ -1,14 +1,23 @@
 .footerInfoContainer__card{
   width: 100%;
   min-height: 100px;
+}
+.footerInfoContainer__card a{
   display: flex;
-  flex-direction: column;
+  width: inherit;
+  height: inherit;
   justify-content: flex-start;
+  flex-direction: column;
   align-items: center;
-  text-align: center;
+  text-decoration: none;
   color: var(--white-color);
+  text-align: center;
   position: relative;
   
+  
+}
+.footerInfoContainer__card a:visited{
+  color: var(--white-color);
 }
 .footerInfoContainer__card picture{
   padding: 5px;

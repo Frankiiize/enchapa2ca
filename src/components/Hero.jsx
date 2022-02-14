@@ -5,6 +5,7 @@ import fakeImage from '../assets/images/heroImgFAKE.jpg'
 import "swiper/css";
 import "swiper/css/pagination"
 import "swiper/css/navigation"
+import "../styles/components/hero.css"
 const images = [
   {
     src: fakeImage,

@@ -8,13 +8,13 @@ const InfoCard = ({imagen, title, description}) => {
   const url = title.match(deleteSpecialCharacteres).join("-").toLowerCase();
   return(
     <div className="footerInfoContainer__card">
-      <picture>
       <Link to={`/${url}`}>
-        <img src={imagen} alt="imagen tarjeta de credito"/>
+          <picture>
+            <img src={imagen} alt="imagen tarjeta de credito"/>
+          </picture>
+          <h3>{title}</h3>
+          <span>{description}</span>
       </Link>
-      </picture>
-      <h3>{title}</h3>
-      <span>{description}</span>
     </div>
   )
 }

@@ -7,6 +7,7 @@
   --white-color: #f5f5f5;
   --error-color: #FF7272;
   --sucess-color: #39c4a1;
+  /* variables COLORS*/
   
   /* variables FONTS*/
   --font-primary: 'Montserrat', sans-serif;
@@ -16,7 +17,12 @@
   --fs-subtitle: 2.0rem;
   --fs-title: 2.4rem;
   --fs-bigger: 3.2rem;
-
+  /* variables FONTS*/
+  
+/* slider hero variables */
+--swiper-theme-color: rgba(255, 255, 255, 0.6) ;
+--swiper-navigation-size: 32px;
+/* slider hero variables */
 
 }
 

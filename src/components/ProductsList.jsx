@@ -1,4 +1,5 @@
 import React from "react";
+import shoppingCart from '../assets/icons/shoppingCart.svg'
 
 const ProductsList = ({newProducts}) => {
   return(
@@ -11,6 +12,7 @@ const ProductsList = ({newProducts}) => {
                 <span>precio</span>
                 <span><span>$</span>{product.price}</span>
               </div> 
+              <img className="Products__item-cart" src={shoppingCart} alt="shopping cart"/>
             </li>
           ))}
       </ul>
