@@ -1,13 +1,15 @@
 import React, { useContext, useRef } from "react";
 import "../styles/pages/loginPage.css"
-import { Link } from "react-router-dom";
+import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
 import { authContext } from "../context/AuthContext";
 import { LoginForm } from "../components/Forms.jsx";
 
 const Login = () => {
 
-  const { user, singIn } = useContext(authContext);
-
+  const { user, singIn, setIsAuth, isAuth} = useContext(authContext);
+  let navigate = useNavigate();
+  let location = useLocation();
+  let from = location.state?.from?.pathname || "/";
   const form = useRef(null)
   const regex = /^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i;
 
@@ -19,15 +21,21 @@ const Login = () => {
       password: formData.get('password')
     }
     if(regex.test(data.username) && data.password.length > 8){
+      //debugger
       console.log(data);
       singIn(data.username, data.password);
+      setIsAuth(true)
+      navigate(from, { replace: true });
     }
     else{
       console.log('error invalid user or password')
     }
 
   }
-
+  if(user && isAuth){
+    return <Navigate to={from} replace={true} />
+  }
+ 
   
   return(
     <section className="login">

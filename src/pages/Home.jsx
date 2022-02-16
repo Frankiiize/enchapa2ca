@@ -115,7 +115,7 @@ const Home  = () => {
   //LOGOUTH REMOVER BOTTON
   return(
     <main>
-     <Hero />
+     {/* <Hero /> */}
 
       <Categories categories={categories} />
       

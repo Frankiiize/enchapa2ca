@@ -9,6 +9,7 @@ import { ProviderAuth } from "../context/AuthContext.js";
 import { Nav } from "../components/Nav.jsx";
 import { PasswordRecovery } from "../pages/PasswordRecovery.jsx";
 import { useApiCountries } from "../hooks/useApiCountries.js";
+import { PrivateRoutes } from "../layouts/PrivateRoutes.js";
 
 const App = () => {
   return(
@@ -21,14 +22,30 @@ const App = () => {
             <Route path="/createAccount" element={<CreateAccount/>} />
             <Route path="/login" element={<Login/>} />
             <Route path="/recuperarCuenta" element={<PasswordRecovery/>}/>
- 
- 
-            <Route path="/favorites" element={<h1>FAVORITOS</h1>}/>
-            <Route path="/cart" element={<h1>CART</h1>} />
+            
+            <Route path="/favoritos" element={
+              <PrivateRoutes>
+                <h1>favos</h1>
+              </PrivateRoutes>
+            }/>
+
+            <Route path="/carrito" element={
+              <PrivateRoutes>
+                <h1>cart</h1>
+              </PrivateRoutes>
+            } />
+
+            <Route path="/perfil" element={
+                <PrivateRoutes>
+                  <h1>perfil</h1>
+                </PrivateRoutes>
+
+            }/>
+          
 
             <Route path="*" element={<h1>PAGE NOT FOUND</h1>} />
           </Routes>
-         <Nav/> 
+         
       </BrowserRouter>
     </ProviderAuth>
     </>

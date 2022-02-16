@@ -46,7 +46,6 @@ ol {
 html{
   font-size: 62.5%;
   font-family: var(--font-primary);
-
 }
 
 /* Set core root defaults */
@@ -56,9 +55,8 @@ html:focus-within {
 
 /* Set core body defaults */
 body {
- 
   width: 100%;
-  min-height: 100vh;
+  min-height: calc(100vh - 65px);
   line-height: 1.5;
   margin: 0 auto;
   overscroll-behavior: none;
