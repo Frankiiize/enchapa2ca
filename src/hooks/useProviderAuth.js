@@ -10,9 +10,8 @@ const useProviderAuth = () => {
     onAuthStateChanged(auth, (user) => {
       user 
         ? (setUser(user.auth.currentUser)) 
-        : (setUser(null), console.log('userlogOut'))
+        : (setUser(null))
     })
-    console.log(user)
   },[user])
 
 

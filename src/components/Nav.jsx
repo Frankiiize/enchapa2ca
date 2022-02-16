@@ -9,7 +9,6 @@ import { authContext } from "../context/AuthContext";
 
 const Nav = () => {
   const { user } = useContext(authContext);
-  console.log(user)
   if(!user) {
     return <span></span>
   }

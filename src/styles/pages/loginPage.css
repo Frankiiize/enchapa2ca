@@ -27,7 +27,7 @@
   display: flex;
   min-height: 100px;
   flex-direction: column;
-  justify-content: space-around;
+  justify-content: center;
   align-items: center;
   font-size: var(--fs-body-text);
   color: var(--white-color);

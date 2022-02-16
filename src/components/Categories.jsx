@@ -3,10 +3,9 @@ import '../styles/components/categories.css'
 const Categories = ({categories}) => {
   
   const [ showCategories, setShowCategories ] = useState(false);
-  console.log(showCategories)
 
   const handleCategoieSelected = (id) => {
-    console.log(id)
+    //console.log(id)
   }
 
   return(

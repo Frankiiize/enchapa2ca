@@ -113,7 +113,6 @@ const Home  = () => {
     logOut();
   }
   //LOGOUTH REMOVER BOTTON
-  console.log(categories)
   return(
     <main>
      <Hero />
