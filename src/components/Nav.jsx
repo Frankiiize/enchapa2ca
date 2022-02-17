@@ -8,8 +8,8 @@ import { Link } from "react-router-dom";
 import { authContext } from "../context/AuthContext";
 
 const Nav = () => {
-  const { user } = useContext(authContext);
-  if(!user) {
+  const { userState } = useContext(authContext);
+  if(userState.currentUser === null) {
     return <span></span>
   }
   return(

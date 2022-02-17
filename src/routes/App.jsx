@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import {fireBaseApp} from '../services/firebaseConfig.js'
+import { fireBaseApp }  from '../services/firebaseConfig.js'
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Home } from "../pages/Home.jsx";
 import { Header } from "../components/Header.jsx";
@@ -42,6 +42,12 @@ const App = () => {
 
             }/>
           
+            <Route path="/admin" element={
+                <PrivateRoutes>
+                  <h1>admin</h1>
+                </PrivateRoutes>
+
+            }/>
 
             <Route path="*" element={<h1>PAGE NOT FOUND</h1>} />
           </Routes>

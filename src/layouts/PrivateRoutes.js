@@ -1,18 +1,20 @@
 import React, { useContext, useEffect } from "react";
 import { Navigate, useLocation } from "react-router-dom";
 import { authContext } from "../context/AuthContext";
-import { useProviderAuth } from "../hooks/useProviderAuth";
 
 const PrivateRoutes = ({children}) => {
-  const { isAuth, user } = useContext(authContext);
+  const { isAuth, userState } = useContext(authContext);
+  
 
   let location = useLocation()
   if(!isAuth){
-    if(user === null){
+    if(userState.currentUser === null ){
       return <Navigate to="/login" state={{from:location}} replace />
     }
   }
-  return children
+  if(isAuth){
+    return children
+  }
 }
 
 export { PrivateRoutes };

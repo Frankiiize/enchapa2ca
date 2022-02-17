@@ -9,7 +9,7 @@ import { SearchInput } from "./SearchInput.jsx";
 import { authContext } from "../context/AuthContext";
 import { Nav } from "./Nav.jsx";
 const Header = () => {
-  const { user, sinIng } = useContext(authContext);
+  const { userState, sinIng } = useContext(authContext);
   const [ searchValue, setSearchValue ] = useState('');
   const handleSearch = (ev) => {
     setSearchValue(ev.target.value)
@@ -17,7 +17,6 @@ const Header = () => {
   }
   const location = useLocation();
   const sectionTitle = location.pathname.split(/^[/]/i)[1];
-  
   return(
     <>
       <header className="headerContainer">
@@ -28,7 +27,7 @@ const Header = () => {
               <img src={logo} alt="logo enchapados" />
             </Link>
           </div>
-          {!!user
+          {userState.currentUser !== null
             ? <ul className="headerContainer__links">
                 <li>
                   <Link to="/favoritos">
