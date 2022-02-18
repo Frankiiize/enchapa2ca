@@ -14,8 +14,6 @@ const CreateAccount = () => {
   let navigate = useNavigate();
   const form = useRef(null);
 
-  
-
   const handleSubmit =  (ev) => {
     ev.preventDefault();
     const formData = new FormData(form.current);
@@ -30,6 +28,7 @@ const CreateAccount = () => {
       state: formData.get('estados'),
       address: formData.get('address')
     }
+    //VALIDATIONS__
     if( regexs.email.test(data.username) && 
         regexs.password.test(data.password) &&
         regexs.phone.test(data.phone) &&
@@ -39,7 +38,6 @@ const CreateAccount = () => {
               // Signed in
               try {
               const user = userCredential.user;
-              
               const docRef = await setDoc(doc(db, "users", user.uid), data);
             } catch (e) {
               console.error("Error adding document: ", e);
