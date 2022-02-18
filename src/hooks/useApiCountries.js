@@ -10,7 +10,6 @@ const requestAuth = {
   },
 };
 const API_URL= 'https://www.universal-tutorial.com/api/';
-debugger
 const useApiCountries = () => {
   const apiInitialState = {
     estado: 'Carabobo',
