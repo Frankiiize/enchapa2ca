@@ -4,56 +4,67 @@ import { doc, getDoc, collection, getDocs } from "firebase/firestore";
 import { db } from '../services/firebaseConfig'
 const useProviderAuth = () => {
   const auth = getAuth();
-
+  const localstorageUserDb = JSON.parse(localStorage.getItem('userDataBase'))
   const [ userState, setUserState ] = useState({
     sinInUser: null,
     currentUser: null,
-    userDataBase: null,
+    userDataBase: localstorageUserDb,
   });
   const [ isAuth, setIsAuth ] = useState(false);
+  console.log(localstorageUserDb)
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
-      user
-        ? (
-          setUserState({
-            ...userState,
-            currentUser: user.auth.currentUser,
-            userDataBase: getUserData(user.auth.currentUser)
-          }),
-          setIsAuth(true)
-          ) 
-        : (
-          setUserState({
-            ...userState,
-            currentUser:null
-          }),
-          setIsAuth(false)
-          )
+      if (user && userState.userDataBase === null) {
+        console.log('paso por userDataBase === undefined')
+        setUserState({
+          currentUser: user.auth.currentUser,
+          userDataBase: getUserData(user.auth.currentUser),
+        }),
+        setIsAuth(true)
+      }else if(user){
+        console.log('hay userDataBase en localstorage ')
+        setUserState({
+          ...userState,
+          currentUser: user.auth.currentUser,
+        })
+        setIsAuth(true)
+
+      }
+      else {
+        setUserState({
+          ...userState,
+          currentUser:null
+        }),
+        setIsAuth(false)
+        
+      }
+ 
        
     })
   },[])
-  console.log({db})
 
   const getUserData = async (user) => {
-      const docRef = doc(db, "users", user.uid);
-      const docSnap = await getDoc(docRef);
+    console.log('getData')
+    const docRef = doc(db, "users", user.uid);
+    const docSnap = await getDoc(docRef);
 
-      if (docSnap.exists()) {
-        console.log("Document data:", docSnap.data());
-        setUserState({
-          ...user,
-          userDataBase: docSnap.data(),
-        })
-      } else {
-        // doc.data() will be undefined in this case
-        console.log("No such document!");
+    if (docSnap.exists()) {
+      console.log("Document data:", docSnap.data());
+      setUserState({
+        currentUser: user,
+        userDataBase: docSnap.data(),
+      })
+      localStorage.setItem('userDataBase', JSON.stringify(docSnap.data()) )
+    } else {
+      // doc.data() will be undefined in this case
+      console.log("No such document!");
       }
+
   }
   
 
   const singIn = async (email, password) => {
-    
    await signInWithEmailAndPassword(auth, email, password) 
       .then((userCredential) => {
         // Signed in
@@ -63,9 +74,8 @@ const useProviderAuth = () => {
           sinInUser: user,
           currentUser: user,
         });
-        return user;
-      }).then( (user) => {
-         getUserData(user)
+        getUserData(user)
+        setIsAuth(true)
       })
       .catch((error) => {
         const errorCode = error.code;
@@ -77,9 +87,13 @@ const useProviderAuth = () => {
 
   const logOut = async () => {
     try{
-      await signOut(auth);
-      setIsAuth(false)
-      console.log(auth)
+      await signOut(auth).then(() => {
+        
+        setIsAuth(false)
+        console.log(auth)
+        localStorage.removeItem('userDataBase')
+
+      })
     }
     catch(error){
       console.log(`ERROR ${error}`)

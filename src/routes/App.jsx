@@ -6,10 +6,9 @@ import { Header } from "../components/Header.jsx";
 import { CreateAccount } from "../pages/CreateAccount.jsx";
 import { Login } from "../pages/Login.jsx";
 import { ProviderAuth } from "../context/AuthContext.js";
-import { Nav } from "../components/Nav.jsx";
 import { PasswordRecovery } from "../pages/PasswordRecovery.jsx";
-import { useApiCountries } from "../hooks/useApiCountries.js";
 import { PrivateRoutes } from "../layouts/PrivateRoutes.js";
+import { AdminRoutes } from "../layouts/PrivateRoutes.js";
 
 const App = () => {
   return(
@@ -39,14 +38,12 @@ const App = () => {
                 <PrivateRoutes>
                   <h1>perfil</h1>
                 </PrivateRoutes>
-
             }/>
           
-            <Route path="/admin" element={
-                <PrivateRoutes>
+            <Route path="/adminEnchapados" element={
+                <AdminRoutes>
                   <h1>admin</h1>
-                </PrivateRoutes>
-
+                </AdminRoutes>
             }/>
 
             <Route path="*" element={<h1>PAGE NOT FOUND</h1>} />
