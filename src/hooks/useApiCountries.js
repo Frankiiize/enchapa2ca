@@ -1,16 +1,16 @@
 import { useEffect, useState } from "react"
 
 const requestAuth = {
-  API_URL : "https://www.universal-tutorial.com/api/getaccesstoken",
+  API_URL : process.env.API_COUNTRY_UNIVERSAL_TUTORIAL,
   HEADERS : {
-    "Authorization" : "Bearer tyqXgwIgXUHFCynAYwP-xv__V8uCL-AMZEhaP5fG-WY4oWjaV1yfzE5KgOxKsblJZMs",
+    "Authorization" : `Bearer ${process.env.UNIVERSAL_TUTORIAL_TOKEN}`,
     "Accept": "application/json",
-    "api-token": "tyqXgwIgXUHFCynAYwP-xv__V8uCL-AMZEhaP5fG-WY4oWjaV1yfzE5KgOxKsblJZMs" ,
-    "user-email": "frankiiize@gmail.com"
+    "api-token": process.env.UNIVERSAL_TUTORIAL_TOKEN,
+    "user-email": process.env.UNIVERSAL_TUTORIAL_EMAIL
   },
 };
 const API_URL= 'https://www.universal-tutorial.com/api/';
-
+debugger
 const useApiCountries = () => {
   const apiInitialState = {
     estado: 'Carabobo',
