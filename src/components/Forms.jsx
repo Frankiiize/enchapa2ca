@@ -41,7 +41,7 @@ const RegisterForm = ({
   apiLoading,
 }) => {
   return (
-    <form onClick={handleSubmit}  ref={form} className="login__form">
+    <form  ref={form} className="login__form">
       <label htmlFor="name">
         <input
           id="name"
@@ -95,7 +95,7 @@ const RegisterForm = ({
       <label htmlFor="tlf">
         <input
           type="tel"
-          name="tlg"
+          name="tlf"
           id="tlf"
           placeholder="telefono"
           autoComplete="tel"
@@ -162,7 +162,7 @@ const RegisterForm = ({
         />
       </label>
 
-      <button type="submit">
+      <button onClick={handleSubmit}  type="submit">
         Crear
       </button>
     </form>
