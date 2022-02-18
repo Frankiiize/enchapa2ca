@@ -3,10 +3,10 @@ import { useEffect, useState } from "react"
 const requestAuth = {
   API_URL : process.env.API_COUNTRY_UNIVERSAL_TUTORIAL,
   HEADERS : {
-    "Authorization" : `Bearer ${process.env.UNIVERSAL_TUTORIAL_TOKEN}`,
+    "Authorization" : "Bearer tyqXgwIgXUHFCynAYwP-xv__V8uCL-AMZEhaP5fG-WY4oWjaV1yfzE5KgOxKsblJZMs",
     "Accept": "application/json",
-    "api-token": process.env.UNIVERSAL_TUTORIAL_TOKEN,
-    "user-email": process.env.UNIVERSAL_TUTORIAL_EMAIL
+    "api-token": "tyqXgwIgXUHFCynAYwP-xv__V8uCL-AMZEhaP5fG-WY4oWjaV1yfzE5KgOxKsblJZMs",
+    "user-email": "frankiiize@gmail.com "
   },
 };
 const API_URL= 'https://www.universal-tutorial.com/api/';
