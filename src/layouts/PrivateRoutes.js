@@ -1,33 +1,56 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Navigate, useLocation } from "react-router-dom";
 import { authContext } from "../context/AuthContext";
 
 const PrivateRoutes = ({children}) => {
-  const { isAuth, userState } = useContext(authContext);
-  
+  const { userState } =  useContext(authContext);
   let location = useLocation()
-  if(!isAuth){
+  if(!userState.loading){
     if(userState.currentUser === null ){
       return <Navigate to="/login" state={{from:location}} replace />
     }
+  }else{
+    return <Navigate to={location} replace />
   }
-  return children
+  return <>
+            {children}
+        </>
 
   
 }
 
 
 const AdminRoutes = ({children}) => {
-  const { userState } = useContext(authContext);
-    let location = useLocation()
-    if(!userState.userDataBase.admin){
-      return <Navigate to="/" state={{from:location}} replace />
-    }
-    else{
+  const { userState, isAuth } = useContext(authContext);
+  let location = useLocation()
+    if(userState.currentUser !== null ){
+      if(userState.db.admin){
+        return <>{children}</>
+      }else {
+        return <Navigate to={location} state={{from:location}} replace />
 
-      return children
+      }
+    }else {
+
+      return <Navigate to='/' replace />
     }
+
   
+  
+
+    
+    /*   try {
+        debugger
+        if(!userState.loading && !userState.db.admin ){
+          return <Navigate to="/" state={{from:location}} replace />
+        }
+        else{
+          return children
+        }
+      }catch(error){
+        console.log(error)
+        return <Navigate to="/"  replace />
+      } */
 
   
 }

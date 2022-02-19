@@ -1,0 +1,110 @@
+.profileHero{
+  width: 100%;
+  min-height: 100px;
+ 
+  background-color: var(--brand-color);
+  color: white;
+  font-size: var(--fs-details);
+}
+.profileHero__wrapper{
+  width: 90%;
+  display: flex;
+  align-items: flex-start;
+  padding: 0 0 35px 0;
+  margin: 0 auto;
+}
+.profileHero__userPhoto{
+
+  margin-right: 30px;
+}
+.profileHero__userPhoto img {
+  width: 100%;
+  border-radius: 50%;
+  box-shadow: 0 0 0px 2px;
+  max-width: 100px;
+}
+.profileHero__userInfo{
+  width: 70%;
+  display: flex;
+  flex-direction: column;
+}
+.profileHero__userInfo p, .profileHero__userInfo  span {
+  margin-bottom: 2px;
+}
+.profileHero__userInfo p span:nth-child(1){
+  padding-right:5px;
+}
+.profileNav{
+  width: 100%;
+  min-height: 300px;
+  background-color: var(--white-color);
+  padding: 30px 0;
+  font-size: var(--fs-details);
+}
+h3{
+  font-size: var(--fs-title);
+  text-transform: capitalize;
+  color: var(--black-title-color);
+  padding: 10px;
+}
+.profileNav ul {
+  width: 95%;
+  max-width: 600px;
+  border-radius: 7px;
+  margin: 0 auto;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  align-items: center;
+}
+.profileNav ul li {
+  width: 90%;
+  min-height:40px;
+  border-bottom: 1px solid var(--black-separador);
+}
+
+.profileNav ul li a{
+  display: flex;
+  padding: 10px;
+  text-decoration: none;
+  align-items: flex-start;
+  color: var(--black-color);
+}
+.profileNav ul li button{
+  display: flex;
+  padding: 10px;
+  flex-direction: row;
+  width: 100%;
+  background-color: transparent;
+  border: none;
+  align-items: flex-start;
+  text-align: left;
+}
+
+.profileNav ul li button p {
+  display: flex;
+  flex-direction: column;
+}
+.profileNav ul li button p span:nth-child(2){
+  opacity: 0.5;
+}
+.profileNav ul li a img,.profileNav ul li button img  {
+  margin-right: 10px;
+  width: 100%;
+  max-width: 32px;
+}
+.profileNav ul a:visited{
+  color: var(--black-color);
+}
+.profileFooter{
+  width: 100%;
+  height: 200px;
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+}
+.profileFooter button{
+  position: absolute;
+  
+}

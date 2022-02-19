@@ -39,6 +39,9 @@ const RegisterForm = ({
   handleOption,
   currentEstado,
   apiLoading,
+  btnTitle = 'crear',
+  formValues,
+  handleOnChange
 }) => {
   return (
     <form  ref={form} className="login__form">
@@ -49,6 +52,8 @@ const RegisterForm = ({
           type="text"
           autoComplete="name"
           placeholder="nombre"
+          value={!!formValues && formValues.name}
+          onChange={handleOnChange}
           required
         />
       </label>
@@ -163,7 +168,7 @@ const RegisterForm = ({
       </label>
 
       <button onClick={handleSubmit}  type="submit">
-        Crear
+        {btnTitle}
       </button>
     </form>
   );

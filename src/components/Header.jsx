@@ -1,16 +1,24 @@
 import React, { useContext, useState } from "react";
-import { MdFavorite, MdOutlineShoppingCart, MdSearch } from "react-icons/md";
-import { FaUserAlt } from 'react-icons/fa'
 import { Link, useLocation, useParams } from "react-router-dom";
+//ICONS
+import { MdFavorite, MdOutlineShoppingCart } from "react-icons/md";
 import logo from "../assets/images/logoEnchapadoWHITE.png";
-import smileBg from '../assets/images/enchapadoSmileBgWHITE.png'
+import smileBg from '../assets/images/enchapadoSmileBgWHITE.png';
+import smileInv from '../assets/icons/smileINVER.svg';
+
+//-----ICONS
+//SYLES
 import "../styles/components/header.css";
+//---SYLES
+//COMPONENTS
 import { SearchInput } from "./SearchInput.jsx";
 import { authContext } from "../context/AuthContext";
 import { Nav } from "./Nav.jsx";
+//------COMPONENTS
 const Header = () => {
-  const { userState, sinIng } = useContext(authContext);
+  const { userState } = useContext(authContext);
   const [ searchValue, setSearchValue ] = useState('');
+  const [ showUnderNav, setShowUnderNav ] = useState(false);
   const handleSearch = (ev) => {
     setSearchValue(ev.target.value)
     console.log(searchValue)
@@ -29,14 +37,24 @@ const Header = () => {
           </div>
           {userState.currentUser !== null
             ? <ul className="headerContainer__links">
+                <li className="headerContainer__links--userInfo">
+                  <span>hola!,</span>
+                  <span>{userState.db.name}</span> 
+                  <picture>
+                    <img
+                      className={userState.currentUser !== null ? 'headerCointainer__user--userImg online' : 'headerCointainer__user--userImg'} 
+                      src={userState.db.photo ? `${userState.db.photo }` : smileInv } 
+                      alt="user photo"/>
+                  </picture>
+                </li>
                 <li>
                   <Link to="/favoritos">
-                    <MdFavorite size={32} color={"white"}/>
+                    <MdFavorite size={28} color={"white"}/>
                   </Link>
                 </li>
                 <li>
                   <Link to="/carrito">
-                      <MdOutlineShoppingCart size={32} color={"white"}/>
+                      <MdOutlineShoppingCart size={28} color={"white"}/>
                   </Link>
                 </li>
               </ul>
@@ -44,7 +62,7 @@ const Header = () => {
             <div className="headerCointaner__user">
               <Link className="headerCointainer__user--login" to="/login">
                 <span>entrar</span> 
-                <img className="headerCointainer__user--userImg" src={smileBg} />
+                <img className="headerCointainer__user--userImg" src={smileInv} />
               </Link> 
             </div>
           }
@@ -53,7 +71,16 @@ const Header = () => {
         ? <SearchInput  handleSearch={handleSearch} /> 
         : <h2>{sectionTitle}</h2> }
       </nav>
-    <Nav/>
+      <div>
+        
+      </div>
+      <Nav userState={userState}
+          showUnderNav={showUnderNav}
+          setShowUnderNav={setShowUnderNav}
+          />
+    
+    
+      
     </header>
     </>
 

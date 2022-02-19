@@ -6,9 +6,9 @@ import ubiactionPin from '../assets/images/pin.svg'
 import { InfoCard } from "./InfoCard.jsx";
 import { authContext } from "../context/AuthContext";
 const Footer = () => {
-  const { user } = useContext(authContext)
+  const { userState } = useContext(authContext)
   return(
-    <footer className={ user ? 'footer__user-on': undefined} >
+    <footer className={ userState.currentUser ? 'footer__user-on': undefined} >
 
         <InfoCard
           imagen={creditCard}
@@ -27,9 +27,6 @@ const Footer = () => {
         />
 
         <span className="frankiiize">Developed by Frankiize </span>
-
-    
-        
 
        
       </footer>

@@ -13,6 +13,13 @@ const CreateAccount = () => {
   const auth = getAuth();
   let navigate = useNavigate();
   const form = useRef(null);
+  const [ formValues , setFormValues ] = useState({
+    name: 'nombre'
+  })
+  const handleOnChange = (ev) => {
+    setFormValues({name: ev.target.value})
+    console.log(ev.target.value)
+  }
 
   const handleSubmit =  (ev) => {
     ev.preventDefault();
@@ -37,8 +44,10 @@ const CreateAccount = () => {
             .then( async (userCredential) => {
               // Signed in
               try {
+              const dataToDb = {...data}
+              dataToDb.c_password = false;
               const user = userCredential.user;
-              const docRef = await setDoc(doc(db, "users", user.uid), data);
+              const docRef = await setDoc(doc(db, "users", user.uid), dataToDb);
             } catch (e) {
               console.error("Error adding document: ", e);
             }
@@ -68,20 +77,23 @@ const CreateAccount = () => {
       estado: option.estado,
       ciudad: option.ciudad
     })
+    
   }
   return (
     <section className="login">
     <h2 className="login__title">Registrate</h2>
      <RegisterForm 
       form={form}
+      handleOption={handleOption}
+      handleSubmit={handleSubmit}
       getVzlaStates={getVzlaStates} 
       getVzlaCities={getVzlaCities}
       vzlaStates={currentEstado.estadoData}
       vzlaCities={currentEstado.ciudadesData}
-      handleSubmit={handleSubmit}
-      handleOption={handleOption}
       currentEstado={currentEstado.estado}
       apiLoading={apiLoading}
+      handleOnChange={handleOnChange}
+      formValues={formValues}
       />
     
       

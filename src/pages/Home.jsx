@@ -107,12 +107,7 @@ const nuevosProductos = [
 const Home  = () => {
   const [ categories, setCategories ] = useState(categorias);
   const [ newProducts, setNewProducts ] = useState(nuevosProductos)
-  const { logOut } = useContext(authContext);
-  //LOGOUTH REMOVER BOTTON
-  const handleLogOut = () => {
-    logOut();
-  }
-  //LOGOUTH REMOVER BOTTON
+ 
   return(
     <main>
      {/* <Hero /> */}
@@ -132,7 +127,6 @@ const Home  = () => {
         <ProductsList sectionClass={"Products__list"} products={newProducts} />
       </SectionProducts>
     
-      <button onClick={handleLogOut}>salir</button>
       <Footer/>
     </main>
   )

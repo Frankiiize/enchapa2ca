@@ -9,6 +9,7 @@ import { ProviderAuth } from "../context/AuthContext.js";
 import { PasswordRecovery } from "../pages/PasswordRecovery.jsx";
 import { PrivateRoutes } from "../layouts/PrivateRoutes.js";
 import { AdminRoutes } from "../layouts/PrivateRoutes.js";
+import { Profile } from "../pages/Profile.jsx";
 
 const App = () => {
   return(
@@ -33,10 +34,11 @@ const App = () => {
                 <h1>cart</h1>
               </PrivateRoutes>
             } />
+           
 
             <Route path="/perfil" element={
                 <PrivateRoutes>
-                  <h1>perfil</h1>
+                  <Profile />
                 </PrivateRoutes>
             }/>
           
