@@ -1,26 +1,19 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import '../styles/pages/loginPage.css'
 import { Link, useNavigate } from "react-router-dom";
 import { RegisterForm } from "../components/Forms.jsx";
 import { useApiCountries } from "../hooks/useApiCountries";
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
-import { doc, setDoc } from "firebase/firestore";
-import { db } from '../services/firebaseConfig'
 import { regexs } from "../utils/regexExpretions";
+import { authContext } from "../context/AuthContext";
+import { useForm } from "../hooks/useForm";
 
 const CreateAccount = () => {
   const { currentEstado, setCurrentEstado, getVzlaCities, getVzlaStates, apiLoading, apiError } = useApiCountries();
-  const auth = getAuth();
+  const { registerUser } = useContext(authContext)
+  const { formValues, handleOnChange } = useForm()
   let navigate = useNavigate();
+  
   const form = useRef(null);
-  const [ formValues , setFormValues ] = useState({
-    name: 'nombre'
-  })
-  const handleOnChange = (ev) => {
-    setFormValues({name: ev.target.value})
-    console.log(ev.target.value)
-  }
-
   const handleSubmit =  (ev) => {
     ev.preventDefault();
     const formData = new FormData(form.current);
@@ -40,26 +33,9 @@ const CreateAccount = () => {
         regexs.password.test(data.password) &&
         regexs.phone.test(data.phone) &&
         data.password === data.c_password ){
-          createUserWithEmailAndPassword(auth, data.username, data.password)
-            .then( async (userCredential) => {
-              // Signed in
-              try {
-              const dataToDb = {...data}
-              dataToDb.c_password = false;
-              const user = userCredential.user;
-              const docRef = await setDoc(doc(db, "users", user.uid), dataToDb);
-            } catch (e) {
-              console.error("Error adding document: ", e);
-            }
+          registerUser(data).then(() => {
             navigate("/", { replace: true });
-            // ...
-            })
-            .catch((error) => {
-              const errorCode = error.code;
-              const errorMessage = error.message;
-              console.log({errorCode, errorMessage})
-              // ..
-            });
+          })
     } else {
       console.log('datos invalidos')
     }
@@ -94,6 +70,7 @@ const CreateAccount = () => {
       apiLoading={apiLoading}
       handleOnChange={handleOnChange}
       formValues={formValues}
+      registerBasic={false}
       />
     
       

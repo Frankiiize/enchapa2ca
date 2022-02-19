@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut } from 'firebase/auth';
-import { doc, getDoc, collection, getDocs } from "firebase/firestore";
+import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut, createUserWithEmailAndPassword } from 'firebase/auth';
+import { doc, getDoc, updateDoc , setDoc } from "firebase/firestore";
 import { db } from '../services/firebaseConfig'
 const useProviderAuth = () => {
   const auth = getAuth();
@@ -31,9 +31,7 @@ const useProviderAuth = () => {
     })
   },[])
 
-
-
-    const getUserData = async (user) => {
+  const getUserData = async (user) => {
       console.log('getData')
       
       const docRef = doc(db, "users", user.uid);
@@ -41,23 +39,21 @@ const useProviderAuth = () => {
   
       if (docSnap.exists()) {
         console.log(docSnap.data()) 
-        setUserState({
+        const datos = {
           ...userState,
           currentUser:user,
           db: docSnap.data()
-        })
+        }
+        setUserState(datos)
+        localStorage.setItem('userDb', JSON.stringify(datos))
         
       } else {
         // doc.data() will be undefined in this case
         console.log("No such document!");
       }
   
-    }
+  }
  
-
-
-  
-
   const singIn = async (email, password) => {
     signInWithEmailAndPassword(auth, email, password) 
       .then((userCredential) => {
@@ -95,7 +91,39 @@ const useProviderAuth = () => {
       console.log(`ERROR ${error}`)
     }
   }
-  
+  const registerUser = async (data) => {
+    createUserWithEmailAndPassword(auth, data.username, data.password)
+      .then( async (userCredential) => {
+        // Signed in
+        try {
+        const dataToDb = {...data}
+        dataToDb.c_password = false;
+        const user = userCredential.user;
+        const docRef = await setDoc(doc(db, "users", user.uid), dataToDb);
+      } catch (e) {
+        console.error("Error adding document: ", e);
+      }
+   
+      // ...
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log({errorCode, errorMessage})
+        // ..
+      });
+  }
+  const updateUserData = async (data) => {
+    const userDataBaseRef = doc(db, "users", userState.currentUser.uid);
+    debugger
+    // Set the "capital" field of the city 'DC'
+    await updateDoc(userDataBaseRef, {
+      name: data.name,
+      lastName:data.lastName ,
+      phone: data.phone ,
+      address: data.address 
+    });
+  }
  
   
   return {
@@ -105,7 +133,9 @@ const useProviderAuth = () => {
     logOut,
     isAuth,
     setIsAuth,
-    getUserData
+    getUserData,
+    registerUser,
+    updateUserData
   }
 
 }

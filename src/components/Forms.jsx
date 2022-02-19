@@ -41,10 +41,12 @@ const RegisterForm = ({
   apiLoading,
   btnTitle = 'crear',
   formValues,
-  handleOnChange
+  handleOnChange,
+  registerBasic
 }) => {
   return (
     <form  ref={form} className="login__form">
+    
       <label htmlFor="name">
         <input
           id="name"
@@ -52,9 +54,8 @@ const RegisterForm = ({
           type="text"
           autoComplete="name"
           placeholder="nombre"
-          value={!!formValues && formValues.name}
+          value={!!formValues ? formValues.name : 'nombre'}
           onChange={handleOnChange}
-          required
         />
       </label>
       <label htmlFor="lastName">
@@ -64,37 +65,8 @@ const RegisterForm = ({
           type="text"
           autoComplete="family-name"
           placeholder="apellido"
-          required
-        />
-      </label>
-      <label htmlFor="email">
-        <input
-          id="email"
-          name="email"
-          type="email"
-          autoComplete="email"
-          placeholder="email"
-          required
-        />
-      </label>
-      <label htmlFor="password">
-        <input
-          id="password"
-          name="password"
-          type="password"
-          autoComplete="new_password"
-          placeholder="contraseña"
-          required
-        />
-      </label>
-      <label htmlFor="c_Password">
-        <input
-          id="c_Password"
-          name="c_password"
-          type="password"
-          autoComplete="new_password"
-          placeholder="confirma contraseña"
-          required
+          value={!!formValues ? formValues.lasName : 'apellido'}
+          onChange={handleOnChange}
         />
       </label>
       <label htmlFor="tlf">
@@ -104,58 +76,10 @@ const RegisterForm = ({
           id="tlf"
           placeholder="telefono"
           autoComplete="tel"
-          required
+          value={!!formValues ? formValues.tlf : 'telefono'}
+          onChange={handleOnChange}
         />
       </label>
-
-      <label value={currentEstado} className="option" htmlFor="estados">
-        <span>estado</span>
-
-        <select
-          disabled={apiLoading ? true : false}
-          onChange={handleOption}
-          name="estados"
-          id="estados"
-          onClick={() => getVzlaStates("states/venezuela")}
-        >
-          {!!vzlaStates &&
-            vzlaStates.map((e, i) => (
-              <option
-                
-                name="estados"
-                value={e.state_name}
-                key={`state-${e.state_name}`}
-              >
-                {e.state_name}
-              </option>
-            ))}
-        </select>
-      </label>
-
-      <label className="option" htmlFor="cities">
-        <span>ciudad</span>
-
-        <select
-         
-          onChange={handleOption}
-          name="cities"
-          id="cities"
-          onClick={() => getVzlaCities(`cities/${currentEstado}`)}
-        >
-          {!!vzlaCities &&
-            vzlaCities.map((e, i) => (
-              <option
-                disabled={apiLoading ? true : false}
-                name="cities"
-                value={e.city_name}
-                key={`state-${e.city_name}`}
-              >
-                {e.city_name}
-              </option>
-            ))}
-        </select>
-      </label>
-
       <label htmlFor="address">
         <input
           id="address"
@@ -163,9 +87,94 @@ const RegisterForm = ({
           type="text"
           autoComplete="street-address"
           placeholder="direcction"
-          required
+          value={!!formValues ? formValues.address : 'direccion'}
+          onChange={handleOnChange}
         />
       </label>
+      { !registerBasic
+        &&
+        <>
+            <label htmlFor="email">
+            <input
+              id="email"
+              name="email"
+              type="email"
+              autoComplete="email"
+              placeholder="email"
+              value={!!formValues ? formValues.email : 'email'}
+              onChange={handleOnChange}
+            />
+          </label>
+          <label htmlFor="password">
+            <input
+              id="password"
+              name="password"
+              type="password"
+              autoComplete="new_password"
+              placeholder="contraseña"
+              value={!!formValues ? formValues.password : 'password'}
+              onChange={handleOnChange}
+            />
+          </label>
+          <label htmlFor="c_Password">
+            <input
+              id="c_Password"
+              name="c_password"
+              type="password"
+              autoComplete="new_password"
+              placeholder="confirma contraseña"
+              onChange={handleOnChange}
+            />
+          </label>
+          <label value={currentEstado} className="option" htmlFor="estados">
+            <span>estado</span>
+
+            <select
+              disabled={apiLoading ? true : false}
+              onChange={handleOption}
+              name="estados"
+              id="estados"
+              onClick={() => getVzlaStates("states/venezuela")}
+            >
+              {!!vzlaStates &&
+                vzlaStates.map((e, i) => (
+                  <option
+                    
+                    name="estados"
+                    value={e.state_name}
+                    key={`state-${e.state_name}`}
+                  >
+                    {e.state_name}
+                  </option>
+                ))}
+            </select>
+          </label>
+
+          <label className="option" htmlFor="cities">
+            <span>ciudad</span>
+
+            <select
+            
+              onChange={handleOption}
+              name="cities"
+              id="cities"
+              onClick={() => getVzlaCities(`cities/${currentEstado}`)}
+            >
+              {!!vzlaCities &&
+                vzlaCities.map((e, i) => (
+                  <option
+                    disabled={apiLoading ? true : false}
+                    name="cities"
+                    value={e.city_name}
+                    key={`state-${e.city_name}`}
+                  >
+                    {e.city_name}
+                  </option>
+                ))}
+            </select>
+          </label>
+        </>
+      }
 
       <button onClick={handleSubmit}  type="submit">
         {btnTitle}

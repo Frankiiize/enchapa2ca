@@ -1,31 +1,63 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { authContext } from "../context/AuthContext";
+import { useForm } from "../hooks/useForm";
+//UTILS
+import '../styles/pages/profile.css'
+import { regexs } from "../utils/regexExpretions";
+//----UTILS
 //ICONS
 import OrderHistoryIcon from '../assets/icons/OrderHistoryIcon.svg';
 import SmileUserINVER from '../assets/icons/smileINVER.svg';
 import shoppingCart from '../assets/icons/shoppingCart.svg'
 //---ICONS
-import '../styles/pages/profile.css'
+//APIS
 import { RegisterForm } from "../components/Forms.jsx";
 import { useApiCountries } from "../hooks/useApiCountries";
+//----APIS
 const Profile = () => {
   const {  currentEstado, getVzlaCities, getVzlaStates, setCurrentEstado,apiLoading, apiError} = useApiCountries();
-  const { userState, getUserData } = useContext(authContext);
+  const { userState, updateUserData, logOut } = useContext(authContext);
   const [ showEdit, setShowEdit ] = useState(false);
-  const { logOut } = useContext(authContext);
+  const { formValues, setFormValues, handleOnChange } = useForm();
+  const navigate = useNavigate();
+  const [ localData, setLocalData ] = useState(JSON.parse(localStorage.getItem('userDb')))
+  const form = useRef(null)
+  useEffect(() => {
+    setFormValues({
+      name: localData.db.name,
+      lasName: localData.db.lastName,
+      email: localData.db.email,
+      password: '',
+      c_password: '',
+      tlf: localData.db.phone,
+      address: localData.db.address,
+    })
+  },[])
+  
 
-  const [ formValues , setFormValues ] = useState({
-    name: 'frank'
-  })
-  console.log(formValues)
-  const navigate = useNavigate()
-  const handleOnChange = (ev) => {
-    setFormValues({name: ev.target.value})
-    console.log(ev.target.value)
-  }
-  const handleSubmit = (value) => {
-    console.log(value)
+  const handleSubmit =  (ev) => {
+    ev.preventDefault();
+    const formData = new FormData(form.current);
+    const data = {
+      name: formData.get('name'),
+      lastName: formData.get('lasName'),
+      phone: formData.get('tlf'),
+      address: formData.get('address')
+    }
+    console.log(data)
+    if( data.name.length > 1 && 
+      data.lastName.length > 1 && 
+      data.address.length > 1 &&
+      regexs.phone.test(data.phone)){
+        console.log(data)
+        debugger
+        updateUserData(data).then(()=> {
+          console.log('update con exito')
+        })
+    } else {
+      console.log('datos invalidos')
+    }
   }
   //LOGOUTH REMOVER BOTTON
   const handleLogOut = () => {
@@ -68,8 +100,9 @@ const Profile = () => {
           </li>
           {
             showEdit && 
-            <>
+            <div className="profileNav__form">
               <RegisterForm 
+                form={form}
                 handleOnChange={handleOnChange}
                 handleSubmit={handleSubmit}
                 getVzlaStates={getVzlaStates} 
@@ -80,8 +113,9 @@ const Profile = () => {
                 apiLoading={apiLoading}
                 btnTitle={'actualizar'}
                 formValues={formValues}
+                registerBasic={true}
               />
-            </>
+            </div>
           }
           <li>
             <Link to="./historialOrdenes">
