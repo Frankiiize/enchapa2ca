@@ -1,8 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import '../styles/components/cartItem.css'
 import productFAKE from '../assets/images/produtcFAKE.jpg';
 import { MdClose } from "react-icons/md";
-const CartItem = ({img = productFAKE, title, price,quantity = 0, handleQuantityItems}) => {
+const CartItem = ({img = productFAKE, title, price }) => {
+  const [ quantity, setQuantity ] = useState(0);
+  
+  const handleQuantityItems = (isIncrement) =>{
+    if(isIncrement){
+      setQuantity(quantity + 1)
+    }else {
+      setQuantity(quantity - 1)
+    }
+  }
   return(
     <div className="shopping-cart">
       <figure>

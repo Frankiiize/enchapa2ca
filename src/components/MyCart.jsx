@@ -4,15 +4,7 @@ import { MdKeyboardArrowLeft, MdClose } from "react-icons/md";
 
 import { CartItem } from "./CartItem.jsx";
 const MyCart = ({toggleCart,setToggleCart}) => {
-  const [ quantity, setQuantity ] = useState(0);
-
-  const handleQuantityItems = (increment) =>{
-    if(increment){
-      setQuantity(quantity + 1)
-    }else {
-      setQuantity(quantity - 1)
-    }
-  }
+ 
   return(
     <aside className="myCart">
       <div className= "myCart__titleContainer">
@@ -25,10 +17,13 @@ const MyCart = ({toggleCart,setToggleCart}) => {
       </div>
 
       <div className="myCart__content">
-       <CartItem 
-        quantity={quantity}
-        handleQuantityItems={handleQuantityItems}
+      {[1,2,3,4].map((pruduct,index) => (
+       <CartItem
+        key={`product-${index}`}
+      
        />
+      ))
+      }
        
       </div>
 

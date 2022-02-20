@@ -38,7 +38,7 @@
   display: flex;
   justify-content: space-around;
   align-items: center;
-
+  padding: 10px 20px;
 }
 .shopping-cart__quantityBtn button{
   width: 20%;
