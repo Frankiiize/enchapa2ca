@@ -46,7 +46,7 @@ const Profile = () => {
       address: formData.get('address')
     }
     console.log(data)
-    if( data.name.length > 1 && 
+    if( data.name.length > 1 && data.name !== localData.db.name && //TO-DO = compronar que no son los mismos datos ya guardados
       data.lastName.length > 1 && 
       data.address.length > 1 &&
       regexs.phone.test(data.phone)){

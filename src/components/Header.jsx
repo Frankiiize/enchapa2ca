@@ -14,11 +14,13 @@ import "../styles/components/header.css";
 import { SearchInput } from "./SearchInput.jsx";
 import { authContext } from "../context/AuthContext";
 import { Nav } from "./Nav.jsx";
+import { MyCart } from "./MyCart.jsx";
 //------COMPONENTS
 const Header = () => {
   const { userState } = useContext(authContext);
   const [ searchValue, setSearchValue ] = useState('');
   const [ showUnderNav, setShowUnderNav ] = useState(false);
+  const [ toggleCart, setToggleCart ] = useState(false);
   const handleSearch = (ev) => {
     setSearchValue(ev.target.value)
     console.log(searchValue)
@@ -53,9 +55,14 @@ const Header = () => {
                   </Link>
                 </li>
                 <li>
-                  <Link to="/carrito">
-                      <MdOutlineShoppingCart size={28} color={"white"}/>
-                  </Link>
+                  <button
+                    onClick={() => setToggleCart(!toggleCart)}  
+                    className="headerContainer__links-shoppingCart">
+                      <MdOutlineShoppingCart 
+                        size={28} 
+                        color={"white"}
+                        />
+                  </button>
                 </li>
               </ul>
             : 
@@ -74,6 +81,7 @@ const Header = () => {
       <div>
         
       </div>
+     
       <Nav userState={userState}
           showUnderNav={showUnderNav}
           setShowUnderNav={setShowUnderNav}
@@ -82,6 +90,12 @@ const Header = () => {
     
       
     </header>
+    { !!toggleCart && 
+        <MyCart
+          toggleCart={toggleCart}
+          setToggleCart={setToggleCart}
+        />
+    }
     </>
 
   )

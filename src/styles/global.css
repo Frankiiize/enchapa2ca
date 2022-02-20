@@ -7,7 +7,7 @@
   max-width:300px;
   height: 45px;
   border:none;
-  border-radius: 24px;
+  border-radius: 10px;
   color: var(--white-color);
   font-size: var(--fs-details);
   text-transform: capitalize;
