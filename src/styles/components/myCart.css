@@ -1,7 +1,8 @@
 .myCart{
  width: 100%;
  max-width:450px;
- height: 70%;
+ min-height: 70%;
+ max-height: 80vh;
  display: flex;
  flex-direction: column;
  justify-content: space-between;
@@ -15,6 +16,7 @@
  padding: 15px;
  animation: goinOut;
  animation-duration: 500ms;
+ animation-timing-function: ease-in-out;
 }
 .myCart__titleContainer{
   display: flex;
@@ -33,18 +35,20 @@
 .myCart__content{
   width: 100%;
   margin: 0 auto;
-
+  max-height: 450px;
+  overflow: scroll;
 }
 .myCart-order{
   width: 90%;
-  height: 30px;
+  min-height: 30px;
   margin: 0 auto;
-  padding: 15px 24px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   background-color: #fff;
   box-shadow: 0 0 2px -1px;
+  border-radius: 2px;
+  padding: 5px;
 }
 .myCart-order p{
   font-size: var(--fs-body-text);
@@ -58,17 +62,20 @@
   font-weight: bold;
 }
 .myCart button {
-  margin: 0 auto;
+  margin: 10px auto;
   text-transform: uppercase;
+  min-height: 45px;
 }
 
 
 @keyframes goinOut {
   0%{
-    transform: scaleX(50%) translateX(500px);
+    width: 0;
+    /* transform: scaleX(50%) translateX(500px); */
   }
   
   100% {
-    transform: scaleX(100%) translate(0);
+    width: 100%;
+    /* transform: scaleX(100%) translate(0); */
   }
 }

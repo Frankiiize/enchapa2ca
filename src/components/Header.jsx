@@ -81,21 +81,21 @@ const Header = () => {
       <div>
         
       </div>
-     
       <Nav userState={userState}
           showUnderNav={showUnderNav}
           setShowUnderNav={setShowUnderNav}
           />
-    
+          
     
       
     </header>
-    { !!toggleCart && 
+      { !!toggleCart && 
         <MyCart
           toggleCart={toggleCart}
           setToggleCart={setToggleCart}
-        />
-    }
+          />
+      }
+  
     </>
 
   )

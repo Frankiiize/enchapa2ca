@@ -17,6 +17,11 @@ const MyCart = ({toggleCart,setToggleCart}) => {
 
       <div className="myCart__content">
        <CartItem />
+       <CartItem />
+       <CartItem />
+       <CartItem />
+       <CartItem />
+       <CartItem />
       </div>
 
       <div className="myCart-order">
