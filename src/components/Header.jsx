@@ -20,7 +20,7 @@ const Header = () => {
   const { userState } = useContext(authContext);
   const [ searchValue, setSearchValue ] = useState('');
   const [ showUnderNav, setShowUnderNav ] = useState(false);
-  const [ toggleCart, setToggleCart ] = useState(true);
+  const [ toggleCart, setToggleCart ] = useState(false);
   const handleSearch = (ev) => {
     setSearchValue(ev.target.value)
     console.log(searchValue)
