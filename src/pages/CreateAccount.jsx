@@ -30,8 +30,6 @@ const CreateAccount = () => {
     }
     //VALIDATIONS__
     if( regexs.email.test(data.username) && 
-        regexs.password.test(data.password) &&
-        regexs.phone.test(data.phone) &&
         data.password === data.c_password ){
           registerUser(data).then(() => {
             navigate("/", { replace: true });
