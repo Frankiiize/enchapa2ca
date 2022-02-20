@@ -37,15 +37,16 @@
   margin: 0 auto;
   max-height: 450px;
   overflow: scroll;
+  border-bottom: 1px solid var(--black-separador);
 }
 .myCart-order{
   width: 90%;
   min-height: 30px;
-  margin: 0 auto;
+  margin: 20px auto;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: #fff;
+  background-color: var(--black-bg-contrast);
   box-shadow: 0 0 2px -1px;
   border-radius: 2px;
   padding: 5px;
@@ -54,8 +55,12 @@
   font-size: var(--fs-body-text);
   text-transform: capitalize;
   border-radius: 8px;
-  color: var(--black-color)
+  color: var(--black-color);
+  font-weight: bold;
   
+}
+.myCart-order span{
+  padding: 20px;
 }
 .myCart-order p:nth-child(1){
   text-transform: uppercase;
@@ -64,7 +69,8 @@
 .myCart button {
   margin: 10px auto;
   text-transform: uppercase;
-  min-height: 45px;
+  font-size: var(--fs-body-text);
+  font-weight: bold;
 }
 
 
