@@ -39,7 +39,6 @@
   max-height: 450px;
   overflow: scroll;
   border-bottom: 1px solid var(--black-separador);
-  padding-right: 15px;
 }
 .myCart-order{
   width: 90%;

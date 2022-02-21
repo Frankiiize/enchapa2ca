@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useState } from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import '../styles/components/productCard.css'
 import shoppingCart from '../assets/icons/shoppingCart.svg'
 import addedshopCart from '../assets/icons/shoppingCartAddedr.svg'
@@ -8,8 +8,12 @@ import { productsContext } from "../context/productsContext";
 
 
 const ProductsCard = ({product}) => {
-  const { handleCart } = useContext(cartContex);
+  const { handleCart, cart } = useContext(cartContex);
   const [ added, setAdded ] = useState(false)
+  useEffect(() => {
+    const itemAdded = cart.cart.some(item => item.id === product.id)
+    setAdded(itemAdded)
+  },[cart])
 
   return(
       <li className="Products__item" >
