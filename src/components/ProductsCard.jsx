@@ -1,13 +1,15 @@
-import React, { useCallback, useContext } from "react";
+import React, { useCallback, useContext, useState } from "react";
 import '../styles/components/productCard.css'
 import shoppingCart from '../assets/icons/shoppingCart.svg'
+import addedshopCart from '../assets/icons/shoppingCartAddedr.svg'
 import { cartContex } from "../context/cartContext";
 import { Link } from "react-router-dom";
+import { productsContext } from "../context/productsContext";
 
 
 const ProductsCard = ({product}) => {
   const { handleCart } = useContext(cartContex);
-  
+  const [ added, setAdded ] = useState(false)
 
   return(
       <li className="Products__item" >
@@ -30,8 +32,11 @@ const ProductsCard = ({product}) => {
           </div>
         </Link>
         <div className="Products__item-btn">
-          <button onClick={() => handleCart({...product})}>
-            <img className="Products__item-cart" src={shoppingCart} alt="shopping cart"/>
+          <button onClick={() => {
+            handleCart({...product});
+            setAdded(!added);
+            }}>
+            <img className="Products__item-cart" src={!added ? shoppingCart : addedshopCart} alt="shopping cart"/>
           </button> 
         </div>
       </li>
