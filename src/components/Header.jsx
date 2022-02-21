@@ -39,8 +39,9 @@ const Header = () => {
               <img src={logo} alt="logo enchapados" />
             </Link>
           </div>
+          <ul className="headerContainer__links">
           {userState.currentUser !== null
-            ? <ul className="headerContainer__links">
+            ? <>
                 <li className="headerContainer__links--userInfo">
                   <span>hola!,</span>
                   <span>{userState.db.name}</span> 
@@ -56,21 +57,7 @@ const Header = () => {
                     <MdFavorite size={28} color={"white"}/>
                   </Link>
                 </li>
-                <li>
-                  <button
-                    onClick={() => setToggleCart(!toggleCart)}  
-                    className="headerContainer__links-shoppingCart">
-                      <MdOutlineShoppingCart 
-                        size={28} 
-                        color={"white"}
-                        />
-                  {!!cart.cart.length > 0
-                    ? <span>{cart.cart.length}</span>
-                    : <p></p>
-                  }
-                  </button>
-                </li>
-              </ul>
+              </>
             : 
             <div className="headerCointaner__user">
               <Link className="headerCointainer__user--login" to="/login">
@@ -79,6 +66,22 @@ const Header = () => {
               </Link> 
             </div>
           }
+         
+            <li>
+              <button
+                onClick={() => setToggleCart(!toggleCart)}  
+                className="headerContainer__links-shoppingCart">
+                  <MdOutlineShoppingCart 
+                    size={28} 
+                    color={"white"}
+                    />
+              {!!cart.cart.length > 0
+                ? <span>{cart.cart.length}</span>
+                : <p></p>
+              }
+              </button>
+            </li>
+          </ul>
         </div>
       {(location.pathname === '/') 
         ? <SearchInput  handleSearch={handleSearch} /> 

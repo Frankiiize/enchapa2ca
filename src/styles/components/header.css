@@ -34,7 +34,11 @@
   object-fit: contain;
 }
 .headerCointaner__user{
+  width: 100%;
   min-width: 100px;
+  display: grid;
+  justify-content: flex-end;
+  align-items: flex-start;
 }
 
 .headerCointainer__user--userImg{

@@ -6,7 +6,7 @@ import { LoginForm } from "../components/Forms.jsx";
 
 const Login = () => {
 
-  const { userState, singIn, setIsAuth, isAuth} = useContext(authContext);
+  const { user, singIn, setIsAuth, isAuth} = useContext(authContext);
   let navigate = useNavigate();
   let location = useLocation();
   let from = location.state?.from?.pathname || "/";
@@ -32,7 +32,8 @@ const Login = () => {
     }
 
   }
-  if(userState && isAuth){
+  if(isAuth){
+    debugger
     return <Navigate to={from} replace={true} />
   }
  
