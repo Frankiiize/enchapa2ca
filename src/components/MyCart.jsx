@@ -1,10 +1,18 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import '../styles/components/myCart.css'
 import { MdKeyboardArrowLeft, MdClose } from "react-icons/md";
 
 import { CartItem } from "./CartItem.jsx";
+import { cartContex } from "../context/cartContext";
 const MyCart = ({toggleCart,setToggleCart}) => {
- 
+  const { cart, dispatchCart, handleCart, handleIncrement, handleDecrement } = useContext(cartContex)
+  
+  const sumTotal = () => {
+    const reducer= (previusValue, currentValue) => previusValue + currentValue.price * currentValue.quantity;
+    const sum = cart.cart.reduce(reducer,0);
+    return sum;
+  }
+
   return(
     <aside className="myCart">
       <div className= "myCart__titleContainer">
@@ -17,10 +25,14 @@ const MyCart = ({toggleCart,setToggleCart}) => {
       </div>
 
       <div className="myCart__content">
-      {[1,2,3,4].map((pruduct,index) => (
+      {cart.cart.map((product) => (
        <CartItem
-        key={`product-${index}`}
-      
+        key={`product-${product.id}`}
+        handleCart={handleCart}
+        product={{...product}}
+        cart={{...cart}}
+        handleIncrement={handleIncrement}
+        handleDecrement={handleDecrement}
        />
       ))
       }
@@ -31,7 +43,7 @@ const MyCart = ({toggleCart,setToggleCart}) => {
         <p>
           <span>total</span>
         </p>
-        <p>sumaTOTAL</p>
+        <p>${sumTotal()}</p>
       </div>
       <button className="primaryBtn">checkOut</button>
     </aside>

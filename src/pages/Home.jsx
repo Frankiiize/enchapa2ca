@@ -71,43 +71,48 @@ const nuevosProductos = [
     id:1,
     name: 'taza',
     price: 20,
+    description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s"
   },
   {
     img: productFAKE,
     name: 'etiqueta',
     id:2,
     price: 3,
+    description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's"
   },
   {
     img: productFAKE,
     name: 'delantal',
     id:3,
     price: 25,
+    description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book"
   },
   {
     img: productFAKE,
     name: 'chapa',
     id:4,
     price: 7,
+    description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book"
   },
   {
     img: productFAKE,
     name: 'padmouse',
     id:5,
     price: 10,
+    description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's "
   },
   {
     img: productFAKE,
     name: 'blusa',
     id:6,
     price: 15,
+    description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book"
   },
 ]
 
 const Home  = () => {
   const [ categories, setCategories ] = useState(categorias);
   const [ newProducts, setNewProducts ] = useState(nuevosProductos)
- 
   return(
     <main>
      {/* <Hero /> */}

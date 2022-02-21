@@ -108,6 +108,17 @@
   padding: 7px;
   background-color: transparent;
   border: none;
+  position: relative;
+}
+.headerContainer__links-shoppingCart > span{
+  position: absolute;
+  top: 0;
+  right: 5%;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  font-size: var(--fs-details);
+  background-color: var(--sucess-color);
 }
 
 /* FORM STYLES */

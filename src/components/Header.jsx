@@ -15,8 +15,10 @@ import { SearchInput } from "./SearchInput.jsx";
 import { authContext } from "../context/AuthContext";
 import { Nav } from "./Nav.jsx";
 import { MyCart } from "./MyCart.jsx";
+import { cartContex } from "../context/cartContext";
 //------COMPONENTS
 const Header = () => {
+  const { cart } = useContext(cartContex);
   const { userState } = useContext(authContext);
   const [ searchValue, setSearchValue ] = useState('');
   const [ showUnderNav, setShowUnderNav ] = useState(false);
@@ -62,6 +64,10 @@ const Header = () => {
                         size={28} 
                         color={"white"}
                         />
+                  {!!cart.cart.length > 0
+                    ? <span>{cart.cart.length}</span>
+                    : <p></p>
+                  }
                   </button>
                 </li>
               </ul>

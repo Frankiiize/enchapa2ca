@@ -32,13 +32,10 @@ const useProviderAuth = () => {
   },[])
 
   const getUserData = async (user) => {
-      console.log('getData')
-      
       const docRef = doc(db, "users", user.uid);
       const docSnap = await getDoc(docRef);
   
       if (docSnap.exists()) {
-        console.log(docSnap.data()) 
         const datos = {
           ...userState,
           currentUser:user,

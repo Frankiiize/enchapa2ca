@@ -34,6 +34,7 @@
 }
 .myCart__content{
   width: 100%;
+  min-height: 200px;
   margin: 0 auto;
   max-height: 450px;
   overflow: scroll;

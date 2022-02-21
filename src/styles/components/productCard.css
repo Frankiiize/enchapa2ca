@@ -1,18 +1,20 @@
 .Products__item{
   display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr 50px 250px 70px ;
   align-items: center;
   width: 100%;
-  min-width: 160px;
+  min-width: 250px;
   min-height: 100%;
   border: 1px solid rgba(#4F4F4F, 0.1);
   border-radius: 10px ;
   margin-right: 10px;
   padding-bottom:10px ;
   box-shadow: 0px 1px 4px -2px;;
-
+  overflow: hidden;
 }
 .Products__item h3{
-  font-size: var(--fs-body-text);
+  font-size: var(--fs-title);
   padding: 5px 10px;
   text-transform: capitalize;
   color: var(--black-title-color);
@@ -28,9 +30,12 @@
   width: 95%;
   margin: 0 auto;
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
+  align-self: flex-start;
   padding: 5px;
 }
+
 .Products__item-cart{
   margin-right: 10px;
   padding: 3px;
@@ -40,20 +45,41 @@
   background-color: transparent;
 }
 
-.Products__item-description span:nth-child(1){
-  font-size: var(--fs-details);
-  color: var(--black-color);
-  text-transform: capitalize;
-  font-weight: 300;
+.Products__item-descriptionDetails{
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--black-separador);
 }
-.Products__item-description span:nth-child(2){
+.Products__item-descriptionDetails span:nth-child(1){
+  font-size: var(--fs-subtitle);
+  text-transform: capitalize;
+  font-weight: 700;
+  color: var(--black-title-color);
+}
+.Products__item-descriptionDetails span:nth-child(2){
   font-size: var(--fs-body-text);
   color: var(--brand-color);
   font-weight: 700;
+  
 }
 
-.Products__item-description span  span:nth-child(1){
-  font-size: inherit;
-  color: var(--brand-color);
-  font-weight: 700;
+
+
+.Products__item-description p {
+  padding: 5px;
+  color: var(--black-details-color);
+  font-size: var(--fs-details);
+  text-align: left;
+  letter-spacing: 1.5px;
+  word-spacing: 1px;
+  padding-bottom: 100px;
+}
+.Products .Products__item  button{
+  background-color: transparent;
+  display: flex;
+  justify-self: flex-end;
+  justify-content: flex-end;
 }
