@@ -3,7 +3,6 @@ import React from "react";
 const useLocalStorage = (storageItem,initialState) => {
   const localStorageCart= localStorage.getItem(storageItem);
   let parseItem; 
-  debugger
 
   if ( !localStorageCart){
     console.log('no')
