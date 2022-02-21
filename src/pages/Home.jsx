@@ -75,7 +75,7 @@ const Home  = () => {
   
   return(
     <main>
-     {/* <Hero /> */}
+     <Hero />
 
       <Categories categories={categories} />
       
