@@ -59,6 +59,7 @@ const cartReducer = (state, action)=> {
 
 
 const useCart = () => {
+  debugger
   const { parseItem: parserCart } = useLocalStorage("cart", []);
   const [ cart, dispatchCart ] = useReducer(cartReducer, parserCart, init)
   const itemsAddedToCart = cart.cart.filter(item => item.added)
