@@ -13,6 +13,7 @@ import { Profile } from "../pages/Profile.jsx";
 import { CartProvider } from "../context/cartContext.js";
 import { ProductDetails } from "../pages/ProductDetails.jsx";
 import { ProductsProvider } from "../context/productsContext.js";
+import { Checkout } from "../pages/Checkout.jsx";
 
 const App = () => {
   return(
@@ -28,6 +29,7 @@ const App = () => {
                 <Route path="/login" element={<Login/>} />
                 <Route path="/recuperarCuenta" element={<PasswordRecovery/>}/>
                 <Route path="/detalles/:id" element={<ProductDetails />}/>
+                <Route path="/checkout" element={<Checkout />}/>
                 
                 <Route path="/favoritos" element={
                   <PrivateRoutes>

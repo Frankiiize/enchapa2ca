@@ -2,9 +2,8 @@ import React, { useState } from "react";
 import '../styles/components/cartItem.css'
 import productFAKE from '../assets/images/produtcFAKE.jpg';
 import { MdClose } from "react-icons/md";
+import { ShopCartQuantityBtn } from "./ShopCartQuantityBtn.jsx";
 const CartItem = ({handleCart, product, handleIncrement, cart, handleDecrement }) => {
-  
-
   return(
     <div className="shopping-cart">
       <figure>
@@ -26,23 +25,12 @@ const CartItem = ({handleCart, product, handleIncrement, cart, handleDecrement }
         <p>${product.price}</p>
       </div>
       
-      <div className="shopping-cart__quantityBtn">
-        <button
-          disabled={product.quantity <= 0 ? true : false}
-          onClick={() => handleDecrement(cart, product)} 
-          className="primaryBtn"
-          >
-            -
-        </button>
-          <span>{ product.quantity}</span>
-        <button
-          disabled={product.quantity >= 10 ? true : false}
-          onClick={() => handleIncrement(cart, product)} 
-          className="primaryBtn"
-          >
-            +
-        </button>
-      </div>
+     <ShopCartQuantityBtn
+        cart={cart}
+        product={product}
+        handleIncrement={handleIncrement}
+        handleDecrement={handleDecrement}
+     />
     </div>
   )
 }

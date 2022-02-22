@@ -6,22 +6,25 @@ import '../styles/components/myCart.css'
 import { MdKeyboardArrowLeft, MdClose } from "react-icons/md";
 import empyShopCart from '../assets/icons/empyShopCart.svg'
 //-----ICONS
+//--UTILS
+import { sumTotal } from "../utils/SumarTotales";
+//-----UTILS
 import { CartItem } from "./CartItem.jsx";
 import { cartContex } from "../context/cartContext";
+import { Link } from "react-router-dom";
 const MyCart = ({toggleCart,setToggleCart}) => {
-  const { cart, dispatchCart, handleCart, handleIncrement, handleDecrement } = useContext(cartContex)
+  const { cart, handleCart, handleIncrement, handleDecrement } = useContext(cartContex)
   console.log(cart)
-  const sumTotal = () => {
-    const reducer= (previusValue, currentValue) => previusValue + currentValue.price * currentValue.quantity;
-    const sum = cart.cart.reduce(reducer,0);
-    return sum;
+ 
+  const handlShowCart = () =>{
+    setToggleCart(!toggleCart) 
   }
 
   return(
     <aside className="myCart">
       <div className= "myCart__titleContainer">
         <MdKeyboardArrowLeft
-          onClick={() =>  setToggleCart(!toggleCart)  }
+          onClick={handlShowCart}
           size={32}
           color={'gray'}
         />
@@ -53,9 +56,14 @@ const MyCart = ({toggleCart,setToggleCart}) => {
         <p>
           <span>total</span>
         </p>
-        <p>${sumTotal()}</p>
+        <p>${sumTotal(cart.cart)}</p>
       </div>
-      <button className="primaryBtn">checkOut</button>
+      <Link 
+        onClick={handlShowCart}
+        className="myCart-order-checkoutBtn"
+        to="/checkout" >
+        <button className="primaryBtn">checkout</button>
+      </Link>
     </aside>
   );
 }

@@ -21,7 +21,7 @@ const useApiCountries = () => {
   const [ currentEstado, setCurrentEstado ] = useState(apiInitialState);
   const [ apiLoading, setApiLoading ] = useState(true);
   const [ apiError, setApiError ] = useState(false);
- 
+
   useEffect(()=> {
     try{
       const getAuthToken = async () => {
@@ -38,6 +38,9 @@ const useApiCountries = () => {
       navigate("/", { replace: true });
       console.log(error);
       setApiError(true)
+    }
+    return () => {
+      setApiAuthToken(false)
     }
 
   },[])
@@ -62,7 +65,6 @@ const useApiCountries = () => {
     }
     setApiLoading(false)
   }
-
   
   const getVzlaStates = async (query) => {
     try{

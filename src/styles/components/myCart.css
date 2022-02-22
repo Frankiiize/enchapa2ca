@@ -73,6 +73,14 @@
   font-size: var(--fs-body-text);
   font-weight: bold;
 }
+.myCart-order-checkoutBtn{
+   display: flex;
+   text-decoration: none;
+}
+.myCart-order-checkoutBtn:visited{
+  color: var(--white-color);
+}
+
 
 
 @keyframes goinOut {

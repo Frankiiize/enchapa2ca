@@ -56,12 +56,7 @@ const useProviderAuth = () => {
       .then((userCredential) => {
         // Signed in
         const user = userCredential.user;
-        console.log(dataDb)
-        setUserState({
-          sinInUser: user,
-          currentUser: user,
-          userDB: getUserData(user)
-        });
+        getUserData(user)
        
         setIsAuth(true)
       })
