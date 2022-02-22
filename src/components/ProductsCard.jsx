@@ -1,48 +1,66 @@
-import React, { useCallback, useContext, useEffect, useState } from "react";
-import '../styles/components/productCard.css'
-import shoppingCart from '../assets/icons/shoppingCart.svg'
-import addedshopCart from '../assets/icons/shoppingCartAddedr.svg'
+import React, {  useContext, useEffect, useRef, useState } from "react";
+import '../styles/components/productCard.css';
+import shoppingCart from '../assets/icons/shoppingCart.svg';
+import addedshopCart from '../assets/icons/shoppingCartAddedr.svg';
 import { cartContex } from "../context/cartContext";
 import { Link } from "react-router-dom";
-import { productsContext } from "../context/productsContext";
 
 
 const ProductsCard = ({product}) => {
   const { handleCart, cart } = useContext(cartContex);
-  const [ added, setAdded ] = useState(false)
+  const [ added, setAdded ] = useState(false);
+  const [ overlay, setOverlay ] = useState(false);
   useEffect(() => {
     const itemAdded = cart.cart.some(item => item.id === product.id)
     setAdded(itemAdded)
   },[cart])
+  
 
   return(
-      <li className="Products__item" >
-        <Link className="Product__item-LINK"
-        to={`/detalles/${product.id}`}>
-          <picture className="Products__item-img" >
-            <img src={product.img} alt={`foto producto ${product.name}`}/>
-          </picture>
-          <div className="Products__item-title" >
+      <li className="Product__item" >
+     
+        <Link className="Product__item-Img"
+          to={`/detalles/${product.id}`}>
+          <img src={product.img} alt={`foto producto ${product.name}`}/>
+        </Link>
+        <div
+          onClick={(e) => {
+            console.log(e.target.className)
+            if(e.target.className !== "Products__item-cart"){
+              setOverlay(!overlay)
+            }
+          }} 
+          className={overlay ? "Products__item-description showOverlay" :" Products__item-description "}>
+          <div className="Products__item-description-header">
             <h3>{product.name}</h3>
-          </div>
-          <div className="Products__item-description">
-            <div className="Products__item-descriptionDetails">
-              <span>precio</span>
+     
+            <div className="Products__item-btn">
               <span>${product.price}</span>
+              <button className="Products__item-btnShop"
+                onClick={(e) => {
+                  handleCart({...product});
+                  setAdded(!added);
+                  
+                }}>
+                <img className="Products__item-cart" src={!added ? shoppingCart : addedshopCart} alt="shopping cart"/>
+              </button> 
             </div>
+          </div>
+          <div className="Products__item-descriptionDetails">
             <article>
               <p>{product.description}</p>
             </article>
+            <div>
+              <Link
+                to={`/detalles/${product.id}`}
+                className="Products__item-descriptionDetails-link primaryBtn">
+                <span>ver</span>
+              </Link>
+            </div>
           </div>
-        </Link>
-        <div className="Products__item-btn">
-          <button onClick={() => {
-            handleCart({...product});
-            setAdded(!added);
-            }}>
-            <img className="Products__item-cart" src={!added ? shoppingCart : addedshopCart} alt="shopping cart"/>
-          </button> 
         </div>
+        
+       
       </li>
   )
 

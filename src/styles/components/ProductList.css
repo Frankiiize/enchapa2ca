@@ -16,7 +16,7 @@
   font-size: var(--fs-body-text);
   font-weight: bold;
 }
-.Products button {
+/* .Products button {
   width: 87px;
   background-color: var(--brand-color);
   border: none;
@@ -24,7 +24,7 @@
   padding: 5px;
   color:var(--white-color);
   font-size: var(--fs-details);
-}
+} */
 .Products__list{
   width: 100%;
   display: flex;
@@ -38,7 +38,8 @@
   display: grid;
   justify-content: center;
   column-gap: 15px;
-  grid-template-columns: repeat(auto-fill,minmax(270px, 250px));
+  grid-template-columns: repeat(auto-fill,minmax(270px, 1fr));
+  grid-auto-rows: 350px;
   row-gap: 15px;
 }
 
