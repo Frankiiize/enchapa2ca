@@ -28,8 +28,6 @@ const Profile = () => {
       name: localData.db.name,
       lasName: localData.db.lastName,
       email: localData.db.email,
-      password: '',
-      c_password: '',
       tlf: localData.db.phone,
       address: localData.db.address,
     })
@@ -43,13 +41,14 @@ const Profile = () => {
       name: formData.get('name'),
       lastName: formData.get('lasName'),
       phone: formData.get('tlf'),
-      address: formData.get('address')
+      address: formData.get('address'),
+      estado: formData.get('estados'),
+      ciudad: formData.get('cities')
     }
     console.log(data)
-    if( data.name.length > 1 && data.name !== localData.db.name && //TO-DO = compronar que no son los mismos datos ya guardados
+    if( data.name.length > 1 && //TO-DO = compronar que no son los mismos datos ya guardados
       data.lastName.length > 1 && 
-      data.address.length > 1 &&
-      regexs.phone.test(data.phone)){
+      data.address.length > 1 ){
         console.log(data)
         debugger
         updateUserData(data).then(()=> {
@@ -58,6 +57,19 @@ const Profile = () => {
     } else {
       console.log('datos invalidos')
     }
+  }
+  const handleOption = () => {
+    const formData = new FormData(form.current)
+    const option = {
+      estado: formData.get('estados'),
+      ciudad: formData.get('cities')
+    }
+    setCurrentEstado({
+      ...currentEstado,
+      estado: option.estado,
+      ciudad: option.ciudad
+    })
+    
   }
   //LOGOUTH REMOVER BOTTON
   const handleLogOut = () => {
@@ -105,6 +117,7 @@ const Profile = () => {
                 form={form}
                 handleOnChange={handleOnChange}
                 handleSubmit={handleSubmit}
+                handleOption={handleOption}
                 getVzlaStates={getVzlaStates} 
                 getVzlaCities={getVzlaCities}
                 vzlaStates={currentEstado.estadoData}
@@ -113,7 +126,11 @@ const Profile = () => {
                 apiLoading={apiLoading}
                 btnTitle={'actualizar'}
                 formValues={formValues}
-                registerBasic={true}
+                name={true}
+                lastName={true}
+                address={true}
+                phone={true}
+                submitBtn={true}
               />
             </div>
           }

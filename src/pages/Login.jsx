@@ -5,8 +5,7 @@ import { authContext } from "../context/AuthContext";
 import { LoginForm } from "../components/Forms.jsx";
 
 const Login = () => {
-
-  const { user, singIn, setIsAuth, isAuth} = useContext(authContext);
+  const { singIn} = useContext(authContext);
   let navigate = useNavigate();
   let location = useLocation();
   let from = location.state?.from?.pathname || "/";
@@ -21,21 +20,17 @@ const Login = () => {
       password: formData.get('password')
     }
     if(regex.test(data.username) && data.password.length > 8){
-      //debugger
       console.log(data);
-      singIn(data.username, data.password);
-      setIsAuth(true)
-      navigate(from, { replace: true });
+      singIn(data.username, data.password, () =>{
+        navigate(from, { replace: true });
+      });
     }
     else{
       console.log('error invalid user or password')
     }
 
   }
-  if(isAuth){
-    debugger
-    return <Navigate to={from} replace={true} />
-  }
+  
  
   
   return(

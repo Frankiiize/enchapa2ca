@@ -8,6 +8,7 @@
   --black-separador: rgba(105, 98, 98, 0.233);
   --black-bg-contrast: rgba(185, 182, 182, 0.473);
   --shadow-color: rgba(102,102,102,0.49);
+  --shadow-secondary:2px 5px 13px -4px rgba(67,125,188,0.43);
   --white-color: #f5f5f5;
   --error-color: #FF7272;
   --sucess-color: #39c4a1;
@@ -16,6 +17,7 @@
   /* variables FONTS*/
   --font-primary: 'Montserrat', sans-serif;
   --font-title: 'Bebas Neue';
+  --letler-spacing-title: 1.5px;
   --fs-small: 1.2rem;
   --fs-details: 1.4rem;
   --fs-body-text-small: 1.6rem;
@@ -29,7 +31,9 @@
 --swiper-theme-color: rgba(255, 255, 255, 0.6) ;
 --swiper-navigation-size: 32px;
 /* slider hero variables */
-
+/* Others */
+--border-radius : 10px;
+--border-radius-less : 5px;
 }
 
 /* Box sizing rules */

@@ -12,8 +12,8 @@ const requestAuth = {
 const API_URL= 'https://www.universal-tutorial.com/api/';
 const useApiCountries = () => {
   const apiInitialState = {
-    estado: 'Carabobo',
-    ciudad: 'Valencia',
+    estado: '',
+    ciudad: '',
     estadoData: [],
     ciudadesData: []
   }
@@ -35,19 +35,21 @@ const useApiCountries = () => {
       }
       getAuthToken();
     }catch(error){
-      navigate("/", { replace: true });
+      /* navigate("/", { replace: true }); */
       console.log(error);
       setApiError(true)
     }
     return () => {
       setApiAuthToken(false)
     }
-
+    
   },[])
-
-  const getVzlaCities = async (query) => {
+  
+  const getVzlaCities = async () => {
+   /*  const mutateQuery = query.replace(' ', '%20') */
+   const mutateQuery = 'cities/Distrito%20Federal'
     try{
-      const data = await fetch(`${API_URL}${query}`,{
+      const data = await fetch(`${API_URL}${mutateQuery}`,{
         method: 'GET',
         headers: {
           Authorization: `Bearer ${apiAuthToken}`,
@@ -59,6 +61,7 @@ const useApiCountries = () => {
         ...currentEstado,
         ciudadesData: response
       });
+      console.log(response)
     }catch(error){
       setApiError(true)
       console.log(error);

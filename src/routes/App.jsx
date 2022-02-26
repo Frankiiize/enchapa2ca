@@ -7,7 +7,7 @@ import { CreateAccount } from "../pages/CreateAccount.jsx";
 import { Login } from "../pages/Login.jsx";
 import { ProviderAuth } from "../context/AuthContext.js";
 import { PasswordRecovery } from "../pages/PasswordRecovery.jsx";
-import { PrivateRoutes } from "../layouts/PrivateRoutes.js";
+import { PrivateRoutes, Redirect } from "../layouts/PrivateRoutes.js";
 import { AdminRoutes } from "../layouts/PrivateRoutes.js";
 import { Profile } from "../pages/Profile.jsx";
 import { CartProvider } from "../context/cartContext.js";
@@ -26,10 +26,16 @@ const App = () => {
               <Routes>
                 <Route path="/" element={<Home/>} />
                 <Route path="/createAccount" element={<CreateAccount/>} />
-                <Route path="/login" element={<Login/>} />
+                <Route path="/login" element={
+                  <Redirect>
+                    <Login/>
+                  </Redirect>
+                } />
                 <Route path="/recuperarCuenta" element={<PasswordRecovery/>}/>
                 <Route path="/detalles/:id" element={<ProductDetails />}/>
-                <Route path="/checkout" element={<Checkout />}/>
+
+                <Route path="/checkout" element={<Checkout />} />
+                <Route path="/checkout/checkoutSucess" element={<h1>checkout sucess</h1>}/>
                 
                 <Route path="/favoritos" element={
                   <PrivateRoutes>

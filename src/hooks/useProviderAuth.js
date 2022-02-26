@@ -5,11 +5,9 @@ import { db } from '../services/firebaseConfig'
 const useProviderAuth = () => {
   const auth = getAuth();
   const [ userState, setUserState ] = useState({
-    sinInUser: null,
     currentUser: null,
-    userDB: null,
+    db:null,
   });
-  const [ isAuth, setIsAuth ] = useState(false);
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
@@ -17,16 +15,17 @@ const useProviderAuth = () => {
         setUserState({
           currentUser: user.auth.currentUser,
           db: getUserData(user.auth.currentUser)
-        }),
+        })
         
-        setIsAuth(true)
       }
       else {
         setUserState({
           currentUser:null
-        }),
-        setIsAuth(false)
+        })
       }
+      return () => {
+        setUserState(null)
+      } 
        
     })
   },[])
@@ -51,14 +50,14 @@ const useProviderAuth = () => {
   
   }
  
-  const singIn = async (email, password) => {
+  const singIn = async (email, password,callback) => {
     signInWithEmailAndPassword(auth, email, password) 
       .then((userCredential) => {
         // Signed in
         const user = userCredential.user;
         getUserData(user)
-       
-        setIsAuth(true)
+      }).then(() =>{
+        callback()
       })
       .catch((error) => {
         const errorCode = error.code;
@@ -71,10 +70,8 @@ const useProviderAuth = () => {
   const logOut = async () => {
     try{
       await signOut(auth).then(() => {
-        setIsAuth(false)
         console.log(auth)
         setUserState({
-          sinInUser: null,
           currentUser: null,
         })
       })
@@ -90,6 +87,7 @@ const useProviderAuth = () => {
         try {
         const dataToDb = {...data}
         dataToDb.c_password = false;
+        dataToDb.password = false;
         const user = userCredential.user;
         const docRef = await setDoc(doc(db, "users", user.uid), dataToDb);
       } catch (e) {
@@ -123,8 +121,6 @@ const useProviderAuth = () => {
     setUserState,
     singIn,
     logOut,
-    isAuth,
-    setIsAuth,
     getUserData,
     registerUser,
     updateUserData

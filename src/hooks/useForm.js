@@ -7,6 +7,7 @@ const useForm = () => {
     email: '',
     password: '',
     c_password: '',
+    cedula: '',
     tlf: "",
     address: '',
   })

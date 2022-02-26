@@ -165,3 +165,11 @@
   box-shadow:0 0 0px 2px; ;
   border-radius: 50%;
 }
+@media (max-width: 375px) {
+  .headerContainer__links .headerContainer__links--userInfo{
+    font-size: var(--fs-small);
+  }
+  .headerContainer__links .headerContainer__links--userInfo span{
+    margin: 0;
+  }
+}

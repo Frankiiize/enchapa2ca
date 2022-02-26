@@ -11,9 +11,10 @@ import { sumTotal } from "../utils/SumarTotales";
 //-----UTILS
 import { CartItem } from "./CartItem.jsx";
 import { cartContex } from "../context/cartContext";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 const MyCart = ({toggleCart,setToggleCart}) => {
   const { cart, handleCart, handleIncrement, handleDecrement } = useContext(cartContex)
+  const location = useLocation();
   console.log(cart)
  
   const handlShowCart = () =>{
@@ -58,11 +59,11 @@ const MyCart = ({toggleCart,setToggleCart}) => {
         </p>
         <p>${sumTotal(cart.cart)}</p>
       </div>
-      <Link 
-        onClick={handlShowCart}
-        className="myCart-order-checkoutBtn"
-        to="/checkout" >
-        <button className="primaryBtn">checkout</button>
+      <Link
+        onClick={() => setToggleCart(!toggleCart)}
+        className="primaryBtn" 
+        to="/checkout"
+        >checkout
       </Link>
     </aside>
   );

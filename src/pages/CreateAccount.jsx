@@ -23,6 +23,7 @@ const CreateAccount = () => {
       username: formData.get('email'),
       password: formData.get('password'),
       c_password: formData.get('c_password'),
+      cedula: formData.get('cedula'),
       phone: formData.get('tlf'),
       city: formData.get('cities'),
       state: formData.get('estados'),
@@ -68,7 +69,14 @@ const CreateAccount = () => {
       apiLoading={apiLoading}
       handleOnChange={handleOnChange}
       formValues={formValues}
-      registerBasic={false}
+      name={true}
+      lastName={true}
+      email={true}
+      password={true}
+      phone={true}
+      address={true}
+      cedula={true}
+      submitBtn={true}
       />
     
       

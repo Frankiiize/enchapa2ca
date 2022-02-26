@@ -93,7 +93,7 @@
   font-size: var(--fs-title); 
   color: var(--brand-color);
   font-weight: 700;
-
+  padding-right: 5px;
   
 }
 .Products__item-btn{
@@ -105,8 +105,9 @@
   z-index: 3;
 }
 .Products__item-btn button{
-  padding-right: 3rem;
-  padding-left: 1rem;
+  width: 32px;
+  padding-right:5px;
+  padding-left:5px;
   background-color: transparent;
   border: none;
 }

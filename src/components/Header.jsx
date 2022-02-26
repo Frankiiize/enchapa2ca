@@ -84,8 +84,11 @@ const Header = () => {
           </ul>
         </div>
       {(location.pathname === '/') 
-        ? <SearchInput  handleSearch={handleSearch} /> 
-        : <h2>{sectionTitle}</h2> }
+        && <SearchInput  handleSearch={handleSearch} /> 
+      }
+      {(location.pathname === '/checkout') 
+        && <Link to="/contacto">Contactanos</Link>  
+      }
       </nav>
       <div>
         

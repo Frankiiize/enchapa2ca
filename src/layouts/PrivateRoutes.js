@@ -5,23 +5,29 @@ import { authContext } from "../context/AuthContext";
 const PrivateRoutes = ({children}) => {
   const { userState } =  useContext(authContext);
   let location = useLocation()
-  if(!userState.loading){
-    if(userState.currentUser === null ){
-      return <Navigate to="/login" state={{from:location}} replace />
-    }
-  }else{
-    return <Navigate to={location} replace />
+  
+  if(userState.currentUser === null ){
+    return <Navigate to="/login" state={{from:location}} replace />
   }
-  return <>
-            {children}
-        </>
+  return <>{children}</>
+
+  
+}
+const Redirect = ({children}) => {
+  const { userState } =  useContext(authContext);
+  let location = useLocation();
+  let from = location.state?.from?.pathname || "/";
+  if(userState.currentUser){
+    return <Navigate to={from} state={{from:location}} replace />
+  }
+  return <>{children}</>
 
   
 }
 
 
 const AdminRoutes = ({children}) => {
-  const { userState, isAuth } = useContext(authContext);
+  const { userState } = useContext(authContext);
   let location = useLocation()
     if(userState.currentUser !== null ){
       if(userState.db.admin){
@@ -55,4 +61,4 @@ const AdminRoutes = ({children}) => {
   
 }
 
-export { PrivateRoutes, AdminRoutes };
+export { PrivateRoutes, AdminRoutes, Redirect };
