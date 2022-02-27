@@ -61,7 +61,7 @@ const MyCart = ({toggleCart,setToggleCart}) => {
       </div>
       <Link
         onClick={() => setToggleCart(!toggleCart)}
-        className="primaryBtn" 
+        className="primaryButton" 
         to="/checkout"
         >checkout
       </Link>

@@ -22,7 +22,7 @@ const LoginForm = ({ handleSubmit, form }) => {
           placeholder="contraseña"
         />
       </label>
-      <button onClick={handleSubmit} type="submit">
+      <button className="segundaryButton" onClick={handleSubmit} type="submit">
         entrar
       </button>
     </form>
@@ -50,7 +50,9 @@ const RegisterForm = ({
   password,
   submitBtn,
   cedula,
-  animation
+  animation,
+  submitBtnClass,
+  fileImput
 }) => {
   return (
     <form  ref={form} className={animation ? `${animation} login__form` : 'login__form'}>
@@ -214,9 +216,20 @@ const RegisterForm = ({
           </label>
         </>
       }
+     {/*  {
+        fileImput &&
+
+          <label htmlFor="paidPhoto">
+            <input
+              name="paidPhoto"
+              type="file" 
+              />
+            <p>sube tu comprobate de pago</p>
+          </label>
+      } */}
       {
         submitBtn &&
-        <button onClick={handleSubmit}  type="submit">
+        <button className={submitBtnClass} onClick={handleSubmit}  type="submit">
           {btnTitle}
         </button>
       }
@@ -236,7 +249,7 @@ const RecoveryPasswordForm = () => {
           placeholder="email"
         />
       </label>
-      <button type="submit">enviar</button>
+      <button className="segundaryButton" type="submit">enviar</button>
     </form>
   );
 };

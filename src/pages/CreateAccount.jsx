@@ -77,6 +77,7 @@ const CreateAccount = () => {
       address={true}
       cedula={true}
       submitBtn={true}
+      submitBtnClass={'segundaryButton'}
       />
     
       

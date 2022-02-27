@@ -1,0 +1,46 @@
+.fileLoaderContainer{
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+.file-select, .file-select-load {
+  position: relative;
+  display: inline-block;
+  font-family: var(--font-primary);
+  text-transform: uppercase;
+  min-height: 32px;
+}
+
+.file-select::before {
+  content: 'sube tu comprobante aqui';
+  background-color: var(--black-color);
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 3px;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+}
+.file-select-load::before{
+  content: 'archivo cargado';
+  background-color: var(--sucess-color);
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 3px;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+}
+.file-select input[type="file"] {
+  width: 200px;
+  height: 32px;
+  display: inline-block;
+}

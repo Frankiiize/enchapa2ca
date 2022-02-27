@@ -1,0 +1,8 @@
+.shopping-cart__empyShop h2 {
+  color: var( --black-title-color);
+  font-size: var(--fs-title);
+  margin-bottom: 15px;
+}
+.shopping-cart__empyShop h2 span{
+  text-transform: capitalize;
+}
