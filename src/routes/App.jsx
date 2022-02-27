@@ -14,6 +14,8 @@ import { CartProvider } from "../context/cartContext.js";
 import { ProductDetails } from "../pages/ProductDetails.jsx";
 import { ProductsProvider } from "../context/productsContext.js";
 import { Checkout } from "../pages/Checkout.jsx";
+import { PaySucess } from "../pages/PaySucess.jsx";
+import { BuyProvider } from "../context/buyContext.js";
 
 const App = () => {
   return(
@@ -21,50 +23,57 @@ const App = () => {
     <ProductsProvider>
       <ProviderAuth>
         <CartProvider>
-          <BrowserRouter>
-            <Header/>
-              <Routes>
-                <Route path="/" element={<Home/>} />
-                <Route path="/createAccount" element={<CreateAccount/>} />
-                <Route path="/login" element={
-                  <Redirect>
-                    <Login/>
-                  </Redirect>
-                } />
-                <Route path="/recuperarCuenta" element={<PasswordRecovery/>}/>
-                <Route path="/detalles/:id" element={<ProductDetails />}/>
+        <BuyProvider>
 
-                <Route path="/checkout" element={<Checkout />} />
-                <Route path="/checkout/checkoutSucess" element={<h1>checkout sucess</h1>}/>
-                
-                <Route path="/favoritos" element={
-                  <PrivateRoutes>
-                    <h1>favos</h1>
-                  </PrivateRoutes>
-                }/>
+            <BrowserRouter>
+              <Header/>
+                <Routes>
+                  <Route path="/" element={<Home/>} />
+                  <Route path="/createAccount" element={<CreateAccount/>} />
+                  <Route path="/login" element={
+                    <Redirect>
+                      <Login/>
+                    </Redirect>
+                  } />
+                  <Route path="/recuperarCuenta" element={<PasswordRecovery/>}/>
+                  <Route path="/detalles/:id" element={<ProductDetails />}/>
 
-                <Route path="/carrito" element={
-                  <PrivateRoutes>
-                    <h1>cart</h1>
-                  </PrivateRoutes>
-                } />
-              
-
-                <Route path="/perfil" element={
+                  
+                  <Route path="/checkout" > 
+                    <Route index element={<Checkout />} />
+                    <Route path="checkoutSucess" element={ <PaySucess /> }/>
+                  </Route>
+                  
+                  
+                  <Route path="/favoritos" element={
                     <PrivateRoutes>
-                      <Profile />
+                      <h1>favos</h1>
                     </PrivateRoutes>
-                }/>
-              
-                <Route path="/adminEnchapados" element={
-                    <AdminRoutes>
-                      <h1>admin</h1>
-                    </AdminRoutes>
-                }/>
+                  }/>
 
-                <Route path="*" element={<h1>PAGE NOT FOUND</h1>} />
-              </Routes>
-          </BrowserRouter>
+                  <Route path="/carrito" element={
+                    <PrivateRoutes>
+                      <h1>cart</h1>
+                    </PrivateRoutes>
+                  } />
+                
+
+                  <Route path="/perfil" element={
+                      <PrivateRoutes>
+                        <Profile />
+                      </PrivateRoutes>
+                  }/>
+                
+                  <Route path="/adminEnchapados" element={
+                      <AdminRoutes>
+                        <h1>admin</h1>
+                      </AdminRoutes>
+                  }/>
+
+                  <Route path="*" element={<h1>PAGE NOT FOUND</h1>} />
+                </Routes>
+            </BrowserRouter>
+        </BuyProvider>
         </CartProvider>
       </ProviderAuth>
     </ProductsProvider>

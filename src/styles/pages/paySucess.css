@@ -1,0 +1,109 @@
+.paySucessMain__titleWrapper{
+  width: 100%;
+  max-width: 600px;
+  height: 100px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 25px auto;
+}
+.paySucessMain__titleWrapper h3 {
+  font-family: var(--font-title);
+  letter-spacing: var(--letler-spacing-title);
+}
+.invoiceContainer{
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-auto-rows: minmax(50px, auto);
+  justify-content: center;
+  align-items: center;
+  background-color: var(--white-color);
+  border-radius: var(--border-radius);
+  padding: 10px 20px;
+}
+.invoiceContainer div {
+  display: flex;
+  justify-content: space-between;
+}
+.invoiceContainer p {
+  font-size: var(--fs-body-text-small);
+  font-weight: 700;
+  text-transform: capitalize;
+  color: var(--black-title-color);
+}
+.invoiceContainer span {
+  font-size: var(--fs-details);
+  color: var(--black-details-color);
+}
+
+.invoiceContainer__shop{
+  display: flex;
+  flex-direction: column;
+  min-height: 100px;
+  margin-bottom: 10px;
+}
+.invoiceContainer__shop ul {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding-left: 20px;
+  
+}
+.invoiceContainer__shop  li {
+  display: flex;
+  position: relative;
+  align-items: flex-end;
+  justify-content: space-between;
+}
+.invoiceContainer__shop  li::before{
+  content: '■';
+  position: absolute;
+  top: 40%;
+  transform: translate(-50% , -50%);
+  font-size: var(--fs-body-text-small);
+  padding-right: 10px;
+  font-weight: bold;
+  color: var(--brand-color);
+}
+.invoiceContainer__shop li p {
+  font-weight: normal;
+  padding-left: 10px;
+}
+.invoiceContainer__shop li span, .invoiceContainer__total  span {
+  color: var(--brand-color);
+  font-weight: bold;
+  font-size: var(--fs-body-text-small);
+}
+
+.contactContainer{
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+  margin-top: 20px;
+  display: flex;
+  padding: 20px;
+  flex-direction: column;
+  text-align:justify
+}
+.contactContainer__title{
+  display: flex;
+  align-items: center;
+  margin-bottom: 5px;
+  padding: 5px;
+}
+.contactContainer h4 {
+  font-family: var(--font-title);
+  letter-spacing: var(--letler-spacing-title);
+  font-size: var(--fs-body-text-small);
+  padding-left: 20px;
+}
+.contactContainer  strong  {
+  padding: 0 10px;
+}
+.contactContainer span{
+  font-size: var(--fs-details);
+}

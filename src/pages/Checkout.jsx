@@ -20,12 +20,14 @@ import { CheckOutCardItems } from "../components/CheckOutCardItems.jsx";
 import { EmpyCart } from "../components/EmpyCart.jsx";
 import { CheckRadios } from "../components/CheckRadios.jsx";
 import { FileUploader } from "../components/FileUploader.jsx";
+import { buyContext } from "../context/buyContext";
 //--------------------------------------imports--------------------------------------//
 
 const Checkout = () => {
   const storage = getStorage();
   const { handleIncrement, handleDecrement, cart, dispatchCart } = useContext(cartContex);
   const { userState } = useContext(authContext);
+  const { SetBuyComplete } = useContext(buyContext);
   const { formValues, setFormValues, handleOnChange } = useForm();
   const [ localData ] = useState(JSON.parse(localStorage.getItem('userDb')));
   const { currentEstado, getVzlaCities, getVzlaStates,apiLoading, setCurrentEstado, apiError} = useApiCountries();
@@ -97,24 +99,29 @@ const Checkout = () => {
       cedula: formData.get('cedula'),
       countryState: formData.get('estados'),
       shop: cart.cart,
-      shipping: deliveryOption.delivery,
-      paidMethod: deliveryOption.pay,
+      shipping: deliveryOption.delivery.state ? deliveryOption.delivery.mrw ? 'mrw' : 'zoom' : 'entrega personal',
+      paidMethod: deliveryOption.delivery.state ? deliveryOption.pay.mobilPay ? 'pago mobil': 'transferencia bancaria' : 'acordar pago',
       userUID: userState.currentUser.uid,
       timestamp: serverTimestamp(),
+      totalPrice: sumTotal(cart.cart),
     }
     console.log(data)
+    
     //lamar luego que se registre la compra
    
     const docRef = await addDoc(collection(db, "ventas"), data)
     .then((docRef) =>{
       debugger
+      data.docRefId = docRef.id;
+      SetBuyComplete(data)
       console.log('compra exitosa', docRef.id);
-      const storageRef = ref(storage, `paidPhotos/${userState.currentUser.email}-${docRef.id}.jpg`);
+
+      /* const storageRef = ref(storage, `paidPhotos/${userState.currentUser.email}-${docRef.id}.jpg`);
       uploadBytes(storageRef, imgUpload.file )
       .then((snapshot) => {
         console.log('Uploaded a blob or file!');
         console.log(snapshot)
-      });
+      }) */;
       //-----------TODO---------------
         //vaciar carrito de compras--listo
         //hacer rutas anidadas
@@ -124,8 +131,8 @@ const Checkout = () => {
       //-----------TODO---------------
       dispatchCart({type: 'RESET', payload: {cart: []}})
       localStorage.removeItem('cart')
-      navigate('checkoutSucess', {replace:true});
     }).catch(error => console.log(error))
+    navigate('checkoutSucess', {replace:true});
    
   }
   const handleOption = () => {
