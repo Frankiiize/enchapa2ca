@@ -69,6 +69,7 @@
 }
 .checkoutMain__resume-checkbox ul > .fileLoaderContainer{
   background-color: transparent;
+  padding: 0;
 }
 .checkoutMain__resume-checkbox picture{
   width: 100%;

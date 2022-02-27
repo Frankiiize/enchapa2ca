@@ -38,7 +38,7 @@
   justify-content: flex-end;
   padding: 5px;
   color: var(--black-details-color);
-  font-size: var(--fs-details);
+  font-size: var(--fs-body-text-small);
   text-transform: capitalize;
 }
 .checkoutMain__listItems--price span, 
@@ -47,7 +47,8 @@
   padding-right: 15px ;
 }
 .checkoutMain__listItems--price span:nth-child(2){
-  color: var(--brand-color);
+  color: var(--black-details-color);
+  font-weight: 300;
 }
 .checkoutMain__listItems--total p{
   font-weight: 600;
@@ -65,6 +66,11 @@
   justify-content: space-between;
   grid-column: 3 / 4 ;
   grid-row: 1 / 2;
+}
+.checkoutMain__listItems-btns button{
+  font-size: var(--fs-body-text);
+  color: var(--white-color);
+  font-weight: 700;
 }
 .checkoutMain__listItems-btns span{
   font-size: var(--fs-details);

@@ -116,9 +116,11 @@ const Checkout = () => {
         console.log(snapshot)
       });
       //-----------TODO---------------
-        //vaciar carrito de compras
+        //vaciar carrito de compras--listo
         //hacer rutas anidadas
         //agregar validaciones para (metodo de entrega)
+        // redireccionar paginas de succes (entrega personal, delivey)
+        //validar tipo de archivos 
       //-----------TODO---------------
       dispatchCart({type: 'RESET', payload: {cart: []}})
       localStorage.removeItem('cart')
@@ -141,7 +143,7 @@ const Checkout = () => {
   }
   if(!!cart.cart.length <= 0){
     return (
-      <EmpyCart 
+      <EmpyCart
         cart={cart}
       />
     )
@@ -176,8 +178,8 @@ const Checkout = () => {
               serverTimestamp={serverTimestamp}
             >
              { 
-              //valuesPayMethod &&
-              true &&   
+              valuesPayMethod &&
+              //true &&   
                 <FileUploader  
                   setImgUpload={setImgUpload}
                 />

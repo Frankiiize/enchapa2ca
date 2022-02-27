@@ -13,3 +13,18 @@
     opacity: 1;
   }
 }
+
+.elasticRotate {
+  animation-name: elastic;
+  animation-duration: 500ms;
+  transition-timing-function: cubic-bezier(.5,1.75,.75,1.25);
+}
+
+@keyframes elastic {
+  0%{
+    transform: rotate(0);
+  }
+  100%{
+    transform: rotate(50deg);
+  }
+}

@@ -4,7 +4,7 @@ import '../styles/components/myCart.css'
 //-----STYLES
 //ICONS
 import { MdKeyboardArrowLeft, MdClose } from "react-icons/md";
-import empyShopCart from '../assets/icons/empyShopCart.svg'
+import empyCartIcon from '../assets/icons/empuCartIcon.svg'
 //-----ICONS
 //--UTILS
 import { sumTotal } from "../utils/SumarTotales";
@@ -47,8 +47,7 @@ const MyCart = ({toggleCart,setToggleCart}) => {
       {!!cart.cart.length <= 0
         && 
         <div className="shopping-cart__empyShop">
-          <h2><span>tu</span> cesta esta vacia</h2>
-          <img src={empyShopCart} alt="cesta vacia" />
+          <img style={{maxWidth: '150px'}} src={empyCartIcon} alt="cesta vacia" />
         </div>
       }
       </div>

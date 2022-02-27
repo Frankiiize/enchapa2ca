@@ -52,6 +52,7 @@ const FileUploader = ({setImgUpload}) => {
           name="photoPaid"
           type="file"
           onChange={handleUploadPhoto}
+          onClick={() => setLoading(true)}
           required
         />
         

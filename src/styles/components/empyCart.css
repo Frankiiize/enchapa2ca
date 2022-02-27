@@ -1,8 +1,37 @@
-.shopping-cart__empyShop h2 {
+.empyCartContainer {
+  width: 100%;
+  height: calc(100vh - 200px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.empyCartContainer ul{
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+}
+.empyCartContainer li {
+  margin-bottom: 30px;
+}
+.empyCartContainer h2 {
   color: var( --black-title-color);
   font-size: var(--fs-title);
   margin-bottom: 15px;
 }
 .shopping-cart__empyShop h2 span{
   text-transform: capitalize;
+}
+.shopping-cart__empyShop img {
+  width: 100%;
+  max-width: 375px;
+}
+.empyCartContainer li a  {
+  text-decoration: none;
+  color: var(--black-color);
+  font-family: var(--font-title);
+  font-weight: 700;
+  font-size: var(--fs-bigger);
+  box-shadow: 0 0 0;
 }

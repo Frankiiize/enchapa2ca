@@ -86,6 +86,11 @@ h3{
   display: flex;
   flex-direction: column;
 }
+/* .profileNav ul li button img:hover{
+  animation-name: elastic;
+  animation-duration: 500ms;
+  transition-timing-function: cubic-bezier(.5,1.75,.75,1.25);
+} */
 .profileNav ul li button p span:nth-child(2){
   opacity: 0.5;
 }
