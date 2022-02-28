@@ -96,7 +96,7 @@ const CheckRadios = ({ children, refOption, deliveryOption, setDeliveryOption, v
         </ul>
       }
       {
-        valuesPayMethod &&
+        deliveryOption.delivery.state  &&
           <ul className={deliveryOption.delivery.state ?'fade-in' : 'checkoutMain__resume-DeliveryOptions'}>
             <li>
               <h3>Selecciona un Metodo de pago</h3>

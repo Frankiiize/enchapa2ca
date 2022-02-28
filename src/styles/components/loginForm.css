@@ -78,3 +78,43 @@
   font-family: var(--font-primary);
   background-color: transparent;
 }
+.phoneContiner{
+  display: flex;
+  width: 90%;
+
+}
+.phoneContiner label:nth-child(1){
+  max-width: 25%;
+  min-width: 25%;
+  margin-right: 10px;
+}
+.phoneContiner label select{
+  display: block;
+  height: 100%;
+  font-size:var(--fs-body-text-small);
+  font-family: var(--font-primary);
+  font-weight: 400;
+  line-height: 1.3;
+  padding: .4em 1.4em .3em .8em;
+  box-shadow: 0 1px 0 1px var(--white-color);
+  border-radius: .3em;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  appearance: none;
+  background-color: #fff;
+  background-image: url('../../assets/icons/arrowDown.svg'),
+  linear-gradient(to bottom, #ffffff 0%,#f7f7f7 100%);
+  background-repeat: no-repeat, repeat;
+  background-position: right .7em top 50%, 0 0;
+  background-size: .65em auto, 100%;
+}
+.phoneContiner label select:focus, .login__form input:focus{
+  border-color: var(--sucess-color);
+  width: 100%;
+  padding-left: 5%;
+  border-radius: var(--border-radius-less );
+  box-shadow: 0 0 1px 3px var(--sucess-color);
+  box-shadow: 0 0 0 3px -moz-mac-focusring;
+  color: var(--black-details-color); 
+  outline: none;
+}  

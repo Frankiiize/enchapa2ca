@@ -1,7 +1,8 @@
-import React, { useContext, useState, useRef, useEffect } from "react";
+import React, { useContext, useState, useRef, useEffect, isValidElement } from "react";
 import { serverTimestamp, collection, addDoc } from "firebase/firestore";
 import { db } from '../services/firebaseConfig'
 import { getStorage, ref, uploadBytes } from "firebase/storage";
+import * as yup from 'yup'
 import { cartContex } from "../context/cartContext";
 import { authContext } from "../context/AuthContext";
 import { useForm } from "../hooks/useForm";
@@ -28,7 +29,7 @@ const Checkout = () => {
   const { handleIncrement, handleDecrement, cart, dispatchCart } = useContext(cartContex);
   const { userState } = useContext(authContext);
   const { SetBuyComplete } = useContext(buyContext);
-  const { formValues, setFormValues, handleOnChange } = useForm();
+  const { formValues, setFormValues, handleOnChange, error, dispatchError } = useForm();
   const [ localData ] = useState(JSON.parse(localStorage.getItem('userDb')));
   const { currentEstado, getVzlaCities, getVzlaStates,apiLoading, setCurrentEstado, apiError} = useApiCountries();
   const [ showDeliveryInfo, setShowDeliveryInfo ] = useState(true);
@@ -69,59 +70,120 @@ const Checkout = () => {
     if(localData !== null){
       setFormValues({
         name: localData.db.name,
-        lasName: localData.db.lastName,
+        lastName: localData.db.lastName,
         email: localData.db.email,
-        tlf: localData.db.phone,
+        tlf: localData.db.phone.slice(4),
         cedula:localData.db.cedula,
         address: localData.db.address,
       })
     } else {
       setFormValues({
         name: "nombre",
-        lasName: "apellido",
+        lastName: "apellido",
         email: "email",
         tlf: "telefono",
+        tlfCode:"0424",
         cedula:"cedula de Identidad",
         address: "direccion",
       })
     }
   },[])
 
+  let schemaPersonal = yup.object().shape({
+    name: yup.string().matches(/\w{2,}/g,{message: 'ingresa tu nombre'}).required('nombre requerido'),
+    lastName: yup.string().matches(/\w{2,}/g,{message: 'ingresa tu apellido'}).required('apellido requerido'),
+    phone: yup.string().matches(/^(0414|0424|0412|0416|0426)[0-9]{7}$/gm, {message: "Ingrese un número válido."}).required('telefono requerido'),
+    email: yup.string().email('ingresa un email valido').required('email requerido'),
+    cedula: yup.string().matches(/[0-9]{1,8}/,{message: 'ingresa un numero de cedula valido'}).required('cedula requerida'),
+    envio: yup.string().matches(/^(entrega-personal|delivery)$/g,{message:'selecciona un metodo de envio'}).required('selecciona un metodo de envio'),
+  })
+  let schemaDelivery = yup.object().shape({
+    name: yup.string().matches(/\w{2,}/g,{message: 'ingresa tu nombre'}).required('nombre requerido'),
+    lastName: yup.string().matches(/\w{2,}/g,{message: 'ingresa tu apellido'}).required('apellido requerido'),
+    phone: yup.string().matches(/^(0414|0424|0412|0416|0426)[0-9]{7}$/gm, {message: "Ingrese un número válido."}).required('telefono requerido'),
+    email: yup.string().email('ingresa un email valido').required('email requerido'),
+    cedula: yup.string().matches(/[0-9]{8}/,{message: 'ingresa un numero de cedula valido'}).required('cedula requerida'),
+    envio: yup.string().matches(/^(entrega-personal|delivery)$/g,{message:'selecciona un metodo de envio'}).required('selecciona un metodo de envio'),
+    countryState: yup.string().required('selecciona tu estado'),
+    address: yup.string().matches(/\w{2,}/g,{message: 'ingresa tu direccion'}).required('direccion requerida'),
+    shipping: yup.string().matches(/^(mrw|zoom)$/g,{message:'selecciona un currier'}).required('selecciona un currier'),
+    paidMethod: yup.string().matches(/^(pago-mobil|transferencia-bancaria)$/g,{message: 'selecciona un metodo de pago'}).required('metodo de pago requerido'),
+    userUID: yup.string(),
+    totalPrice: yup.number().integer().required('sin articulos')
+  })
+ 
+  
+
   const handleSubmit = async  (ev) => {
     ev.preventDefault();
+    dispatchError({type:'RESET_ERROR'})
     const formData = new FormData(form.current);
     const data = {
       name: formData.get('name'),
-      lastName: formData.get('lasName'),
-      phone: formData.get('tlf'),
+      lastName: formData.get('lastName'),
+      phone: `${formData.get('phoneCode')}${formData.get('tlf')}`,
       address: formData.get('address'),
       email: formData.get('email'),
       cedula: formData.get('cedula'),
       countryState: formData.get('estados'),
       shop: cart.cart,
-      shipping: deliveryOption.delivery.state ? deliveryOption.delivery.mrw ? 'mrw' : 'zoom' : 'entrega personal',
-      paidMethod: deliveryOption.delivery.state ? deliveryOption.pay.mobilPay ? 'pago mobil': 'transferencia bancaria' : 'acordar pago',
+      envio: deliveryOption?.personal && 'entrega-personal' || deliveryOption.delivery?.state && 'delivery' ,
+      shipping: deliveryOption?.delivery?.mrw && 'mrw' || 
+                deliveryOption?.delivery?.zoom && 'zoom' || 
+                (deliveryOption.delivery?.mrw === false && deliveryOption.delivery?.zoom === false) && false,
+
+      paidMethod: deliveryOption.pay?.mobilPay && 'pago-mobil' || 
+                  deliveryOption.pay?.wireTrans && 'transferencia-bancaria' || 
+                  (deliveryOption.pay?.wireTrans === false && deliveryOption.pay?.mobilPay === false) && 'acordar-pago' ,
+
       userUID: userState.currentUser ? userState.currentUser.uid : 'invitado',
       timestamp: serverTimestamp(),
       totalPrice: sumTotal(cart.cart),
     }
     console.log(data)
+    try{
+      if(deliveryOption.personal) {
+        const validateFormPersonal = schemaPersonal.validate(data)
+        const isvalid = await validateFormPersonal
+        console.log(isvalid)
+      }else if(deliveryOption.delivery.state){
+          const validateFormDelivery = schemaDelivery.validate(data);
+        const isValid = await validateFormDelivery
+        console.log(isValid)
+      }
+      else {
+        throw new Error('SELECCIONA_UNA_OPCION')
+      }
+    }catch(error){
+      dispatchError({type: error.name.toUpperCase(), payload: {path:error.path, message: error.message}})
+      console.log({error})
+ 
+    }
+    /* await schema.validate(data).then((validateForm) => {
+        console.log('datos validos',validateForm)
+
+    }).catch(error =>{ 
+      console.log(error.name)
+      console.log(error.path)
+      console.log(error.errors)
+      console.log(error.inner)
+    }) */
     
     //lamar luego que se registre la compra
    
-    const docRef = await addDoc(collection(db, "ventas"), data)
+   /*  const docRef = await addDoc(collection(db, "ventas"), data)
     .then((docRef) =>{
       debugger
       data.docRefId = docRef.id;
       SetBuyComplete(data)
       console.log('compra exitosa', docRef.id);
 
-      /* const storageRef = ref(storage, `paidPhotos/${userState.currentUser.email}-${docRef.id}.jpg`);
+      const storageRef = ref(storage, `paidPhotos/${userState.currentUser.email}-${docRef.id}.jpg`);
       uploadBytes(storageRef, imgUpload.file )
       .then((snapshot) => {
         console.log('Uploaded a blob or file!');
         console.log(snapshot)
-      }) */;
+      });
       //-----------TODO---------------
         //vaciar carrito de compras--listo
         //hacer rutas anidadas
@@ -131,8 +193,8 @@ const Checkout = () => {
       //-----------TODO---------------
       dispatchCart({type: 'RESET', payload: {cart: []}})
       localStorage.removeItem('cart')
-    }).catch(error => console.log(error))
-    navigate('checkoutSucess', {replace:true});
+    }).catch(error => console.log(error)) */
+    //navigate('checkoutSucess', {replace:true});
    
   }
   const handleOption = () => {
@@ -185,7 +247,7 @@ const Checkout = () => {
               serverTimestamp={serverTimestamp}
             >
              { 
-              valuesPayMethod &&
+              deliveryOption.delivery.state  &&
               //true &&   
                 <FileUploader  
                   setImgUpload={setImgUpload}
@@ -211,6 +273,7 @@ const Checkout = () => {
             {
               !!showDeliveryInfo &&
                 <RegisterForm
+                  error={error}
                   animation={'fade-in'}
                   form={form}
                   handleOnChange={handleOnChange}

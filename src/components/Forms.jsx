@@ -36,7 +36,6 @@ const RegisterForm = ({
   vzlaCities,
   handleSubmit,
   form,
-  handleOption,
   currentEstado,
   apiLoading,
   btnTitle = 'crear',
@@ -52,12 +51,14 @@ const RegisterForm = ({
   cedula,
   animation,
   submitBtnClass,
-  fileImput
+  fileImput,
+  error
 }) => {
   return (
     <form  ref={form} className={animation ? `${animation} login__form` : 'login__form'}>
       {
         name && 
+        <>
           <label htmlFor="name">
             <input
               id="name"
@@ -69,13 +70,20 @@ const RegisterForm = ({
               onChange={handleOnChange}
             />
           </label>
+          {
+              !!error.name && 
+              <span>{error.message}</span>
+          }
+        </>
+          
       }
       {
         lastName &&
+        <>
           <label htmlFor="lastName">
             <input
               id="lastName"
-              name="lasName"
+              name="lastName"
               type="text"
               autoComplete="family-name"
               placeholder="apellido"
@@ -83,34 +91,68 @@ const RegisterForm = ({
               onChange={handleOnChange}
             />
           </label>
+          {
+              !!error.lastName && 
+              <span>{error.message}</span>
+          }
+        </>
       }
       {
         phone && 
-          <label htmlFor="tlf">
-            <input
-              type="tel"
-              name="tlf"
-              id="tlf"
-              placeholder="telefono"
-              autoComplete="tel"
-              value={!!formValues ? formValues.tlf : 'telefono'}
-              onChange={handleOnChange}
-            />
-          </label>
+        <>
+          <div className="phoneContiner">
+            <label htmlFor="phoneCode">
+              <select 
+                id="phoneCode" 
+                name="phoneCode"
+                onChange={handleOnChange}
+                value={!!formValues ? formValues.tlfCode : undefined}
+                >
+                  <option value={"0414"}>0414</option>
+                  <option value={"0412"}>0412</option>
+                  <option value={"0424"}>0424</option>
+                  <option value={"0416"}>0416</option>
+                  <option value={"0426"}>0426</option>
+              </select>
+            </label>
+            <label htmlFor="tlf">
+              <input
+                type="tel"
+                name="tlf"
+                id="tlf"
+                placeholder="telefono"
+                autoComplete="tel"
+                value={!!formValues ? formValues.tlf : 'telefono'}
+                onChange={handleOnChange}
+              />
+            </label>
+
+          </div>
+          {
+              !!error.phone && 
+              <span>{error.message}</span>
+          }
+        </>
       }
       {
         cedula && 
-        <label htmlFor="cedula">
-            <input
-              type="tel"
-              name="cedula"
-              id="cedula"
-              placeholder="cedula de identidad"
-              autoComplete="off"
-              value={!!formValues ? formValues.cedula : 'cedula'}
-              onChange={handleOnChange}
-            />
+        <>
+          <label htmlFor="cedula">
+              <input
+                type="tel"
+                name="cedula"
+                id="cedula"
+                placeholder="cedula de identidad"
+                autoComplete="off"
+                value={!!formValues ? formValues.cedula : 'cedula'}
+                onChange={handleOnChange}
+              />
           </label>
+          {
+              !!error.cedula && 
+              <span>{error.message}</span>
+          }
+        </>
       }
       {
         address &&
@@ -125,13 +167,18 @@ const RegisterForm = ({
                 value={!!formValues ? formValues.address : 'direccion'}
                 onChange={handleOnChange}
               />
+                
             </label>
+            {
+                !!error.address && 
+                <span>{error.message}</span>
+            }
             <label value={currentEstado} className="option" htmlFor="estados">
               <span>estado</span>
 
               <select
                 disabled={apiLoading ? true : false}
-                onChange={handleOption}
+                onChange={handleOnChange}
                 name="estados"
                 id="estados"
                 onClick={() => getVzlaStates("states/venezuela")}
@@ -149,6 +196,10 @@ const RegisterForm = ({
                   ))}
               </select>
             </label>
+            {
+              !!error.countryState && 
+              <span>{error.message}</span>
+            }
 
            {/*  <label className="option" htmlFor="cities">
               <span>ciudad</span>
@@ -178,6 +229,7 @@ const RegisterForm = ({
 
       {
         email && 
+        <>
           <label htmlFor="email">
           <input
             id="email"
@@ -189,6 +241,12 @@ const RegisterForm = ({
             onChange={handleOnChange}
           />
         </label>
+        {
+            !!error.email && 
+            <span>{error.message}</span>
+        }
+
+        </>
       }
       {
         password &&
@@ -204,6 +262,10 @@ const RegisterForm = ({
               onChange={handleOnChange}
             />
           </label>
+          {
+              !!error.password && 
+              <span>{error.message}</span>
+          }
           <label htmlFor="c_Password">
             <input
               id="c_Password"
@@ -214,6 +276,10 @@ const RegisterForm = ({
               onChange={handleOnChange}
             />
           </label>
+          {
+              !!error.password && 
+              <span>{error.message}</span>
+          }
         </>
       }
      {/*  {
