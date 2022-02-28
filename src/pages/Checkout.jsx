@@ -101,7 +101,7 @@ const Checkout = () => {
       shop: cart.cart,
       shipping: deliveryOption.delivery.state ? deliveryOption.delivery.mrw ? 'mrw' : 'zoom' : 'entrega personal',
       paidMethod: deliveryOption.delivery.state ? deliveryOption.pay.mobilPay ? 'pago mobil': 'transferencia bancaria' : 'acordar pago',
-      userUID: userState.currentUser.uid,
+      userUID: userState.currentUser ? userState.currentUser.uid : 'invitado',
       timestamp: serverTimestamp(),
       totalPrice: sumTotal(cart.cart),
     }
@@ -250,7 +250,8 @@ const Checkout = () => {
                       </button>
                 : 
                 <>
-                  <button 
+                  <button
+                    onClick={handleSubmit} 
                     className="segundaryButton"  >comprar como invitado</button>
                   <Link
                     state={{from: {
