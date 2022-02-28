@@ -21,7 +21,6 @@
 .checkoutMain__listItems{
   width: 100%;
   border-top: 1px solid var(--black-separador);
-  padding: 0 20px;
 }
 
 .checkoutMain__resume{
