@@ -10,7 +10,7 @@ import { useForm } from "../hooks/useForm";
 const CreateAccount = () => {
   const { currentEstado, setCurrentEstado, getVzlaCities, getVzlaStates, apiLoading, apiError } = useApiCountries();
   const { registerUser } = useContext(authContext)
-  const { formValues, handleOnChange } = useForm()
+  const { formValues, handleOnChange, error } = useForm()
   let navigate = useNavigate();
   
   const form = useRef(null);
@@ -58,6 +58,7 @@ const CreateAccount = () => {
     <section className="login">
     <h2 className="login__title">Registrate</h2>
      <RegisterForm 
+      error={error}
       form={form}
       handleOption={handleOption}
       handleSubmit={handleSubmit}

@@ -53,7 +53,7 @@ const PaySucess = () => {
           <ul>
             {
               buyComplete.shop.map((e) => (
-                <li>
+                <li key={`SuccesBuyItems-${e.id}`}>
                   <p>{e.name}</p>
                   <span>${e.price}</span>
                 </li>

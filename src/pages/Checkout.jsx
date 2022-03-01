@@ -1,7 +1,7 @@
 import React, { useContext, useState, useRef, useEffect, isValidElement } from "react";
 import { serverTimestamp, collection, addDoc } from "firebase/firestore";
 import { db } from '../services/firebaseConfig'
-import { getStorage, ref, uploadBytes } from "firebase/storage";
+import {  getStorage, ref, uploadBytesResumable, getDownloadURL  } from "firebase/storage";
 import * as yup from 'yup'
 import { cartContex } from "../context/cartContext";
 import { authContext } from "../context/AuthContext";
@@ -22,32 +22,26 @@ import { EmpyCart } from "../components/EmpyCart.jsx";
 import { CheckRadios } from "../components/CheckRadios.jsx";
 import { FileUploader } from "../components/FileUploader.jsx";
 import { buyContext } from "../context/buyContext";
+import { Portals } from "../components/modals/Portals.jsx";
+import { LoaderElipsis } from "../components/loaders/loaderElipsis.jsx";
 //--------------------------------------imports--------------------------------------//
 
 const Checkout = () => {
   const storage = getStorage();
-  const { handleIncrement, handleDecrement, cart, dispatchCart } = useContext(cartContex);
-  const { userState } = useContext(authContext);
-  const { SetBuyComplete } = useContext(buyContext);
-  const { formValues, setFormValues, handleOnChange, error, dispatchError } = useForm();
-  const [ localData ] = useState(JSON.parse(localStorage.getItem('userDb')));
-  const { currentEstado, getVzlaCities, getVzlaStates,apiLoading, setCurrentEstado, apiError} = useApiCountries();
-  const [ showDeliveryInfo, setShowDeliveryInfo ] = useState(true);
- //---------------UPLOADPHOTO STATES----------------------//
- const [ imgUpload, setImgUpload ] = useState({
-   result: null,
-   file:null
-  })
-/*   const [ userID, setUserID ] = useState('');
-  useEffect(() => {
-    setUserID(userState.currentUser?.uid)
-  },[userState])
-  const storageRef = ref(storage, `paidPhotos/${userID}.jpg`); */
-  //---------------UPLOADPHOTO STATES----------------------//
-  
   const navigate = useNavigate();
   const form = useRef(null);
   const option = useRef(null);
+  const [ loadingBuy, setLoadingBuy ] = useState(false)
+  const { handleIncrement, handleDecrement, cart, dispatchCart } = useContext(cartContex);
+  const { userState } = useContext(authContext);
+  const { SetBuyComplete } = useContext(buyContext);
+  const { formValues, setFormValues, handleOnChange, error, dispatchError, schemaPersonal, schemaDelivery } = useForm();
+  const { currentEstado, getVzlaCities, getVzlaStates,apiLoading, setCurrentEstado, apiError} = useApiCountries();
+  const [ showDeliveryInfo, setShowDeliveryInfo ] = useState(true);
+  const [ imgUpload, setImgUpload ] = useState({
+   result: null,
+   file:null,
+  })
   const [ deliveryOption, setDeliveryOption ] = useState({
     personal:false,
     delivery: {
@@ -59,61 +53,43 @@ const Checkout = () => {
       wireTrans: false,
       mobilPay: false
     },
-    paidPhoto: ''
+    paidPhoto: '',
   })
-  //comprobacion para mostrar metodos de pago//
-  const deliveryCheck = Object.values(deliveryOption.delivery).includes(true) ; 
-  const valuesPayMethod = (deliveryCheck && deliveryOption.delivery.mrw || deliveryOption.delivery.zoom ) ? true : false;
-  //comprobacion para mostrar metodos de pago//
- 
-  useEffect(() => {
-    if(localData !== null){
-      setFormValues({
-        name: localData.db.name,
-        lastName: localData.db.lastName,
-        email: localData.db.email,
-        tlf: localData.db.phone.slice(4),
-        cedula:localData.db.cedula,
-        address: localData.db.address,
-      })
-    } else {
-      setFormValues({
-        name: "nombre",
-        lastName: "apellido",
-        email: "email",
-        tlf: "telefono",
-        tlfCode:"0424",
-        cedula:"cedula de Identidad",
-        address: "direccion",
-      })
-    }
-  },[])
 
-  let schemaPersonal = yup.object().shape({
-    name: yup.string().matches(/\w{2,}/g,{message: 'ingresa tu nombre'}).required('nombre requerido'),
-    lastName: yup.string().matches(/\w{2,}/g,{message: 'ingresa tu apellido'}).required('apellido requerido'),
-    phone: yup.string().matches(/^(0414|0424|0412|0416|0426)[0-9]{7}$/gm, {message: "Ingrese un número válido."}).required('telefono requerido'),
-    email: yup.string().email('ingresa un email valido').required('email requerido'),
-    cedula: yup.string().matches(/[0-9]{1,8}/,{message: 'ingresa un numero de cedula valido'}).required('cedula requerida'),
-    envio: yup.string().matches(/^(entrega-personal|delivery)$/g,{message:'selecciona un metodo de envio'}).required('selecciona un metodo de envio'),
-  })
-  let schemaDelivery = yup.object().shape({
-    name: yup.string().matches(/\w{2,}/g,{message: 'ingresa tu nombre'}).required('nombre requerido'),
-    lastName: yup.string().matches(/\w{2,}/g,{message: 'ingresa tu apellido'}).required('apellido requerido'),
-    phone: yup.string().matches(/^(0414|0424|0412|0416|0426)[0-9]{7}$/gm, {message: "Ingrese un número válido."}).required('telefono requerido'),
-    email: yup.string().email('ingresa un email valido').required('email requerido'),
-    cedula: yup.string().matches(/[0-9]{8}/,{message: 'ingresa un numero de cedula valido'}).required('cedula requerida'),
-    envio: yup.string().matches(/^(entrega-personal|delivery)$/g,{message:'selecciona un metodo de envio'}).required('selecciona un metodo de envio'),
-    countryState: yup.string().required('selecciona tu estado'),
-    address: yup.string().matches(/\w{2,}/g,{message: 'ingresa tu direccion'}).required('direccion requerida'),
-    shipping: yup.string().matches(/^(mrw|zoom)$/g,{message:'selecciona un currier'}).required('selecciona un currier'),
-    paidMethod: yup.string().matches(/^(pago-mobil|transferencia-bancaria)$/g,{message: 'selecciona un metodo de pago'}).required('metodo de pago requerido'),
-    userUID: yup.string(),
-    totalPrice: yup.number().integer().required('sin articulos')
-  })
+  const makeBuyWithDelivery = async (img,validData) =>{
+    const metadata = {
+      contentType: 'image/jpeg'
+    };
+    const storageRef = ref(storage, `paidPhotos/${userState.currentUser.email}-${Date.now()}.jpg`);
+    const uploadTask =  uploadBytesResumable(storageRef, imgUpload.file, metadata);
+    uploadTask.on('state_changed',
+    (snapshot) => {
+      const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+      console.log('Upload is ' + progress + '% done');
+    },
+    (error) => {
+      console.log(error);
+    },
+    async () => {
+      const getUrl=  await  getDownloadURL(uploadTask.snapshot.ref)
+      const downloadURL =  getUrl
+      validData.paidMethodURL= downloadURL;
+      await makeBuy(validData);
+      }
+    );
+  }
+  const makeBuy = async (validData) => {
+    await addDoc(collection(db, "ventas"), validData).then((docRef) => {
+      validData.docRefId = docRef.id;
+      SetBuyComplete(validData)
+      console.log('compra exitosa', docRef.id);
+      dispatchCart({type: 'RESET', payload: {cart:[]}})
+      localStorage.removeItem('cart')
+      setLoadingBuy(false);
+      navigate('checkoutSucess', {replace:true});
+    }).catch(error => console.log(error))
+  }
  
-  
-
   const handleSubmit = async  (ev) => {
     ev.preventDefault();
     dispatchError({type:'RESET_ERROR'})
@@ -143,13 +119,24 @@ const Checkout = () => {
     console.log(data)
     try{
       if(deliveryOption.personal) {
-        const validateFormPersonal = schemaPersonal.validate(data)
-        const isvalid = await validateFormPersonal
-        console.log(isvalid)
+        const validateFormPersonal = schemaPersonal.validate(data);
+        const isvalid = await validateFormPersonal;
+        console.log(isvalid);
+        setLoadingBuy(true)
+        await makeBuy(isvalid);
+        
       }else if(deliveryOption.delivery.state){
-          const validateFormDelivery = schemaDelivery.validate(data);
-        const isValid = await validateFormDelivery
-        console.log(isValid)
+        const validateFormDelivery = schemaDelivery.validate(data);
+        const isvalid = await validateFormDelivery;
+        if(imgUpload.file !== null){
+          console.log(isvalid)
+          setLoadingBuy(true)
+          //go upload img
+          await makeBuyWithDelivery(imgUpload.file, isvalid)
+        }
+        else {
+          console.log('sube tu comprobante de pago')
+        }
       }
       else {
         throw new Error('SELECCIONA_UNA_OPCION')
@@ -157,44 +144,7 @@ const Checkout = () => {
     }catch(error){
       dispatchError({type: error.name.toUpperCase(), payload: {path:error.path, message: error.message}})
       console.log({error})
- 
     }
-    /* await schema.validate(data).then((validateForm) => {
-        console.log('datos validos',validateForm)
-
-    }).catch(error =>{ 
-      console.log(error.name)
-      console.log(error.path)
-      console.log(error.errors)
-      console.log(error.inner)
-    }) */
-    
-    //lamar luego que se registre la compra
-   
-   /*  const docRef = await addDoc(collection(db, "ventas"), data)
-    .then((docRef) =>{
-      debugger
-      data.docRefId = docRef.id;
-      SetBuyComplete(data)
-      console.log('compra exitosa', docRef.id);
-
-      const storageRef = ref(storage, `paidPhotos/${userState.currentUser.email}-${docRef.id}.jpg`);
-      uploadBytes(storageRef, imgUpload.file )
-      .then((snapshot) => {
-        console.log('Uploaded a blob or file!');
-        console.log(snapshot)
-      });
-      //-----------TODO---------------
-        //vaciar carrito de compras--listo
-        //hacer rutas anidadas
-        //agregar validaciones para (metodo de entrega)
-        // redireccionar paginas de succes (entrega personal, delivey)
-        //validar tipo de archivos 
-      //-----------TODO---------------
-      dispatchCart({type: 'RESET', payload: {cart: []}})
-      localStorage.removeItem('cart')
-    }).catch(error => console.log(error)) */
-    //navigate('checkoutSucess', {replace:true});
    
   }
   const handleOption = () => {
@@ -219,6 +169,12 @@ const Checkout = () => {
   }
   return (
     <main className={userState.currentUser ?  'checkoutMain footer__user-on' : 'checkoutMain'}>
+     {
+      !!loadingBuy && 
+      <Portals>
+        <LoaderElipsis />
+      </Portals>
+    }
       <div className="checkoutMain__title">
         <h3>envios a toda Venezuela</h3>
       </div>
@@ -238,12 +194,13 @@ const Checkout = () => {
         <section className="checkoutMain__resume" >
           <h3>Resumen de la compra</h3>
           <ul className="checkoutMain__resume-checkbox">
-            <CheckRadios 
+            <CheckRadios
+              dispatchError={dispatchError}
+              error={error}
+              dispatchError={dispatchError}
               refOption={option}
               deliveryOption={deliveryOption}
               setDeliveryOption={setDeliveryOption}
-              valuesPayMethod={valuesPayMethod}
-              
               serverTimestamp={serverTimestamp}
             >
              { 
@@ -251,6 +208,7 @@ const Checkout = () => {
               //true &&   
                 <FileUploader  
                   setImgUpload={setImgUpload}
+                  imgUpload={imgUpload}
                 />
              }
 
@@ -264,6 +222,7 @@ const Checkout = () => {
           </ul>
         
           <div className="checkoutMain__resume-deliveryInfo"> 
+           
             <button
               className="checkoutMain__resume--deliveryInfoBtn"
               onClick={() => setShowDeliveryInfo(!showDeliveryInfo)}
@@ -274,8 +233,10 @@ const Checkout = () => {
               !!showDeliveryInfo &&
                 <RegisterForm
                   error={error}
-                  animation={'fade-in'}
                   form={form}
+                  setFormValues={setFormValues}
+                  formValues={formValues}
+                  animation={'fade-in'}
                   handleOnChange={handleOnChange}
                   handleOption={handleOption}
                   handleSubmit={handleSubmit}

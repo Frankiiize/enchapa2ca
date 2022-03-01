@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import '../styles/components/fileUploader.css'
 import { MdUploadFile } from 'react-icons/md'
 import { BsFileEarmarkCheckFill } from 'react-icons/bs'
-const FileUploader = ({setImgUpload}) => {
+const FileUploader = ({setImgUpload, imgUpload}) => {
   const [ loading , setLoading ] = useState(true);
   const handleUploadPhoto = (e) => {
     const photo = e.target.files[0]
@@ -13,8 +13,10 @@ const FileUploader = ({setImgUpload}) => {
       console.log(event.target.result);
       
       setImgUpload({
+        ...imgUpload,
         result: event.target.result,
-        file: photo
+        file: photo,
+      
       })
       setLoading(false)
 

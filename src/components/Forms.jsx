@@ -52,7 +52,8 @@ const RegisterForm = ({
   animation,
   submitBtnClass,
   fileImput,
-  error
+  error,
+  setFormValues,
 }) => {
   return (
     <form  ref={form} className={animation ? `${animation} login__form` : 'login__form'}>
@@ -68,6 +69,7 @@ const RegisterForm = ({
               placeholder="nombre"
               value={!!formValues ? formValues.name : 'nombre'}
               onChange={handleOnChange}
+              onClick={() => setFormValues({...formValues, name:''})}
             />
           </label>
           {
@@ -89,6 +91,7 @@ const RegisterForm = ({
               placeholder="apellido"
               value={!!formValues ? formValues.lasName : 'apellido'}
               onChange={handleOnChange}
+              onClick={() => setFormValues({...formValues, lastName:''})}
             />
           </label>
           {
@@ -124,6 +127,7 @@ const RegisterForm = ({
                 autoComplete="tel"
                 value={!!formValues ? formValues.tlf : 'telefono'}
                 onChange={handleOnChange}
+                onClick={() => setFormValues({...formValues, tlf:''})}
               />
             </label>
 
@@ -146,6 +150,7 @@ const RegisterForm = ({
                 autoComplete="off"
                 value={!!formValues ? formValues.cedula : 'cedula'}
                 onChange={handleOnChange}
+                onClick={() => setFormValues({...formValues, cedula:''})}
               />
           </label>
           {
@@ -166,6 +171,7 @@ const RegisterForm = ({
                 placeholder="direcction"
                 value={!!formValues ? formValues.address : 'direccion'}
                 onChange={handleOnChange}
+                onClick={() => setFormValues({...formValues, address:''})}
               />
                 
             </label>
@@ -239,6 +245,7 @@ const RegisterForm = ({
             placeholder="email"
             value={!!formValues ? formValues.email : 'email'}
             onChange={handleOnChange}
+            onClick={() => setFormValues({...formValues, email:''})}
           />
         </label>
         {
@@ -258,7 +265,7 @@ const RegisterForm = ({
               type="password"
               autoComplete="new_password"
               placeholder="contraseña"
-              value={!!formValues ? formValues.password : 'password'}
+              value={ formValues.password }
               onChange={handleOnChange}
             />
           </label>
@@ -273,26 +280,16 @@ const RegisterForm = ({
               type="password"
               autoComplete="new_password"
               placeholder="confirma contraseña"
+              value={ formValues.password }
               onChange={handleOnChange}
             />
           </label>
           {
-              !!error.password && 
+              !!error.address && 
               <span>{error.message}</span>
           }
         </>
       }
-     {/*  {
-        fileImput &&
-
-          <label htmlFor="paidPhoto">
-            <input
-              name="paidPhoto"
-              type="file" 
-              />
-            <p>sube tu comprobate de pago</p>
-          </label>
-      } */}
       {
         submitBtn &&
         <button className={submitBtnClass} onClick={handleSubmit}  type="submit">
