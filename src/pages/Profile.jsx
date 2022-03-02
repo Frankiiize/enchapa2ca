@@ -19,11 +19,11 @@ const Profile = () => {
   const {  currentEstado, getVzlaCities, getVzlaStates, setCurrentEstado,apiLoading, apiError} = useApiCountries();
   const { userState, updateUserData, logOut } = useContext(authContext);
   const [ showEdit, setShowEdit ] = useState(false);
-  const { formValues, setFormValues, handleOnChange } = useForm();
+  const { formValues, setFormValues, handleOnChange, error, dispatchError, schemaPersonal, schemaDelivery } = useForm();
   const navigate = useNavigate();
   const [ localData, setLocalData ] = useState(JSON.parse(localStorage.getItem('userDb')))
   const form = useRef(null)
-  useEffect(() => {
+  /* useEffect(() => {
     setFormValues({
       name: localData.db.name,
       lasName: localData.db.lastName,
@@ -31,7 +31,7 @@ const Profile = () => {
       tlf: localData.db.phone,
       address: localData.db.address,
     })
-  },[])
+  },[]) */
   
 
   const handleSubmit =  (ev) => {
@@ -115,6 +115,7 @@ const Profile = () => {
             <div className="profileNav__form">
               <RegisterForm 
                 form={form}
+                error={error}
                 handleOnChange={handleOnChange}
                 handleSubmit={handleSubmit}
                 handleOption={handleOption}
