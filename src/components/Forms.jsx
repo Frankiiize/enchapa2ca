@@ -53,6 +53,7 @@ const RegisterForm = ({
   submitBtnClass,
   fileImput,
   error,
+  dispatchError,
   setFormValues,
 }) => {
   return (
@@ -60,44 +61,52 @@ const RegisterForm = ({
       {
         name && 
         <>
-          <label htmlFor="name">
+          <label 
+            htmlFor="name"
+            className={!!error.name ? 'error-color' : '' }
+            >
             <input
               id="name"
               name="name"
               type="text"
               autoComplete="name"
-              placeholder="nombre"
+              placeholder={!!error.name ? '' : 'name' }
               value={!!formValues ? formValues.name : 'nombre'}
               onChange={handleOnChange}
-              onClick={() => setFormValues({...formValues, name:''})}
             />
-          </label>
-          {
+             {
               !!error.name && 
-              <span>{error.message}</span>
-          }
+                <div className="errorContainer"> 
+                  <span>{error.message}</span>
+                </div>
+              }
+          </label>
         </>
           
       }
       {
         lastName &&
         <>
-          <label htmlFor="lastName">
+          <label 
+          htmlFor="lastName"
+          className={!!error.lastName ? 'error-color' : '' }
+          >
             <input
               id="lastName"
               name="lastName"
               type="text"
               autoComplete="family-name"
-              placeholder="apellido"
+              placeholder={!!error.lastName ? '' : 'apellido' }
               value={!!formValues ? formValues.lasName : 'apellido'}
               onChange={handleOnChange}
-              onClick={() => setFormValues({...formValues, lastName:''})}
             />
-          </label>
-          {
+            {
               !!error.lastName && 
-              <span>{error.message}</span>
-          }
+              <div className="errorContainer"> 
+                <span>{error.message}</span>
+              </div>
+            }
+          </label>
         </>
       }
       {
@@ -118,68 +127,83 @@ const RegisterForm = ({
                   <option value={"0426"}>0426</option>
               </select>
             </label>
-            <label htmlFor="tlf">
+            <label 
+            htmlFor="phone"
+            className={!!error.phone ? 'error-color' : '' }
+            >
               <input
-                type="tel"
-                name="tlf"
-                id="tlf"
-                placeholder="telefono"
+                type="phone"
+                name="phone"
+                id="phone"
+                placeholder={!!error.phone ? '' : 'telefono' }
                 autoComplete="tel"
-                value={!!formValues ? formValues.tlf : 'telefono'}
                 onChange={handleOnChange}
-                onClick={() => setFormValues({...formValues, tlf:''})}
               />
+              {
+                !!error.phone && 
+                <div className="errorContainer"> 
+                  <span>{error.message}</span>
+                </div>
+              }
             </label>
-
           </div>
-          {
-              !!error.phone && 
-              <span>{error.message}</span>
-          }
         </>
       }
       {
         cedula && 
         <>
-          <label htmlFor="cedula">
+          <label 
+            htmlFor="cedula"
+            className={!!error.cedula ? 'error-color' : '' }
+            >
               <input
                 type="tel"
                 name="cedula"
                 id="cedula"
-                placeholder="cedula de identidad"
+                placeholder={!!error.cedula ? '' : 'cedula' }
                 autoComplete="off"
                 value={!!formValues ? formValues.cedula : 'cedula'}
                 onChange={handleOnChange}
-                onClick={() => setFormValues({...formValues, cedula:''})}
               />
+              {
+                  !!error.cedula && 
+                  <div className="errorContainer"> 
+                    <span>{error.message}</span>
+                  </div>
+              }
           </label>
-          {
-              !!error.cedula && 
-              <span>{error.message}</span>
-          }
         </>
       }
       {
         address &&
         <>
-            <label htmlFor="address">
+            <label 
+              htmlFor="address"
+              className={!!error.address ? 'error-color' : '' }
+              >
               <input
                 id="address"
                 name="address"
                 type="text"
                 autoComplete="street-address"
-                placeholder="direcction"
+                placeholder={!!error.address ? '' : 'dirección' }
                 value={!!formValues ? formValues.address : 'direccion'}
                 onChange={handleOnChange}
-                onClick={() => setFormValues({...formValues, address:''})}
               />
+                {
+                  !!error.address && 
+                  <div className="errorContainer"> 
+                    <span>{error.message}</span>
+                  </div>
+                }
                 
             </label>
-            {
-                !!error.address && 
-                <span>{error.message}</span>
-            }
-            <label value={currentEstado} className="option" htmlFor="estados">
+            <label 
+            value={currentEstado} 
+            className="option" 
+            htmlFor="estados"
+            className={!!error.countryState ? 'error-color login__form-country' : 'login__form-country' }
+            >
               <span>estado</span>
 
               <select
@@ -202,10 +226,6 @@ const RegisterForm = ({
                   ))}
               </select>
             </label>
-            {
-              !!error.countryState && 
-              <span>{error.message}</span>
-            }
 
            {/*  <label className="option" htmlFor="cities">
               <span>ciudad</span>
@@ -236,22 +256,26 @@ const RegisterForm = ({
       {
         email && 
         <>
-          <label htmlFor="email">
+          <label 
+          htmlFor="email"
+          className={!!error.email ? 'error-color' : '' }
+          >
           <input
             id="email"
             name="email"
             type="email"
             autoComplete="email"
-            placeholder="email"
+            placeholder={!!error.email ? '' : '@email' }
             value={!!formValues ? formValues.email : 'email'}
             onChange={handleOnChange}
-            onClick={() => setFormValues({...formValues, email:''})}
           />
+           {
+              !!error.email && 
+              <div className="errorContainer"> 
+                <span>{error.message}</span>
+              </div>
+            }
         </label>
-        {
-            !!error.email && 
-            <span>{error.message}</span>
-        }
 
         </>
       }

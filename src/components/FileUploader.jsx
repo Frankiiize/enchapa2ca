@@ -2,9 +2,12 @@ import React, { useState, useEffect } from "react";
 import '../styles/components/fileUploader.css'
 import { MdUploadFile } from 'react-icons/md'
 import { BsFileEarmarkCheckFill } from 'react-icons/bs'
-const FileUploader = ({setImgUpload, imgUpload}) => {
+const FileUploader = ({setImgUpload, imgUpload, errorForm, dispatchError}) => {
   const [ loading , setLoading ] = useState(true);
   const handleUploadPhoto = (e) => {
+    if(errorForm.options){
+      dispatchError({type: 'RESET_ERROR'})
+    }
     const photo = e.target.files[0]
     console.log(photo)
     
@@ -49,7 +52,7 @@ const FileUploader = ({setImgUpload, imgUpload}) => {
           style={{
             
           }}
-          className={loading ? 'file-select' : 'file-select-load fade-in'}
+          className={!!errorForm.options ? 'file-select-error' : loading ? 'file-select' : 'file-select-load fade-in' }
           id="photoPaid"
           name="photoPaid"
           type="file"

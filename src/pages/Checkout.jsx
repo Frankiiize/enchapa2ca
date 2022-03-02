@@ -57,10 +57,11 @@ const Checkout = () => {
   })
 
   const makeBuyWithDelivery = async (img,validData) =>{
+    const typeOfUserOn = userState?.current?.email || validData.email;
     const metadata = {
       contentType: 'image/jpeg'
     };
-    const storageRef = ref(storage, `paidPhotos/${userState.currentUser.email}-${Date.now()}.jpg`);
+    const storageRef = ref(storage, `paidPhotos/${typeOfUserOn}-${Date.now()}.jpg`);
     const uploadTask =  uploadBytesResumable(storageRef, imgUpload.file, metadata);
     uploadTask.on('state_changed',
     (snapshot) => {
@@ -97,7 +98,7 @@ const Checkout = () => {
     const data = {
       name: formData.get('name'),
       lastName: formData.get('lastName'),
-      phone: `${formData.get('phoneCode')}${formData.get('tlf')}`,
+      phone: `${formData.get('phoneCode')}${formData.get('phone')}`,
       address: formData.get('address'),
       email: formData.get('email'),
       cedula: formData.get('cedula'),
@@ -132,10 +133,12 @@ const Checkout = () => {
           console.log(isvalid)
           setLoadingBuy(true)
           //go upload img
+          debugger
           await makeBuyWithDelivery(imgUpload.file, isvalid)
         }
         else {
           console.log('sube tu comprobante de pago')
+          throw new Error('SUBE_COMPROBANTE')
         }
       }
       else {
@@ -169,12 +172,12 @@ const Checkout = () => {
   }
   return (
     <main className={userState.currentUser ?  'checkoutMain footer__user-on' : 'checkoutMain'}>
-     {
+     {/* {
       !!loadingBuy && 
       <Portals>
         <LoaderElipsis />
       </Portals>
-    }
+    } */}
       <div className="checkoutMain__title">
         <h3>envios a toda Venezuela</h3>
       </div>
@@ -209,6 +212,8 @@ const Checkout = () => {
                 <FileUploader  
                   setImgUpload={setImgUpload}
                   imgUpload={imgUpload}
+                  errorForm={error}
+                  dispatchError={dispatchError}
                 />
              }
 
@@ -233,6 +238,7 @@ const Checkout = () => {
               !!showDeliveryInfo &&
                 <RegisterForm
                   error={error}
+                  dispatchError={dispatchError}
                   form={form}
                   setFormValues={setFormValues}
                   formValues={formValues}

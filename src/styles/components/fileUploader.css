@@ -45,3 +45,6 @@
   height: 32px;
   display: inline-block;
 }
+.file-select-error{
+  background-color: var(--error-color);
+}

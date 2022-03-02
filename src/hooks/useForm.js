@@ -27,7 +27,7 @@ const useForm = () => {
     password: '',
     c_password: '',
     cedula: '',
-    tlf: "",
+    phone: "",
     phoneCode:"",
     estados:'',
     cities:'',
@@ -63,6 +63,9 @@ const useForm = () => {
       ...formValues,
       [ev.target.name]: ev.target.value
     })
+    if(Object.keys(error).includes(ev.target.name)){
+      dispatchError({type:'RESET_ERROR'})
+    }
   }
 
   
