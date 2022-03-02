@@ -172,12 +172,12 @@ const Checkout = () => {
   }
   return (
     <main className={userState.currentUser ?  'checkoutMain footer__user-on' : 'checkoutMain'}>
-     {/* {
+     {
       !!loadingBuy && 
       <Portals>
         <LoaderElipsis />
       </Portals>
-    } */}
+    }
       <div className="checkoutMain__title">
         <h3>envios a toda Venezuela</h3>
       </div>
