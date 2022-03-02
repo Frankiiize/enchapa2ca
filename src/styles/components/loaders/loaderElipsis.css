@@ -1,7 +1,25 @@
+.LoaderContainer a, .LoaderContainer span{
+  text-decoration: none;
+  font-size: var(--fs-body-text);
+  color: var(--error-color);
+  font-weight: bold;
+  text-align: center;
+  margin-left: 5px;
+}
+.LoaderContainer a{
+  background-color: var(--error-color);
+  color: var(--white-color);
+  height: 30px;
+  min-width: 30px;
+  padding: 5px;
+  border-radius: var(--border-radius);
+  display: flex;
+  align-items: center;
+}
 .loader {
-  display: inline-block;
+  display: flex;
   position: relative;
-  width: 80px;
+  min-width: 80px;
   height: 80px;
 }
 .loader div {

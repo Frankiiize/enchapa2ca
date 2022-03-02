@@ -56,6 +56,7 @@ const RegisterForm = ({
   dispatchError,
   setFormValues,
 }) => {
+  console.log(apiLoading)
   return (
     <form  ref={form} className={animation ? `${animation} login__form` : 'login__form'}>
       {
@@ -207,12 +208,19 @@ const RegisterForm = ({
               <span>estado</span>
 
               <select
-                disabled={apiLoading ? true : false}
                 onChange={handleOnChange}
                 name="estados"
                 id="estados"
                 onClick={() => getVzlaStates("states/venezuela")}
               >
+              {
+                apiLoading && 
+                <option
+                  value="loading..."
+                >
+                  loading...
+                </option>
+              }
                 {!!vzlaStates &&
                   vzlaStates.map((e, i) => (
                     <option

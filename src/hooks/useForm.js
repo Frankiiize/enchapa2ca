@@ -33,6 +33,7 @@ const useForm = () => {
     cities:'',
     address: '',
   })
+  
   const [ error, dispatchError ] = useReducer(errorReducer, {})
   
   let schemaPersonal = yup.object().shape({

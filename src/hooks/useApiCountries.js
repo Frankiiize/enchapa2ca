@@ -14,8 +14,8 @@ const useApiCountries = () => {
   const apiInitialState = {
     estado: '',
     ciudad: '',
-    estadoData: [],
-    ciudadesData: []
+    estadoData: null,
+    ciudadesData: null
   }
   const [ apiAuthToken, setApiAuthToken ] = useState('');
   const [ currentEstado, setCurrentEstado ] = useState(apiInitialState);
@@ -70,22 +70,29 @@ const useApiCountries = () => {
   }
   
   const getVzlaStates = async (query) => {
-    try{
-      const data = await fetch(`${API_URL}${query}`,{
-        method: 'GET',
-        headers: {
-          Authorization: `Bearer ${apiAuthToken}`,
-          Accept: "application/json"
-        }
-      });
-      const response = await data.json();
-      setCurrentEstado({
-        ...currentEstado,
-        estadoData: response
-      });
-    }catch(error){
-      console.log(error);
-      setApiError(true)
+    if(currentEstado.estadoData === null){
+      setApiLoading(true)
+      try{
+        const data = await fetch(`${API_URL}${query}`,{
+          method: 'GET',
+          headers: {
+            Authorization: `Bearer ${apiAuthToken}`,
+            Accept: "application/json"
+          }
+        });
+        const response = await data.json();
+        setCurrentEstado({
+          ...currentEstado,
+          estadoData: response
+        });
+        setApiLoading(false)
+      }catch(error){
+        console.log(error);
+        setApiError(true)
+      }
+    }
+    else{
+      return currentEstado
     }
   }
 

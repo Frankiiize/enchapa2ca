@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import '../styles/components/fileUploader.css'
 import { MdUploadFile } from 'react-icons/md'
 import { BsFileEarmarkCheckFill } from 'react-icons/bs'
 const FileUploader = ({setImgUpload, imgUpload, errorForm, dispatchError}) => {
+  
   const [ loading , setLoading ] = useState(true);
   const handleUploadPhoto = (e) => {
     if(errorForm.options){
@@ -25,8 +26,6 @@ const FileUploader = ({setImgUpload, imgUpload, errorForm, dispatchError}) => {
 
     });
     reader.readAsDataURL(photo);
-    
-    
   }
   return(
     <>

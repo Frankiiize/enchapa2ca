@@ -1,8 +1,5 @@
-import React, { useContext, useState, useRef, useEffect, isValidElement } from "react";
-import { serverTimestamp, collection, addDoc } from "firebase/firestore";
-import { db } from '../services/firebaseConfig'
-import {  getStorage, ref, uploadBytesResumable, getDownloadURL  } from "firebase/storage";
-import * as yup from 'yup'
+import React, { useContext, useState, useRef } from "react";
+import { serverTimestamp } from "firebase/firestore";
 import { cartContex } from "../context/cartContext";
 import { authContext } from "../context/AuthContext";
 import { useForm } from "../hooks/useForm";
@@ -27,70 +24,17 @@ import { LoaderElipsis } from "../components/loaders/loaderElipsis.jsx";
 //--------------------------------------imports--------------------------------------//
 
 const Checkout = () => {
-  const storage = getStorage();
   const navigate = useNavigate();
   const form = useRef(null);
   const option = useRef(null);
-  const [ loadingBuy, setLoadingBuy ] = useState(false)
-  const { handleIncrement, handleDecrement, cart, dispatchCart } = useContext(cartContex);
+  const { handleIncrement, handleDecrement, cart } = useContext(cartContex);
   const { userState } = useContext(authContext);
-  const { SetBuyComplete } = useContext(buyContext);
+  const { makeBuyWithDelivery, makeBuy, imgUpload, setImgUpload, loadingBuy, setLoadingBuy, deliveryOption, setDeliveryOption } = useContext(buyContext);
   const { formValues, setFormValues, handleOnChange, error, dispatchError, schemaPersonal, schemaDelivery } = useForm();
   const { currentEstado, getVzlaCities, getVzlaStates,apiLoading, setCurrentEstado, apiError} = useApiCountries();
   const [ showDeliveryInfo, setShowDeliveryInfo ] = useState(true);
-  const [ imgUpload, setImgUpload ] = useState({
-   result: null,
-   file:null,
-  })
-  const [ deliveryOption, setDeliveryOption ] = useState({
-    personal:false,
-    delivery: {
-      state:false,
-      mrw: false,
-      zoom:false,
-    },
-    pay: {
-      wireTrans: false,
-      mobilPay: false
-    },
-    paidPhoto: '',
-  })
-
-  const makeBuyWithDelivery = async (img,validData) =>{
-    const typeOfUserOn = userState?.current?.email || validData.email;
-    const metadata = {
-      contentType: 'image/jpeg'
-    };
-    const storageRef = ref(storage, `paidPhotos/${typeOfUserOn}-${Date.now()}.jpg`);
-    const uploadTask =  uploadBytesResumable(storageRef, imgUpload.file, metadata);
-    uploadTask.on('state_changed',
-    (snapshot) => {
-      const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-      console.log('Upload is ' + progress + '% done');
-    },
-    (error) => {
-      console.log(error);
-    },
-    async () => {
-      const getUrl=  await  getDownloadURL(uploadTask.snapshot.ref)
-      const downloadURL =  getUrl
-      validData.paidMethodURL= downloadURL;
-      await makeBuy(validData);
-      }
-    );
-  }
-  const makeBuy = async (validData) => {
-    await addDoc(collection(db, "ventas"), validData).then((docRef) => {
-      validData.docRefId = docRef.id;
-      SetBuyComplete(validData)
-      console.log('compra exitosa', docRef.id);
-      dispatchCart({type: 'RESET', payload: {cart:[]}})
-      localStorage.removeItem('cart')
-      setLoadingBuy(false);
-      navigate('checkoutSucess', {replace:true});
-    }).catch(error => console.log(error))
-  }
- 
+  
+  
   const handleSubmit = async  (ev) => {
     ev.preventDefault();
     dispatchError({type:'RESET_ERROR'})
@@ -124,7 +68,9 @@ const Checkout = () => {
         const isvalid = await validateFormPersonal;
         console.log(isvalid);
         setLoadingBuy(true)
-        await makeBuy(isvalid);
+        await makeBuy(isvalid, () =>{
+          navigate('checkoutSucess', {replace:true});
+        })
         
       }else if(deliveryOption.delivery.state){
         const validateFormDelivery = schemaDelivery.validate(data);
@@ -132,9 +78,9 @@ const Checkout = () => {
         if(imgUpload.file !== null){
           console.log(isvalid)
           setLoadingBuy(true)
-          //go upload img
-          debugger
-          await makeBuyWithDelivery(imgUpload.file, isvalid)
+          await makeBuyWithDelivery(imgUpload.file, isvalid, () =>{
+            navigate('checkoutSucess', {replace:true});
+          })
         }
         else {
           console.log('sube tu comprobante de pago')
@@ -147,9 +93,13 @@ const Checkout = () => {
     }catch(error){
       dispatchError({type: error.name.toUpperCase(), payload: {path:error.path, message: error.message}})
       console.log({error})
+      
+      
     }
    
   }
+
+  
   const handleOption = () => {
     const formData = new FormData(form.current)
     const option = {
@@ -193,7 +143,6 @@ const Checkout = () => {
            />
           ))}
         </ul>
-
         <section className="checkoutMain__resume" >
           <h3>Resumen de la compra</h3>
           <ul className="checkoutMain__resume-checkbox">
@@ -204,7 +153,6 @@ const Checkout = () => {
               refOption={option}
               deliveryOption={deliveryOption}
               setDeliveryOption={setDeliveryOption}
-              serverTimestamp={serverTimestamp}
             >
              { 
               deliveryOption.delivery.state  &&
@@ -293,13 +241,11 @@ const Checkout = () => {
                       comprar/ingresar
                     </Link> 
                 </>
-
               }
             </div>
           </div>
         </section>
       </section>
-
     </main>
   );
 };

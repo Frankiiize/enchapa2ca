@@ -3,7 +3,7 @@
   justify-content: space-between;
   align-items: center;
 }
-.file-select, .file-select-load {
+.file-select, .file-select-load, .file-select-error {
   width: 100%;
   position: relative;
   display: inline-block;
@@ -29,6 +29,20 @@
 .file-select-load::before{
   content: 'archivo cargado';
   background-color: var(--sucess-color);
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 3px;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+}
+.file-select-error::before{
+  content: 'Sube tu Comprobante de pago';
+  background-color: var(--error-color);
   color: white;
   display: flex;
   justify-content: center;
