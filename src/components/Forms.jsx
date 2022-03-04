@@ -56,7 +56,6 @@ const RegisterForm = ({
   dispatchError,
   setFormValues,
 }) => {
-  console.log(apiLoading)
   return (
     <form  ref={form} className={animation ? `${animation} login__form` : 'login__form'}>
       {
@@ -201,7 +200,6 @@ const RegisterForm = ({
             </label>
             <label 
             value={currentEstado} 
-            className="option" 
             htmlFor="estados"
             className={!!error.countryState ? 'error-color login__form-country' : 'login__form-country' }
             >
@@ -297,7 +295,6 @@ const RegisterForm = ({
               type="password"
               autoComplete="new_password"
               placeholder="contraseña"
-              value={ formValues.password }
               onChange={handleOnChange}
             />
           </label>
@@ -310,9 +307,7 @@ const RegisterForm = ({
               id="c_Password"
               name="c_password"
               type="password"
-              autoComplete="new_password"
               placeholder="confirma contraseña"
-              value={ formValues.password }
               onChange={handleOnChange}
             />
           </label>

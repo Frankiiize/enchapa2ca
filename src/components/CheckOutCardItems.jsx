@@ -20,6 +20,8 @@ const CheckOutCardItems = ({item, cart, handleIncrement, handleDecrement}) => {
           <span>${sumTotal([item])}</span>
         </div>
       </div>
+
+    
       <div className="checkoutMain__listItems-btns">
         <div>
           <span>cantidad</span>
@@ -37,6 +39,8 @@ const CheckOutCardItems = ({item, cart, handleIncrement, handleDecrement}) => {
           />
         </div>
       </div>
+    
+      
     </li>
   )
 }

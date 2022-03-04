@@ -25,7 +25,7 @@ const Nav = ({showUnderNav, setShowUnderNav }) => {
               </Link>
             </li>
             <li>
-              <Link className="footerContainer__links"  to="/historialCompras">
+              <Link className="footerContainer__links"  to="/perfil/historialOrdenes">
                 <img src={OrderHistoryIcon} />
                 <span>historial</span>
               </Link>

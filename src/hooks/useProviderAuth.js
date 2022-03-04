@@ -8,6 +8,7 @@ const useProviderAuth = () => {
     currentUser: null,
     db:null,
   });
+  console.log(userState)
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
@@ -81,13 +82,13 @@ const useProviderAuth = () => {
     }
   }
   const registerUser = async (data) => {
-    createUserWithEmailAndPassword(auth, data.username, data.password)
+    createUserWithEmailAndPassword(auth, data.email, data.password)
       .then( async (userCredential) => {
         // Signed in
         try {
-        const dataToDb = {...data}
-        dataToDb.c_password = false;
-        dataToDb.password = false;
+        let {password,c_password,...dataToDb} = data;
+      
+        console.log(dataToDb)
         const user = userCredential.user;
         const docRef = await setDoc(doc(db, "users", user.uid), dataToDb);
       } catch (e) {

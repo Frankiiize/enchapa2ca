@@ -19,25 +19,22 @@ const CreateAccount = () => {
     const formData = new FormData(form.current);
     const data = {
       name: formData.get('name'),
-      lastName: formData.get('lasName'),
-      username: formData.get('email'),
+      lastName: formData.get('lastName'),
+      email: formData.get('email'),
       password: formData.get('password'),
       c_password: formData.get('c_password'),
       cedula: formData.get('cedula'),
-      phone: formData.get('tlf'),
-      city: formData.get('cities'),
-      state: formData.get('estados'),
+      phone: formData.get('phone'),
+      phoneCode: formData.get('phoneCode'),
+      countryState: formData.get('estados'),
       address: formData.get('address')
     }
     //VALIDATIONS__
-    if( regexs.email.test(data.username) && 
-        data.password === data.c_password ){
-          registerUser(data).then(() => {
-            navigate("/", { replace: true });
-          })
-    } else {
-      console.log('datos invalidos')
-    }
+      console.log(data)
+      registerUser(data).then(() => {
+        navigate("/", { replace: true });
+      })
+   
   }
 
 

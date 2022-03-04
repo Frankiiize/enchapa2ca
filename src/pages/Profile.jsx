@@ -23,27 +23,28 @@ const Profile = () => {
   const navigate = useNavigate();
   const [ localData, setLocalData ] = useState(JSON.parse(localStorage.getItem('userDb')))
   const form = useRef(null)
-  /* useEffect(() => {
+  useEffect(() => {
     setFormValues({
       name: localData.db.name,
       lasName: localData.db.lastName,
       email: localData.db.email,
-      tlf: localData.db.phone,
+      phone: localData.db.phone,
       address: localData.db.address,
     })
-  },[]) */
+  },[])
   
 
   const handleSubmit =  (ev) => {
     ev.preventDefault();
+    debugger
     const formData = new FormData(form.current);
     const data = {
       name: formData.get('name'),
-      lastName: formData.get('lasName'),
-      phone: formData.get('tlf'),
+      lastName: formData.get('lastName'),
+      phone: formData.get('phone'),
+      phoneCode: formData.get('phoneCode'),
       address: formData.get('address'),
       estado: formData.get('estados'),
-      ciudad: formData.get('cities')
     }
     console.log(data)
     if( data.name.length > 1 && //TO-DO = compronar que no son los mismos datos ya guardados
@@ -137,7 +138,7 @@ const Profile = () => {
           }
           <li>
             <Link to="./historialOrdenes">
-              <img src={OrderHistoryIcon} alt='user icon'/>
+              <img src={OrderHistoryIcon} alt='order history link'/>
               <p>Ordenes</p>
             </Link>
           </li>

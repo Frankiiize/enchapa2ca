@@ -149,7 +149,6 @@ const Checkout = () => {
             <CheckRadios
               dispatchError={dispatchError}
               error={error}
-              dispatchError={dispatchError}
               refOption={option}
               deliveryOption={deliveryOption}
               setDeliveryOption={setDeliveryOption}
@@ -200,7 +199,6 @@ const Checkout = () => {
                   vzlaCities={currentEstado.ciudadesData}
                   currentEstado={currentEstado.estado}
                   apiLoading={apiLoading}
-                  formValues={formValues}
                   name={true}
                   lastName={true}
                   address={deliveryOption.delivery.state ? true : false}
