@@ -56,8 +56,10 @@ const useBuy = () => {
     );
   }
   const makeBuy = async (validData, navigateCB) => {
+    validData.status = 'confirmando pago';
     await addDoc(collection(db, "ventas"), validData).then((docRef) => {
       validData.docRefId = docRef.id;
+      debugger
       SetBuyComplete(validData)
       console.log('compra exitosa', docRef.id);
       dispatchCart({type: 'RESET', payload: {cart:[]}})

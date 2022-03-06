@@ -151,7 +151,7 @@ const Profile = () => {
         </ul>
       </nav>
       <section className="profileFooter footer__user-on">
-        <button onClick={handleLogOut} className="primaryBtn">salir</button>
+        <button onClick={handleLogOut} className="segundaryButton">salir</button>
       </section>
     </main>
   )

@@ -46,10 +46,13 @@ const Header = () => {
                   <span>hola!,</span>
                   <span>{userState.db.name}</span> 
                   <picture>
+                  <Link to="/perfil">
                     <img
                       className={userState.currentUser !== null ? 'headerCointainer__user--userImg online' : 'headerCointainer__user--userImg'} 
                       src={userState.db.photo ? `${userState.db.photo }` : smileInv } 
                       alt="user photo"/>
+
+                  </Link>
                   </picture>
                 </li>
                 <li>

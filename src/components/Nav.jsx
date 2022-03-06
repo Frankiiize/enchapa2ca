@@ -27,7 +27,7 @@ const Nav = ({showUnderNav, setShowUnderNav }) => {
             <li>
               <Link className="footerContainer__links"  to="/perfil/historialOrdenes">
                 <img src={OrderHistoryIcon} />
-                <span>historial</span>
+                <span>ordenes</span>
               </Link>
             </li>
             <li>

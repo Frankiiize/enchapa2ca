@@ -82,6 +82,15 @@
   justify-content: flex-end;
   padding: 5px;
 }
+.headerContainer__links--userInfo picture a{
+  border-color: var(--white-color);
+  color: var(--white-color);
+}
+.headerContainer__links--userInfo picture a:visited{
+  color: var(--white-color);
+  border-color: var(--white-color);
+
+}
 .headerContainer__links--userInfo img {
   width: 100%;
   max-width: 32px;

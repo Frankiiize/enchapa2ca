@@ -17,7 +17,7 @@
   
   /* variables FONTS*/
   --font-primary: 'Montserrat', sans-serif;
-  --font-title: 'Bebas Neue';
+  --font-title: 'Bebas Neue', sans-serif;
   --letler-spacing-title: 1.5px;
   --fs-tiny: 1rem;
   --fs-small: 1.2rem;
@@ -37,6 +37,7 @@
 --border-radius : 10px;
 --border-radius-less : 5px;
 --loader-zIndex: 200;
+--box-shadow : 3px 1px 7px 3px var(--shadow-color);
 }
 
 /* Box sizing rules */
