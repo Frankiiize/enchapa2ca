@@ -8,15 +8,11 @@ const useProviderAuth = () => {
     currentUser: null,
     db:null,
   });
-  console.log(userState)
 
   useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
+    onAuthStateChanged(auth, async (user) => {
       if (user ) {
-        setUserState({
-          currentUser: user.auth.currentUser,
-          db: getUserData(user.auth.currentUser)
-        })
+       await getUserData(user);
         
       }
       else {
@@ -106,7 +102,6 @@ const useProviderAuth = () => {
   }
   const updateUserData = async (data) => {
     const userDataBaseRef = doc(db, "users", userState.currentUser.uid);
-    debugger
     // Set the "capital" field of the city 'DC'
     await updateDoc(userDataBaseRef, {
       name: data.name,

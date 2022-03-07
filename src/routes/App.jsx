@@ -17,6 +17,7 @@ import { Checkout } from "../pages/Checkout.jsx";
 import { PaySucess } from "../pages/PaySucess.jsx";
 import { BuyProvider } from "../context/buyContext.js";
 import { OrderHistory } from "../pages/OrderHistory.jsx";
+import { Adminpage } from "../pages/admin/AdminPage.jsx";
 
 const App = () => {
   return(
@@ -59,29 +60,23 @@ const App = () => {
                   } />
                   
                   <Route path="/perfil">
-                    <Route index element={ 
-                    <PrivateRoutes> 
-                      <Profile/> 
-                    </PrivateRoutes>
-                    }/>
-
-                    <Route path="historialOrdenes" element={
-                    <PrivateRoutes>
-                      <OrderHistory/> 
-                    </PrivateRoutes>
-                    }/>
-                    
+                      <Route index element={ 
+                        <PrivateRoutes> 
+                          <Profile/> 
+                        </PrivateRoutes>
+                      }/>
+                      <Route path="historialOrdenes" element={
+                        <PrivateRoutes>
+                          <OrderHistory/> 
+                        </PrivateRoutes>
+                      }/>
                   </Route>
 
-                 {/*  <Route path="/perfil" element={
-                      <PrivateRoutes>
-                        <Profile />
-                      </PrivateRoutes>
-                  }/> */}
+            
                 
                   <Route path="/adminEnchapados" element={
                       <AdminRoutes>
-                        <h1>admin</h1>
+                        <Adminpage />
                       </AdminRoutes>
                   }/>
 

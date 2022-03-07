@@ -30,7 +30,7 @@ const PaySucess = () => {
         </div>
         <div>
           <p>entrega</p>
-          <span>{buyComplete.shipping}</span>
+          <span>{buyComplete.shipping ? `${buyComplete.shipping}` : `${buyComplete.envio} `}</span>
         </div>
         <div>
           <p>email</p>

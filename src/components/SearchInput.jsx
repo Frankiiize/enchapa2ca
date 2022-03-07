@@ -1,13 +1,13 @@
 import React from "react";
 import { MdSearch } from 'react-icons/md'
 
-const SearchInput = ({handleSearch}) =>{
+const SearchInput = ({handleSearch, placeholder}) =>{
   return(
     <form className="headerContainer__search">
       <label htmlFor="search" ></label>
       <input 
       type="text" 
-      placeholder="buscar productos" 
+      placeholder={placeholder} 
       name="search" 
       onChange={handleSearch}
       />

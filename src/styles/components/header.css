@@ -92,7 +92,6 @@
 
 }
 .headerContainer__links--userInfo img {
-  width: 100%;
   max-width: 32px;
   object-fit: contain;
   image-rendering: pixelated;
@@ -105,13 +104,11 @@
   margin-right: 10px;
 }
 
-
 .headerContainer__links li {
   list-style: none;
 }
-
 .headerContainer__links li a{
-  height: 100%;
+  width: 100%;
   display: flex;
   align-items: center;
   padding: 7px;

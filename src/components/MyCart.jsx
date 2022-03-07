@@ -13,7 +13,7 @@ import { CartItem } from "./CartItem.jsx";
 import { cartContex } from "../context/cartContext";
 import { Link, useLocation } from "react-router-dom";
 const MyCart = ({toggleCart,setToggleCart}) => {
-  const { cart, handleCart, handleIncrement, handleDecrement } = useContext(cartContex)
+  const { cart, handleCart, handleIncrement, handleDecrement } = useContext(cartContex);
   const location = useLocation();
   console.log(cart)
  

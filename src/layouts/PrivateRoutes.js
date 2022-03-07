@@ -29,17 +29,12 @@ const Redirect = ({children}) => {
 const AdminRoutes = ({children}) => {
   const { userState } = useContext(authContext);
   let location = useLocation()
-    if(userState.currentUser !== null ){
-      if(userState.db.admin){
-        return <>{children}</>
-      }else {
-        return <Navigate to={location} state={{from:location}} replace />
-
-      }
-    }else {
-
-      return <Navigate to='/' replace />
+    if(userState.currentUser === null ){
+      return <Navigate to="/login" state={{from:location}} replace />
+    }else if(userState.currentUser !== null && userState.db.admin ) {
+      return <>{children}</>
     }
+    return <Navigate to={"/"} />
 
   
   

@@ -4,28 +4,30 @@ import {  getStorage, ref, uploadBytesResumable, getDownloadURL  } from "firebas
 import { db } from '../services/firebaseConfig'
 import { cartContex } from "../context/cartContext";
 import { authContext } from "../context/AuthContext";
+const imgUploadInitialState = {
+  result: null,
+  file:null,
+ }
+ const deliveryOpInitialState = {
+  personal:false,
+  delivery: {
+    state:false,
+    mrw: false,
+    zoom:false,
+  },
+  pay: {
+    wireTrans: false,
+    mobilPay: false
+  },
+}
 const useBuy = () => {
   const storage = getStorage();
   const {  dispatchCart } = useContext(cartContex);
   const { userState } = useContext(authContext);
   const [ buyComplete, SetBuyComplete ] = useState(null);
   const [ loadingBuy, setLoadingBuy ] = useState(false);
-  const [ imgUpload, setImgUpload ] = useState({
-    result: null,
-    file:null,
-   });
-   const [ deliveryOption, setDeliveryOption ] = useState({
-    personal:false,
-    delivery: {
-      state:false,
-      mrw: false,
-      zoom:false,
-    },
-    pay: {
-      wireTrans: false,
-      mobilPay: false
-    },
-  });
+  const [ imgUpload, setImgUpload ] = useState(imgUploadInitialState);
+   const [ deliveryOption, setDeliveryOption ] = useState(deliveryOpInitialState);
   
   const makeBuyWithDelivery = async (img,validData,navigateCB) =>{
     const typeOfUserOn = userState?.current?.email || validData.email;
@@ -56,13 +58,16 @@ const useBuy = () => {
     );
   }
   const makeBuy = async (validData, navigateCB) => {
-    validData.status = 'confirmando pago';
+    validData.status = 'revision';
+    validData.shop.map((property) => delete property.added )
     await addDoc(collection(db, "ventas"), validData).then((docRef) => {
       validData.docRefId = docRef.id;
-      debugger
       SetBuyComplete(validData)
       console.log('compra exitosa', docRef.id);
       dispatchCart({type: 'RESET', payload: {cart:[]}})
+      setImgUpload(imgUploadInitialState);
+      setDeliveryOption(deliveryOpInitialState);
+
       localStorage.removeItem('cart')
       setLoadingBuy(false);
       navigateCB();

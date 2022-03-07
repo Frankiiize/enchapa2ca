@@ -9,7 +9,6 @@ const useLocalStorage = (storageItem ,initialState) => {
           parseItem = initialState;
           console.log(parseItem);
         } else {
-          console.log('si');
           parseItem= JSON.parse(localStorageCart);
         }
 

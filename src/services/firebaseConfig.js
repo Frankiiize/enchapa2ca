@@ -22,7 +22,6 @@ const fireBaseApp = initializeApp(firebaseConfig);
 const db = getFirestore(fireBaseApp);
 const analytics = getAnalytics(fireBaseApp);
 const storage = getStorage(fireBaseApp);
-console.log(storage)
 
 
 

@@ -64,7 +64,6 @@ const useCart = () => {
   const itemsAddedToCart = cart.cart.filter(item => item.added)
   
   const idItemsAdded = itemsAddedToCart.map((item) => item.id)
-  console.log(cart)
   const handleCart = (item) => {
     if(!item.added ){
       (idItemsAdded.includes(item.id))
