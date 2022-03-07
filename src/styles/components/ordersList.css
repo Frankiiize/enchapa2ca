@@ -50,6 +50,7 @@
   width: 100%;
   display: flex;
   justify-content: space-between;
+  align-items: center;
   margin-bottom: 5px;
   padding: 5px;
 }
@@ -69,7 +70,6 @@
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  flex-wrap: wrap;
 }
 
 .cardOrder_item-statusCheck-adminSelect, .cardOrder_item-statusCheck-adminBtn {
@@ -83,7 +83,6 @@
 }
 .cardOrder_item-statusCheck-adminSelect{
   border: 1px solid var(--sucess-color);
-  margin-bottom: 10px;
 }
 .cardOrder_item-statusCheck-adminBtn{
   border: none;
