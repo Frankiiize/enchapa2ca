@@ -12,7 +12,7 @@ const ShopCartQuantityBtn = ({handleIncrement, handleDecrement, product, cart}) 
       </button>
         <span>{ product.quantity}</span>
       <button
-        disabled={product.quantity >= 10 ? true : false}
+        disabled={product.quantity >= product.available ? true : false}
         onClick={() => handleIncrement(cart, product)} 
         className="primaryBtn"
         >

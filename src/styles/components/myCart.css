@@ -14,6 +14,9 @@
   border-radius: 7px;
   box-shadow: 0 0 2px 0px;
   padding: 15px;
+
+ }
+ .goinOutAnimation{
   animation: goinOut;
   animation-duration: 500ms;
   animation-timing-function: ease-in-out;
@@ -86,14 +89,13 @@
  
  
  
- @keyframes goinOut {
+/*  @keyframes goinOut {
    0%{
      width: 0;
-     /* transform: scaleX(50%) translateX(500px); */
    }
    
    100% {
      width: 100%;
-     /* transform: scaleX(100%) translate(0); */
+     transform: scaleX(100%) translate(0);
    }
- }
+ } */

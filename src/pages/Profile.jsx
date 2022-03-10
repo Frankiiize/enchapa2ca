@@ -7,7 +7,7 @@ import '../styles/pages/profile.css'
 import { regexs } from "../utils/regexExpretions";
 //----UTILS
 //ICONS
-import OrderHistoryIcon from '../assets/icons/OrderHistoryIcon.svg';
+import OrderHistoryIcon from '../assets/Icomponent/OrderHistoryIcon.jsx';
 import SmileUserINVER from '../assets/icons/smileINVER.svg';
 import shoppingCart from '../assets/icons/shoppingCart.svg'
 //---ICONS
@@ -138,7 +138,7 @@ const Profile = () => {
           }
           <li>
             <Link to="./historialOrdenes">
-              <img src={OrderHistoryIcon} alt='order history link'/>
+            <OrderHistoryIcon fill={"#4f4f4f"}/>
               <p>Ordenes</p>
             </Link>
           </li>

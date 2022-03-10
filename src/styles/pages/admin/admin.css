@@ -1,40 +1,188 @@
+/* -----------ADMIN_PRINCIPAL_PAGE----------- */
 .admin{
-  width: 100%;
-  height: 100%;
-  padding-bottom: 65px;
-}
-.orders {
-  width: 100%;
   display: flex;
   flex-direction: column;
-  min-height: 600px;
-  max-height: 700px;
-  padding: 10px 0;
-  overflow: scroll;
+  justify-content: center;
 }
-
-.adminButtons{
+.admin h1 {
+  font-size: var(--fs-bigger);
+  color: var(--black-title-color);
+  font-family: var(--font-title);
+  letter-spacing: var(--letler-spacing-title);
+  text-align: center;
+}
+.admin button{
+  border: none;
+  background-color: var(--black-separador);
   width: 95%;
   margin: 10px auto;
-  display: flex;
-  justify-content: space-between;
+
 }
-.adminButtons ul {
-  display: flex;
-  flex-direction: row;
+.orders{
+  max-height: 60vh;
+  overflow: scroll;
+  border: 1px solid var(--black-separador)
+}
+/* -----------ADMIN_PRINCIPAL_PAGE----------- */
+
+/* -------------STATTUS BUTTONS------------- */
+.ordersAdmin{
   width: 95%;
   margin: 0 auto;
-  align-items: center;
-  justify-content: flex-start;
+  display: flex;
+  justify-content: flex-end;
 }
-.adminButtons ul li {
+.ordersAdmin-Select, .ordersAdmin-Btn {
+  width: 100%;
+  max-width: 200px;
+  padding: 5px;
+  border-radius: var(--border-radius);
+  font-family: var(--font-primary);
+  font-size: var(--fs-body-text-small);
   margin-right: 10px;
 }
-.adminButtons .headerContainer__search{
-  margin: 0;
-  max-width: 250px;
-}
-.adminButtons .headerContainer__search input {
+.ordersAdmin-Select{
   border: 1px solid var(--sucess-color);
-  margin: 0;
 }
+.ordersAdmin-Btn{
+  border: none;
+  background-color: var(--sucess-color);
+  text-transform: uppercase;
+  color: var(--white-color);
+  max-width: 100px;
+}
+/* -------------STATTUS BUTTONS------------- */
+
+/* -------------ADMIN_NAV------------- */
+.admin__links{
+  width: 100%;
+  min-height: 100px;
+  background-color: var(--black-color);
+  color: var(--white-color);
+}
+.admin__links-star{
+  border: none;
+  display: grid;
+  justify-content: flex-start;
+  flex-direction: column;
+  background-color: transparent;
+  padding-top: 5px;
+  color: var(--white-color);
+
+
+}
+.admin__links-star img {
+  align-self: center;
+}
+.adminPageOff{
+  top: 0;
+}
+.admin__links .admin__links-nav{
+  max-width: 150px;
+  min-height: 100px;
+  position: absolute;
+  top: -99px;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: flex-end;
+  border-radius: 0;
+}
+
+.admin__links-nav  li {
+
+  font-family: var(--font-primary);
+  font-size: var(--fs-body-text-small);
+  color: var(--black-color);
+}
+.admin__links-nav  li button {
+  border: none;
+  padding: 5px 15px;
+  border-radius: var(--border-radius);
+  background-color: var(--white-color);
+  color: var(--black-color);
+  text-transform: capitalize;
+  font-size: var(--fs-body-text-small);
+  font-weight: 700;
+}
+.admin__links-nav .admin__links-star {
+  text-decoration: none !important;
+}
+/* -------------ADMIN_NAV------------- */
+/* -------------FORM_PRODUCTS------------- */
+.products {
+  width: 100%;
+  min-height: 100px;
+  margin-bottom: 20px;
+}
+.products__form{
+  width: 95%;
+  height: 100%;
+  margin: 0 auto;
+}
+.products__form form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+}
+.products__form form label{
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+}
+.products__form form label span {
+  font-family: var(--font-primary);
+  font-size: var(--fs-body-text);
+  text-transform: uppercase;
+  color: var(--black-color);
+  
+}
+.products__form form label textarea{
+  width: 100%;
+  border-radius: var(--border-radius-less);
+  border: 1px solid var(--brand-color);
+  font-family: var(--font-primary);
+  font-size: var(--fs-body-text-small);
+  color: var(--black-color);
+  padding: 20px;
+  resize: none
+}
+.products__form form label input{
+  padding-left: 20px;
+  width: 100%;
+  height: 30px;
+  border: 1px solid var(--brand-color);
+  border-radius: var(--border-radius-less);
+  font-family: var(--font-primary);
+  font-size: var(--fs-body-text-small);
+  color: var(--black-color);
+}
+.admin picture {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+.admin picture img {
+  max-width: 200px;
+}
+.admin .fileLoaderContainer{
+  width: 95%;
+  margin: 0 auto;
+  flex-direction: row;
+}
+.products form button{
+  background-color: var(--brand-color);
+  width: 100%;
+  height: 30px;
+  border-radius: var(--border-radius-less);
+  color: var(--white-color);
+  font-size: var(--fs-body-text-small);
+  text-transform: uppercase;
+  font-family: var(--font-primary);
+}
+/* -------------FORM_PRODUCTS------------- */

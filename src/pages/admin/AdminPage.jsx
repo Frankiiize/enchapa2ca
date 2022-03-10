@@ -1,96 +1,135 @@
-import React, { useEffect,useState, useContext } from 'react'
+import React, { useEffect,useState, useContext, useRef } from 'react'
 import { useGetOrders } from '../../hooks/useGetOrders';
 import { OrdersList } from '../../components/OrdersList.jsx'
-import {  doc, onSnapshot } from "firebase/firestore";
-import { db } from '../../services/firebaseConfig';
-import '../../styles/pages/admin/admin.css'
 import { authContext } from '../../context/AuthContext';
 import { SearchInput } from '../../components/SearchInput.jsx';
+import { adminContext } from '../../context/adminContext';
+import { FileUploader } from '../../components/FileUploader.jsx';
+import { useForm } from '../../hooks/useForm';
+import { buyContext } from '../../context/buyContext';
+import { useImgUploader } from '../../hooks/useImgUploader';
+import { ImgUploadReader } from '../../components/imgUploadReader.jsx';
+import '../../styles/pages/admin/admin.css'
+import { ProductsForm } from '../../components/Forms.jsx';
 const Adminpage = () =>{
   const { userState } = useContext(authContext)
   const { ordersHistory, getAllOrders, dispathOrdersHistory, updateStatus, loadingUpdate, deleteOrder } = useGetOrders();
-  const [ showOrders, setShowOrders ] = useState(true);
-  const [ statusOption, setStatusOption ] = useState({
-    status: 'revision',
-  })
-  useEffect(() => {
-    getAllOrders()
-  },[])
-  console.log(ordersHistory);
+  const { 
+    showOrders, 
+    setShowOrders , 
+    handleOrderStatus, 
+    orderStatus, 
+    showAddProducts, 
+    setShowAddProducts, 
+    imgUpload,
+    setImgUpload,
+    writeNewProduct,
+    formValuesInitialState,
+    formValues,
+    setFormValues,
+    onChangeProductsForm
+  } = useContext(adminContext)
+  const {  error, dispatchError } = useForm();
+  console.log(error)
 
-  const handleOrderStatus = (ev) => {
-    setStatusOption({
-      ...statusOption,
-      [ev.target.name]: ev.target.value
-    })
-   
-  }
+  const form = useRef();
+  useEffect(() => {
+    getAllOrders();
+  },[])
 
   const changeStatus = (docRef) => {
-    updateStatus(docRef, statusOption.status);
-  /*   const unsub = onSnapshot(doc(db, "ventas", docRef), (doc) => {
-      const source = doc.metadata.hasPendingWrites ? "Local" : "Server";
-      console.log(source, " data: ", doc.data());
-    });
-    unsub(); */
+    updateStatus(docRef, orderStatus.status);
   }
+  const submitNewProducts = async (ev) => {
+    ev.preventDefault();
+    const  formData = new FormData(form.current);
+    const data = {
+      name : formData.get('producName'), 
+      price: formData.get('producPrice'),
+      description: formData.get('description'),
+      stockAvalible: formData.get('stockAvalible'),
+      custom: formValues.custom,
+    }
+    console.log(data)
+    debugger
+    try{
+      if(!!imgUpload){
+        await writeNewProduct(data);
+      }
+      else{
+        throw new Error('SUBE_COMPROBANTE')
+      }
 
-  return(
-    <main className='admin footer__user-on"'>
-      <h3>ADMIN PAGE</h3>
-        <nav className='adminButtons'>
-
-          <ul>
-            <li>
-              <button 
-                className='primaryButton'
-                onClick={() => setShowOrders(!showOrders)}
-                >
-                  ordenes
-                </button>
-            </li>
-            <li>
-              <button 
-                className='primaryButton'
-                >
-                  productos
-                </button>
-            </li>
-           
-          </ul>
-          <SearchInput 
-            placeholder={"buscar"}
-          /> 
-        </nav>
-
-      <section className='orders'>
-        <div className='orders_admin-ordersContainer'>
-            {
-              showOrders && 
-                <ul className="orderHistoryContainer">
-                  {
-                    ordersHistory.map((order) => (
-                    <OrdersList 
-                      order={order}
-                      key={order.orderId}
-                      buttoms={'admin'}
-                      dispathOrdersHistory={dispathOrdersHistory}
-                      handleOrderStatus={handleOrderStatus}
-                      changeStatus={changeStatus}
-                      userState={userState}
-                      statusOption={statusOption}
-                      loadingUpdate={loadingUpdate}
-                      deleteOrder={deleteOrder}
-                    />
-                    ))
-                  }
-                  </ul>
-            }
-        </div>
-
+    }catch(error){
+      dispatchError({type: 'ERROR', payload:'sube una foto'})
+      console.log(error)
+    }
+   
+  }
+  return (
+    <main className='admin footer__user-on'>
+      <h1>ADMIN PAGE</h1>
+      <button onClick={() => setShowOrders(!showOrders)}>
+        <h3>ordenes</h3>
+      </button>
+      <section className="orders">
+        <>
+        <SearchInput />
+          {showOrders && (
+            <ul className="orderHistoryContainer">
+              {ordersHistory.map((order) => (
+                <OrdersList
+                  order={order}
+                  key={order.orderId}
+                  buttoms={"admin"}
+                  dispathOrdersHistory={dispathOrdersHistory}
+                  handleOrderStatus={handleOrderStatus}
+                  changeStatus={changeStatus}
+                  userState={userState}
+                  statusOption={orderStatus}
+                  loadingUpdate={loadingUpdate}
+                  deleteOrder={deleteOrder}
+                />
+              ))}
+            </ul>
+          )}
+        </>
       </section>
-
-      
+      <button onClick={() => setShowAddProducts(!showAddProducts)}>
+        <h3>productos</h3>
+      </button>
+      <section className="products">
+        <>
+          {showAddProducts && (
+            <>
+              <ProductsForm  
+                form={form}
+                submitNewProducts={submitNewProducts}
+                animation={'fade-in'}
+                formValues={formValues}
+                setFormValues={setFormValues}
+                onChangeProductsForm={onChangeProductsForm}
+                >
+                <FileUploader 
+                  setImgUpload={setImgUpload}
+                  imgUpload={imgUpload}
+                  errorForm={error}
+                  dispatchError={dispatchError}
+                  title={'foto'}
+                  btnTitle={'foto'}
+                  addminPage={true}
+                />
+              {
+                !!imgUpload &&
+                <ImgUploadReader 
+                  imgUpload={imgUpload}
+                />
+              }
+              </ProductsForm> 
+            </>
+          )}
+        </>
+      </section>
     </main>
   );
 }

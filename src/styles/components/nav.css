@@ -13,9 +13,10 @@
 }
 
 .footerContainer ul{
+  border-radius: var(--border-radius);
   max-width: 600px;
   width: 100%;
-  background-color: var(--white-color);
+  background-color: var(--black-color);
   display: flex;
   justify-content: space-around;
 }
@@ -33,7 +34,7 @@
   flex-direction: column;
   align-items: center;
   text-decoration: none;
-  color: var(--black-color);
+  color: var(--white-color);
   text-transform: capitalize;
   padding: 5px;
   background:none;
@@ -59,7 +60,7 @@
 }
 
 .footerContainer ul li a:visited{
-  color: var(--black-color);
+  color: var(--white-color);
 }
 
 /* hammburger off */

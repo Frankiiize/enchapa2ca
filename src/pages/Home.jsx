@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { authContext } from "../context/AuthContext.js";
 
 import { Categories } from "../components/Categories.jsx";
@@ -13,6 +13,7 @@ import productFAKE from '../assets/images/produtcFAKE.jpg';
 import '../styles/pages/home.css'
 import { ProductsList } from "../components/ProductsList.jsx";
 import { productsContext } from "../context/productsContext.js";
+import { async } from "@firebase/util";
 
 const categorias = [
   {
@@ -70,8 +71,13 @@ const categorias = [
 
 const Home  = () => {
   const [ categories, setCategories ] = useState(categorias);
-  const { newProducts } = useContext(productsContext);
-  console.log(newProducts)
+  const { newProducts, getAvailableStock, productsLoading } = useContext(productsContext);
+  useEffect(async () => {
+     getAvailableStock();
+  },[]);
+
+
+  
   
   return(
     <main>
@@ -81,7 +87,11 @@ const Home  = () => {
       
 
       <SectionProducts  sectionClass={"Products"} button={false}>
-        <ProductsList sectionClass={"Products__grid"} products={newProducts} />
+        <ProductsList 
+          sectionClass={"Products__grid"} 
+          products={newProducts} 
+          productsLoading={productsLoading}  
+          />
       </SectionProducts>
       
       <SectionProducts title={'nuevos productos'} sectionClass={'Products'} button={true}>

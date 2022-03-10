@@ -18,6 +18,8 @@ import { PaySucess } from "../pages/PaySucess.jsx";
 import { BuyProvider } from "../context/buyContext.js";
 import { OrderHistory } from "../pages/OrderHistory.jsx";
 import { Adminpage } from "../pages/admin/AdminPage.jsx";
+import { AdminProvider } from "../context/adminContext.js";
+import { MyCart } from "../components/MyCart.jsx";
 
 const App = () => {
   return(
@@ -26,7 +28,7 @@ const App = () => {
       <ProviderAuth>
         <CartProvider>
         <BuyProvider>
-
+        <AdminProvider>
             <BrowserRouter>
               <Header/>
                 <Routes>
@@ -71,7 +73,6 @@ const App = () => {
                         </PrivateRoutes>
                       }/>
                   </Route>
-
             
                 
                   <Route path="/adminEnchapados" element={
@@ -83,6 +84,7 @@ const App = () => {
                   <Route path="*" element={<h1>PAGE NOT FOUND</h1>} />
                 </Routes>
             </BrowserRouter>
+        </AdminProvider>
         </BuyProvider>
         </CartProvider>
       </ProviderAuth>

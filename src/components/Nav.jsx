@@ -1,16 +1,16 @@
-import React, { useContext}  from "react";
+import React, { useContext, useState}  from "react";
 import "../styles/components/nav.css"
 import homeIcon from '../assets/icons/HomeIcon.svg';
 import OrderHistoryIcon from '../assets/icons/OrderHistoryIcon.svg';
 import SearchIcon from '../assets/icons/Search5.svg';
 import SmileUserINVER from '../assets/icons/smileINVER.svg';
-import star from '../assets/icons/icons8-estrella-relleno-48.png';
 import { GoThreeBars } from "react-icons/go";
 import { Link } from "react-router-dom";
 import { authContext } from "../context/AuthContext";
 
-const Nav = ({showUnderNav, setShowUnderNav }) => {
+const Nav = ({children, showUnderNav, setShowUnderNav }) => {
   const { userState } = useContext(authContext);
+
   if(userState.currentUser === null) {
     return <span></span>
   }
@@ -42,29 +42,21 @@ const Nav = ({showUnderNav, setShowUnderNav }) => {
                 <span>perfil</span>
               </Link>
             </li>
-         
-          
-            {(userState.currentUser !== null ) ? 
-              userState.db.admin && 
-              <li>
-                <Link className="footerContainer__links" to="/adminEnchapados">
-                  <img  style={{maxWidth: '35px'}} src={star} />
-                  <span>admin</span>
-                </Link> 
-              </li>
-                : undefined
-            }
-              <li>
-                <div className="footerContainer__links">
-                  <div className="footerContainer__links-hammburger">
-                    <GoThreeBars 
-                      size={32}
-                      color={'gray'}
-                      onClick={ () => setShowUnderNav(!showUnderNav)}
-                    />
-                  </div>
+            <li>
+              <div className="footerContainer__links">
+                <div className="footerContainer__links-hammburger">
+                  <GoThreeBars 
+                    size={32}
+                    color={'white'}
+                    onClick={ () => setShowUnderNav(!showUnderNav)}
+                  />
                 </div>
-              </li>
+              </div>
+            </li>
+            <li style={!userState.db.admin ? {display:'none'} : {display:'flex'}}>
+              {children}
+            </li>
+           
           </ul>
           : 
           <ul className="hamburger">
@@ -73,19 +65,15 @@ const Nav = ({showUnderNav, setShowUnderNav }) => {
                   <div className="footerContainer__links-hammburger" >
                     <GoThreeBars
                         size={32}
-                        color={'black'}
+                        color={'white'}
                         onClick={ () => setShowUnderNav(!showUnderNav)}
                     />
                     </div>
                   </div>
               </li>
           </ul>
-          
-         
-
       }
-        
-     
+      
     </div>
   )
 }

@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { Link, useLocation, useParams } from "react-router-dom";
 //ICONS
 import { MdFavorite, MdOutlineShoppingCart } from "react-icons/md";
@@ -16,17 +16,21 @@ import { authContext } from "../context/AuthContext";
 import { Nav } from "./Nav.jsx";
 import { MyCart } from "./MyCart.jsx";
 import { cartContex } from "../context/cartContext";
+import { AdminNav } from "./AdminNav.jsx";
 //------COMPONENTS
 const Header = () => {
   const { cart } = useContext(cartContex);
   const { userState } = useContext(authContext);
   const [ searchValue, setSearchValue ] = useState('');
-  const [ showUnderNav, setShowUnderNav ] = useState(false);
+  const [ showUnderNav, setShowUnderNav ] = useState(true);
   const [ toggleCart, setToggleCart ] = useState(false);
   const handleSearch = (ev) => {
     setSearchValue(ev.target.value)
     console.log(searchValue)
   }
+  useEffect(() => {
+
+  });
   const location = useLocation();
   const sectionTitle = location.pathname.split(/^[/]/i)[1];
   return(
@@ -95,24 +99,32 @@ const Header = () => {
       {(location.pathname === '/checkout') 
         && <Link to="/contacto">Contactanos</Link>  
       }
-      </nav>
-      <div>
-        
-      </div>
-      <Nav userState={userState}
-          showUnderNav={showUnderNav}
-          setShowUnderNav={setShowUnderNav}
-          />
-          
-    
-      
-    </header>
       { !!toggleCart && 
         <MyCart
           toggleCart={toggleCart}
           setToggleCart={setToggleCart}
           />
       }
+      </nav>
+      <div>
+        
+      </div>
+   
+        <Nav 
+          userState={userState}
+          showUnderNav={showUnderNav}
+          setShowUnderNav={setShowUnderNav}
+        >
+          <AdminNav 
+            userState={userState}
+          />
+        </Nav>
+            
+
+    
+      
+    </header>
+     
   
     </>
 

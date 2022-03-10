@@ -4,10 +4,8 @@ import {  getStorage, ref, uploadBytesResumable, getDownloadURL  } from "firebas
 import { db } from '../services/firebaseConfig'
 import { cartContex } from "../context/cartContext";
 import { authContext } from "../context/AuthContext";
-const imgUploadInitialState = {
-  result: null,
-  file:null,
- }
+import { useImgUploader } from "./useImgUploader";
+
  const deliveryOpInitialState = {
   personal:false,
   delivery: {
@@ -26,8 +24,8 @@ const useBuy = () => {
   const { userState } = useContext(authContext);
   const [ buyComplete, SetBuyComplete ] = useState(null);
   const [ loadingBuy, setLoadingBuy ] = useState(false);
-  const [ imgUpload, setImgUpload ] = useState(imgUploadInitialState);
-   const [ deliveryOption, setDeliveryOption ] = useState(deliveryOpInitialState);
+  const { imgUpload, setImgUpload, imgUploadInitialState  }= useImgUploader();
+  const [ deliveryOption, setDeliveryOption ] = useState(deliveryOpInitialState);
   
   const makeBuyWithDelivery = async (img,validData,navigateCB) =>{
     const typeOfUserOn = userState?.current?.email || validData.email;

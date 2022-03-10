@@ -23,6 +23,8 @@ const CartItem = ({handleCart, product, handleIncrement, cart, handleDecrement }
         <p>{product.name}</p>
         <p>x<span>{ product.quantity}</span></p>
         <p>${product.price}</p>
+        <p>stock</p>
+        <span>{product.available}</span>
       </div>
       
      <ShopCartQuantityBtn

@@ -3,13 +3,33 @@
   justify-content: space-between;
   align-items: center;
 }
-.file-select, .file-select-load, .file-select-error {
+.file-select, 
+.file-select-load, 
+.file-select-error , 
+.file-selec-admin,
+.file-selec-admin-load,
+.file-selec-admin-error
+{
   width: 100%;
   position: relative;
   display: inline-block;
   font-family: var(--font-primary);
   text-transform: uppercase;
   min-height: 32px;
+}
+.file-selec-admin::before{
+  content: 'sube la foto del producto';
+  background-color: var(--black-color);
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 3px;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
 }
 
 .file-select::before {
@@ -26,9 +46,26 @@
   top: 0;
   bottom: 0;
 }
-.file-select-load::before{
+
+
+.file-select-load::before, .file-selec-admin-load::before{
   content: 'archivo cargado';
   background-color: var(--sucess-color);
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 3px;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+}
+.file-selec-admin-error::before{
+
+  content: 'sube tu comprobante aqui';
+  background-color: var(--error-color);
   color: white;
   display: flex;
   justify-content: center;
@@ -54,11 +91,11 @@
   top: 0;
   bottom: 0;
 }
-.file-select input[type="file"] {
+.file-select input[type="file"] , .file-selec-admin input[type="file"]{
   width: 200px;
   height: 32px;
   display: inline-block;
 }
-.file-select-error{
+.file-select-error, .file-selec-admin-error{
   background-color: var(--error-color);
 }

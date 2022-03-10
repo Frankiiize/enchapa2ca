@@ -21,6 +21,7 @@ import { FileUploader } from "../components/FileUploader.jsx";
 import { buyContext } from "../context/buyContext";
 import { Portals } from "../components/modals/Portals.jsx";
 import { LoaderElipsis } from "../components/loaders/loaderElipsis.jsx";
+import { ImgUploadReader } from "../components/imgUploadReader.jsx";
 //--------------------------------------imports--------------------------------------//
 
 const Checkout = () => {
@@ -75,14 +76,14 @@ const Checkout = () => {
       }else if(deliveryOption.delivery.state){
         const validateFormDelivery = schemaDelivery.validate(data);
         const isvalid = await validateFormDelivery;
-        if(imgUpload.file !== null){
+        if(imgUpload.file !== undefined){
           console.log(isvalid)
           setLoadingBuy(true)
           await makeBuyWithDelivery(imgUpload.file, isvalid, () =>{
             navigate('checkoutSucess', {replace:true});
           })
         }
-        else {
+        else  {
           console.log('sube tu comprobante de pago')
           throw new Error('SUBE_COMPROBANTE')
         }
@@ -166,10 +167,10 @@ const Checkout = () => {
 
             </CheckRadios>
             {
-              !!imgUpload.result &&
-              <picture>
-                  <img src={imgUpload.result} alt='foto comprobante de pago' />
-              </picture>
+              !!imgUpload &&
+              <ImgUploadReader 
+                imgUpload={imgUpload}
+              />
             }
           </ul>
         

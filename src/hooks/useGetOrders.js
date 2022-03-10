@@ -23,13 +23,8 @@ const orderReducer = (state, action) => {
 
 const useGetOrders = () => {
   const { userState } = useContext(authContext);
-  /* const [ ordersHistory, setOrdersHistory ] = useState([]); */
   const [ ordersHistory, dispathOrdersHistory ] = useReducer(orderReducer, initialstate)
   const [ loadingUpdate, setLoadingUpdate ] = useState(false);
-  console.log(userState)
-
-  
-
  const getOrderUserID = () => {
      try{
        const getOrders = async() => {
@@ -74,7 +69,7 @@ const useGetOrders = () => {
     }
  }
 
- const getRealTimeOrders = async (docRef) => {
+ /* const getRealTimeOrders = async (docRef) => {
 
   const unsub =  onSnapshot(doc(db, "ventas", docRef), (doc) => {
     const source = doc.metadata.hasPendingWrites ? "Local" : "Server";
@@ -87,7 +82,7 @@ const useGetOrders = () => {
     dispathOrdersHistory({type: 'ADD_REAL_CHANGE', payload:stateToUpdate})
   });
 
- }
+ } */
 
  const updateStatus = async (docRef, newStatus) => {
    const orderRef = doc(db, 'ventas', docRef)
@@ -95,7 +90,7 @@ const useGetOrders = () => {
    await updateDoc(orderRef, {
      status: newStatus,
     }).then(() => {
-       getRealTimeOrders(docRef)
+       getAllOrders()
     }).then(() => {
       setLoadingUpdate(false)
     })

@@ -344,4 +344,74 @@ const RecoveryPasswordForm = () => {
   );
 };
 
-export { LoginForm, RegisterForm, RecoveryPasswordForm };
+const ProductsForm = ({children, submitNewProducts, form, animation, formValues, setFormValues, onChangeProductsForm}) => {
+  return( 
+    <div className='products__form'>
+      <form  ref={form} className={animation ? `${animation} products__form` : 'products__form'}>
+        <label htmlFor="producName">
+          <span>titulo del producto</span>
+          <input
+            id="producName"
+            name="producName"
+            type="text"
+            autoComplete="off"
+            value={formValues.producName}
+            onChange={onChangeProductsForm}
+          />
+        </label>
+        <label htmlFor="producPrice">
+        <span>precio</span>
+          <input
+            id="producPrice"
+            name="producPrice"
+            type="number"
+            autoComplete="off"
+            value={formValues.producPrice}
+            onChange={onChangeProductsForm}
+          />
+        </label>
+        <label htmlFor="stockAvalible">
+        <span>stock</span>
+          <input
+            id="stockAvalible"
+            name="stockAvalible"
+            type="number"
+            autoComplete="off"
+            value={formValues.stockAvalible}
+            onChange={onChangeProductsForm}
+          />
+        </label>
+        <label htmlFor="customProduct">
+          <span>Personalizable</span>
+          <input 
+            id="customProduct"
+            name="customProduct"
+            type="checkbox" 
+            checked={formValues.custom}
+            onChange={() => setFormValues({... formValues, custom: true})}
+          />
+        </label>
+      
+        <label htmlFor="description">
+          <span>descripcion</span>
+          <textarea 
+            name="description" 
+            rows="10" 
+            cols="50"
+            value={formValues.description}
+            onChange={onChangeProductsForm}
+            >
+          </textarea>
+        </label>
+        {children}
+        <button onClick={submitNewProducts}  type="submit">
+          enviar
+        </button>
+      
+       
+      </form>
+    </div>
+  )
+}
+
+export { LoginForm, RegisterForm, RecoveryPasswordForm, ProductsForm };

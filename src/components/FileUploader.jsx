@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import '../styles/components/fileUploader.css'
 import { MdUploadFile } from 'react-icons/md'
 import { BsFileEarmarkCheckFill } from 'react-icons/bs'
-const FileUploader = ({setImgUpload, imgUpload, errorForm, dispatchError}) => {
+const FileUploader = ({setImgUpload, imgUpload, errorForm, dispatchError, title = 'comprobante de pago', addminPage = false}) => {
   
   const [ loading , setLoading ] = useState(true);
   const handleUploadPhoto = (e) => {
@@ -29,7 +29,7 @@ const FileUploader = ({setImgUpload, imgUpload, errorForm, dispatchError}) => {
   }
   return(
     <>
-      <h3>comprobante de pago</h3>
+      <h3>{title}</h3>
       <label className="fileLoaderContainer"  htmlFor="photoPaid">
         {
           !!loading 
@@ -48,10 +48,11 @@ const FileUploader = ({setImgUpload, imgUpload, errorForm, dispatchError}) => {
         }
         
         <input
-          style={{
-            
-          }}
-          className={!!errorForm.options ? 'file-select-error' : loading ? 'file-select' : 'file-select-load fade-in' }
+          className={
+            !addminPage
+            ? !!errorForm.options ? 'file-select-error' : loading ? 'file-select' : 'file-select-load fade-in' 
+            : !!errorForm.options ? 'file-selec-admin-error' : loading ? 'file-selec-admin' : 'file-selec-admin-load fade-in' 
+          }
           id="photoPaid"
           name="photoPaid"
           type="file"

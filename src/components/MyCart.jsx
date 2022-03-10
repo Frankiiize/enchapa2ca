@@ -14,15 +14,13 @@ import { cartContex } from "../context/cartContext";
 import { Link, useLocation } from "react-router-dom";
 const MyCart = ({toggleCart,setToggleCart}) => {
   const { cart, handleCart, handleIncrement, handleDecrement } = useContext(cartContex);
-  const location = useLocation();
-  console.log(cart)
  
   const handlShowCart = () =>{
     setToggleCart(!toggleCart) 
   }
 
   return(
-    <aside className="myCart">
+    <aside className={toggleCart ? 'myCart goinOutAnimation' : 'myCart'}>
       <div className= "myCart__titleContainer">
         <MdKeyboardArrowLeft
           onClick={handlShowCart}

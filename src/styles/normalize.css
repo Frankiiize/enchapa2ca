@@ -74,6 +74,10 @@ body {
   margin: 0 auto;
   overscroll-behavior: none;
   /* padding-bottom: 65px; */
+  overflow-x: hidden;
+}
+h3{
+  letter-spacing: var(--letler-spacing-title);
 }
 
 /* A elements that don't have a class get default styles */
@@ -107,6 +111,9 @@ select {
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
+}
+a{
+  text-decoration: none;
 }
 
 *::-webkit-scrollbar{

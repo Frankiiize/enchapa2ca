@@ -15,6 +15,10 @@ const errorReducer = (state, action) =>{
       }
     case 'RESET_ERROR' :
       return initialErrorState
+    case 'TYPEERROR' : 
+      return {
+        options: true
+      }
     default : return state
   }
 }

@@ -12,7 +12,7 @@ const ProductDetails = () => {
   const { newProducts } = useContext(productsContext);
   const params = useParams();
   console.log(params.id)
-  const detailProduct = newProducts.find(item => item.id === parseInt(params.id));
+  const detailProduct = newProducts.find(item => item.id === params.id);
   console.log(detailProduct)
   return(
     <section className="productDetails">
