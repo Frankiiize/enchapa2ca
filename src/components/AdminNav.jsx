@@ -21,11 +21,11 @@ const AdminNav = ({userState}) => {
             <button 
               onClick={() => setShowAdminNav(!showAdminNav)}
               className="admin__links-star" >
-              <img  style={{maxWidth: '35px'}} src={star} />
+              <img style={{maxWidth: '35px'}} src={star}  alt="star"/>
               <span>admin</span>
             </button> 
             :
-            <Link className="admin__links-star" to="/adminEnchapados">
+            <Link className="admin__links-star" to="/adminEnchapados" alt="star icon">
               <img  style={{maxWidth: '35px'}} src={star} />
               <span>admin</span>
             </Link> 

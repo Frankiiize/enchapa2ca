@@ -27,7 +27,7 @@
   padding: 5px;
   top: 53px;
   right: 0px;
-  z-index: 1;
+  z-index: 5;
 }
 .categorieContainer__list-triangle{
   border-bottom: 10px solid var(--brand-color);

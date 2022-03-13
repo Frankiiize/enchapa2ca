@@ -26,19 +26,19 @@ const Nav = ({children, showUnderNav, setShowUnderNav }) => {
             </li>
             <li>
               <Link className="footerContainer__links"  to="/perfil/historialOrdenes">
-                <img src={OrderHistoryIcon} />
+                <img src={OrderHistoryIcon} alt="ordenes icon" />
                 <span>ordenes</span>
               </Link>
             </li>
             <li>
               <button className="footerContainer__links" >
-                <img src={SearchIcon} />
+                <img src={SearchIcon} alt="busqueda icon"/>
                 <span>buscar</span>
               </button>
             </li>
             <li>
               <Link className="footerContainer__links"  to="perfil">
-                <img src={SmileUserINVER} />
+                <img src={SmileUserINVER} alt="perfil icon"/>
                 <span>perfil</span>
               </Link>
             </li>

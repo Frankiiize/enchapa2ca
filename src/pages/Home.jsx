@@ -1,6 +1,7 @@
 import React, { useContext, useState, useEffect } from "react";
 import { authContext } from "../context/AuthContext.js";
 
+import { Main } from "../layouts/Main.jsx";
 import { Categories } from "../components/Categories.jsx";
 import { SectionProducts } from "../layouts/SectionProducts.jsx";
 import { Footer } from "../components/Footer.jsx";
@@ -71,7 +72,7 @@ const categorias = [
 
 const Home  = () => {
   const [ categories, setCategories ] = useState(categorias);
-  const { newProducts, getAvailableStock, productsLoading } = useContext(productsContext);
+  const { newProducts, getAvailableStock, productsLoading, searchOn, searchedProducts } = useContext(productsContext);
   useEffect(async () => {
      getAvailableStock();
   },[]);
@@ -80,22 +81,31 @@ const Home  = () => {
   
   
   return(
-    <main>
+    <Main sectionClass={"main"}>
      <Hero />
 
       <Categories categories={categories} />
       
 
       <SectionProducts  sectionClass={"Products"} button={false}>
-        <ProductsList 
-          sectionClass={"Products__grid"} 
-          products={newProducts} 
-          productsLoading={productsLoading}  
+      {
+        !searchOn 
+          ? <ProductsList 
+            sectionClass={"Products__grid"} 
+            products={newProducts} 
+            productsLoading={productsLoading}  
           />
+          : <ProductsList 
+              sectionClass={"Products__grid"} 
+              products={searchedProducts} 
+              productsLoading={productsLoading}  
+          />
+      }
+        
       </SectionProducts>
       
-      <SectionProducts title={'nuevos productos'} sectionClass={'Products'} button={true}>
-        <ProductsList sectionClass={"Products__list"}  products={[]}  />
+      <SectionProducts title={'Nuevos Lanzamientos'} sectionClass={'Products'} button={true}>
+        <ProductsList sectionClass={"Products__list"}  products={newProducts}  />
       </SectionProducts>
 
       <SectionProducts  title={'nuevos productos'} sectionClass={'Products'} button={true}>
@@ -103,7 +113,7 @@ const Home  = () => {
       </SectionProducts>
     
       <Footer/>
-    </main>
+    </Main>
   )
 };
 

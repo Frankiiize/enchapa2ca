@@ -48,6 +48,7 @@ const FileUploader = ({setImgUpload, imgUpload, errorForm, dispatchError, title 
         }
         
         <input
+        multiple
           className={
             !addminPage
             ? !!errorForm.options ? 'file-select-error' : loading ? 'file-select' : 'file-select-load fade-in' 

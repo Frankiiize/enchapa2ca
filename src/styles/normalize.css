@@ -34,6 +34,7 @@
 --swiper-navigation-size: 32px;
 /* slider hero variables */
 /* Others */
+--border-curve: 40;
 --border-radius : 10px;
 --border-radius-less : 5px;
 --loader-zIndex: 200;

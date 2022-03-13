@@ -307,6 +307,7 @@ const RegisterForm = ({
               id="c_Password"
               name="c_password"
               type="password"
+              autoComplete="new-password"
               placeholder="confirma contraseña"
               onChange={handleOnChange}
             />
@@ -381,7 +382,7 @@ const ProductsForm = ({children, submitNewProducts, form, animation, formValues,
             onChange={onChangeProductsForm}
           />
         </label>
-        <label htmlFor="customProduct">
+        <label htmlFor="customProduct" id="customProduct">
           <span>Personalizable</span>
           <input 
             id="customProduct"
@@ -390,6 +391,20 @@ const ProductsForm = ({children, submitNewProducts, form, animation, formValues,
             checked={formValues.custom}
             onChange={() => setFormValues({... formValues, custom: true})}
           />
+        </label>
+        <label htmlFor="category">
+          <span>categoria</span>
+          <select 
+            id="category" 
+            name="category"
+            onChange={onChangeProductsForm}
+            value={formValues.category}
+            >
+              <option value={1}>valija</option>
+              <option value={2}>etiquetas</option>
+              <option value={3}>tarjetas</option>
+              <option value={4}>mascarillas</option>
+          </select>
         </label>
       
         <label htmlFor="description">

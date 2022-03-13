@@ -120,8 +120,9 @@
   border-radius: var(--border-radius);
   text-transform: uppercase;
   background-color: transparent;
+  padding: 5px;
   color: var(--sucess-color);
-  font-size: var(--fs-body-text-small);
+  font-size: var(--fs-details);
   font-weight: bold;
 }
 .cardOrder_shopCard-btn button:disabled{

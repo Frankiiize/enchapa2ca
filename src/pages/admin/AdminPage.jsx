@@ -13,7 +13,7 @@ import '../../styles/pages/admin/admin.css'
 import { ProductsForm } from '../../components/Forms.jsx';
 const Adminpage = () =>{
   const { userState } = useContext(authContext)
-  const { ordersHistory, getAllOrders, dispathOrdersHistory, updateStatus, loadingUpdate, deleteOrder } = useGetOrders();
+  const { ordersHistory, getAllOrders, dispathOrdersHistory, updateStatus, loadingUpdate, deleteOrder, handleOrdersSearch, filterOrders, searchOn, searchError } = useGetOrders();
   const { 
     showOrders, 
     setShowOrders , 
@@ -30,28 +30,30 @@ const Adminpage = () =>{
     onChangeProductsForm
   } = useContext(adminContext)
   const {  error, dispatchError } = useForm();
-  console.log(error)
-
+  
   const form = useRef();
   useEffect(() => {
     getAllOrders();
   },[])
 
+
+
   const changeStatus = (docRef) => {
     updateStatus(docRef, orderStatus.status);
   }
+  
   const submitNewProducts = async (ev) => {
     ev.preventDefault();
     const  formData = new FormData(form.current);
     const data = {
       name : formData.get('producName'), 
-      price: formData.get('producPrice'),
+      price: parseInt(formData.get('producPrice')),
       description: formData.get('description'),
-      stockAvalible: formData.get('stockAvalible'),
+      stockAvalible: parseInt(formData.get('stockAvalible')),
       custom: formValues.custom,
+      category: parseInt(formValues.category)
     }
     console.log(data)
-    debugger
     try{
       if(!!imgUpload){
         await writeNewProduct(data);
@@ -66,70 +68,96 @@ const Adminpage = () =>{
     }
    
   }
+
+ 
   return (
     <main className='admin footer__user-on'>
       <h1>ADMIN PAGE</h1>
       <button onClick={() => setShowOrders(!showOrders)}>
         <h3>ordenes</h3>
       </button>
-      <section className="orders">
-        <>
-        <SearchInput />
-          {showOrders && (
-            <ul className="orderHistoryContainer">
-              {ordersHistory.map((order) => (
-                <OrdersList
-                  order={order}
-                  key={order.orderId}
-                  buttoms={"admin"}
-                  dispathOrdersHistory={dispathOrdersHistory}
-                  handleOrderStatus={handleOrderStatus}
-                  changeStatus={changeStatus}
-                  userState={userState}
-                  statusOption={orderStatus}
-                  loadingUpdate={loadingUpdate}
-                  deleteOrder={deleteOrder}
-                />
-              ))}
-            </ul>
-          )}
-        </>
-      </section>
+      <SearchInput 
+        handleSearch={handleOrdersSearch}
+        placeholder={'busca por OrderId, Cedula o Fecha(dia,mes,año)'}
+      />
+      {
+        showOrders && (
+          <section className="orders">
+            <>
+              {
+                !searchOn 
+                  ?<ul className="orderHistoryContainer">
+                    {ordersHistory.map((order) => (
+                      <OrdersList
+                        order={order}
+                        key={order.orderId}
+                        buttoms={"admin"}
+                        dispathOrdersHistory={dispathOrdersHistory}
+                        handleOrderStatus={handleOrderStatus}
+                        changeStatus={changeStatus}
+                        userState={userState}
+                        statusOption={orderStatus}
+                        loadingUpdate={loadingUpdate}
+                        deleteOrder={deleteOrder}
+                      />
+                    ))}
+                  </ul>
+                  : <ul className="orderHistoryContainer">
+                    {filterOrders.map((order) => (
+                      <OrdersList
+                        order={order}
+                        key={order.orderId}
+                        buttoms={"admin"}
+                        dispathOrdersHistory={dispathOrdersHistory}
+                        handleOrderStatus={handleOrderStatus}
+                        changeStatus={changeStatus}
+                        userState={userState}
+                        statusOption={orderStatus}
+                        loadingUpdate={loadingUpdate}
+                        deleteOrder={deleteOrder}
+                      />
+                    ))}
+                  </ul>
+              }
+            </>
+          </section>
+        )
+      }
+    
+      
       <button onClick={() => setShowAddProducts(!showAddProducts)}>
         <h3>productos</h3>
       </button>
-      <section className="products">
-        <>
           {showAddProducts && (
-            <>
-              <ProductsForm  
-                form={form}
-                submitNewProducts={submitNewProducts}
-                animation={'fade-in'}
-                formValues={formValues}
-                setFormValues={setFormValues}
-                onChangeProductsForm={onChangeProductsForm}
-                >
-                <FileUploader 
-                  setImgUpload={setImgUpload}
-                  imgUpload={imgUpload}
-                  errorForm={error}
-                  dispatchError={dispatchError}
-                  title={'foto'}
-                  btnTitle={'foto'}
-                  addminPage={true}
-                />
-              {
-                !!imgUpload &&
-                <ImgUploadReader 
-                  imgUpload={imgUpload}
-                />
-              }
-              </ProductsForm> 
-            </>
+            <section className="products">
+                  <>
+                    <ProductsForm  
+                      form={form}
+                      submitNewProducts={submitNewProducts}
+                      animation={'fade-in'}
+                      formValues={formValues}
+                      setFormValues={setFormValues}
+                      onChangeProductsForm={onChangeProductsForm}
+                      >
+                      <FileUploader 
+                        setImgUpload={setImgUpload}
+                        imgUpload={imgUpload}
+                        errorForm={error}
+                        dispatchError={dispatchError}
+                        title={'foto'}
+                        btnTitle={'foto'}
+                        addminPage={true}
+                      />
+                    {
+                      !!imgUpload &&
+                      <ImgUploadReader 
+                        imgUpload={imgUpload}
+                      />
+                    }
+                    </ProductsForm> 
+                  </>
+            </section>
           )}
-        </>
-      </section>
     </main>
   );
 }

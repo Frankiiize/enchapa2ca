@@ -10,7 +10,9 @@ const formValuesInitialState = {
   description: '',
   stockAvalible: '',
   custom: false,
+  categoryId:undefined,
 }
+
 
 const useAdmin = () => {
   const storage = getStorage();
@@ -22,6 +24,7 @@ const useAdmin = () => {
     status: 'revision',
   })
   const [ formValues , setFormValues ] = useState(formValuesInitialState);
+
   const onChangeProductsForm = (ev) => {
     setFormValues({
       ...formValues,

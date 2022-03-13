@@ -55,6 +55,12 @@
   font-family: var(--font-primary);
   color: var(--black-color);
 }
+.products__form form #customProduct {
+  display: grid;
+  flex-direction: row;
+  margin: 20px auto;
+  justify-content: flex-start;
+}
 .login__form label input::placeholder{
   color: var(--black-color);
   font-size: var(--fs-details);
@@ -103,7 +109,7 @@
   min-width: 25%;
   margin-right: 10px;
 }
-.phoneContiner label select{
+.phoneContiner label select, .products__form label select{
   display: block;
   height: 100%;
   font-size:var(--fs-body-text-small);
@@ -123,7 +129,7 @@
   background-position: right .7em top 50%, 0 0;
   background-size: .65em auto, 100%;
 }
-.phoneContiner label select:focus, .login__form input:focus{
+.phoneContiner label select:focus, .login__form input:focus, .products__form label select:focus{
   border-color: var(--sucess-color);
   width: 100%;
   padding-left: 5%;

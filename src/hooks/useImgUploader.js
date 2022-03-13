@@ -6,6 +6,7 @@ const imgUploadInitialState = {
 
 const useImgUploader = () =>{
   const [ imgUpload, setImgUpload, imgUploadInitialState ] = useState(imgUploadInitialState);
+  console.log(imgUpload)
   
   return {
     imgUpload,

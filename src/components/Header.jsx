@@ -17,22 +17,16 @@ import { Nav } from "./Nav.jsx";
 import { MyCart } from "./MyCart.jsx";
 import { cartContex } from "../context/cartContext";
 import { AdminNav } from "./AdminNav.jsx";
+import { productsContext } from "../context/productsContext";
 //------COMPONENTS
 const Header = () => {
   const { cart } = useContext(cartContex);
   const { userState } = useContext(authContext);
-  const [ searchValue, setSearchValue ] = useState('');
   const [ showUnderNav, setShowUnderNav ] = useState(true);
   const [ toggleCart, setToggleCart ] = useState(false);
-  const handleSearch = (ev) => {
-    setSearchValue(ev.target.value)
-    console.log(searchValue)
-  }
-  useEffect(() => {
-
-  });
+  const { handleSearch } = useContext(productsContext);
+ 
   const location = useLocation();
-  const sectionTitle = location.pathname.split(/^[/]/i)[1];
   return(
     <>
       <header className="headerContainer">
@@ -60,7 +54,7 @@ const Header = () => {
                   </picture>
                 </li>
                 <li>
-                  <Link to="/favoritos">
+                  <Link to="/favoritos" alt="link a favoritos">
                     <MdFavorite size={28} color={"white"}/>
                   </Link>
                 </li>
@@ -106,9 +100,7 @@ const Header = () => {
           />
       }
       </nav>
-      <div>
-        
-      </div>
+     
    
         <Nav 
           userState={userState}

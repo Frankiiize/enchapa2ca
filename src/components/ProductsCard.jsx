@@ -1,9 +1,9 @@
 import React, {  useContext, useEffect, useRef, useState } from "react";
-import '../styles/components/productCard.css';
-import shoppingCart from '../assets/icons/shoppingCart.svg';
-import addedshopCart from '../assets/icons/shoppingCartAddedr.svg';
+import ShoppingCart from "../assets/Icomponent/ShoppingCart.jsx";
+import AddedShoppinCart from "../assets/Icomponent/AddedShoppinCart.jsx";
 import { cartContex } from "../context/cartContext";
 import { Link } from "react-router-dom";
+import '../styles/components/productCard.css';
 
 
 const ProductsCard = ({product}) => {
@@ -18,8 +18,10 @@ const ProductsCard = ({product}) => {
 
   return(
       <li className="Product__item" >
-     
         <Link className="Product__item-Img"
+          onClick={() => {
+            localStorage.setItem('detailsProduct',JSON.stringify(product))
+          }}
           to={`/detalles/${product.id}`}>
           <img src={product.img} alt={`foto producto ${product.name}`}/>
         </Link>
@@ -34,17 +36,11 @@ const ProductsCard = ({product}) => {
           <div className="Products__item-description-header">
             <h3>{product.name}</h3>
      
-            <div className="Products__item-btn">
+            <div className="Products__item-price">
               <span>${product.price}</span>
-              <button className="Products__item-btnShop"
-                onClick={(e) => {
-                  handleCart({...product});
-                  setAdded(!added);
-                  
-                }}>
-                <img className="Products__item-cart" src={!added ? shoppingCart : addedshopCart} alt="shopping cart"/>
-              </button> 
+            
             </div>
+            <div className="Products__item-fakeCart"></div>
           </div>
           <div className="Products__item-descriptionDetails">
             <article>
@@ -53,12 +49,32 @@ const ProductsCard = ({product}) => {
             <div>
               <Link
                 to={`/detalles/${product.id}`}
-                className="Products__item-descriptionDetails-link primaryBtn">
+                className="Products__item-descriptionDetails-link primaryButton">
                 <span>ver</span>
               </Link>
             </div>
           </div>
         </div>
+
+          <button className="Products__item-btnShop"
+            onClick={(e) => {
+              handleCart({...product});
+              setAdded(!added);
+            }}>
+            {
+              !added 
+              ? <ShoppingCart 
+                fill={"#4F4F4F"}
+                width={32}
+                height={32}
+              /> 
+              : <AddedShoppinCart 
+                  fill={"#437DBC"}
+                  width={32}
+                  height={32}
+              />
+            }
+        </button> 
         
        
       </li>
@@ -67,3 +83,4 @@ const ProductsCard = ({product}) => {
 }
 
 export { ProductsCard }; 
+

@@ -18,10 +18,31 @@
   margin: 10px auto;
 
 }
-.orders{
-  max-height: 60vh;
+.orders, .products {
+  max-height: 90vh;
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
   overflow: scroll;
-  border: 1px solid var(--black-separador)
+  border: 1px solid var(--black-separador);
+  padding-top: 20px;
+}
+.orders-error {
+  border: 1px solid var(--error-color); 
+  max-height: 90vh;
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+  overflow: scroll;
+  padding-top: 20px;
+}
+.orders-error::before{
+  content: 'no se encontro :(';
+  font-size: var(--fs-body-text);
+  display: flex;
+  justify-content: center;
+  color: var(--error-color);
+  text-transform: uppercase;
 }
 /* -----------ADMIN_PRINCIPAL_PAGE----------- */
 
@@ -132,6 +153,9 @@
   display: flex;
   flex-direction: column;
   margin: 0 auto;
+}
+.products__form form label select{
+  margin: 10px 0;
 }
 .products__form form label span {
   font-family: var(--font-primary);

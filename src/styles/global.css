@@ -71,4 +71,7 @@
   z-index: var(--loader-zIndex)
 }
 
+.main-userOn{
+  padding-bottom: 75px;
+}
 

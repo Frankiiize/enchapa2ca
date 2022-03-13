@@ -20,6 +20,7 @@ import { OrderHistory } from "../pages/OrderHistory.jsx";
 import { Adminpage } from "../pages/admin/AdminPage.jsx";
 import { AdminProvider } from "../context/adminContext.js";
 import { MyCart } from "../components/MyCart.jsx";
+import { FavoritesProvider } from "../context/favoritesContext.js";
 
 const App = () => {
   return(
@@ -29,10 +30,14 @@ const App = () => {
         <CartProvider>
         <BuyProvider>
         <AdminProvider>
+        <FavoritesProvider>
             <BrowserRouter>
               <Header/>
                 <Routes>
-                  <Route path="/" element={<Home/>} />
+                  <Route path="/" >
+                    <Route index element={<Home/>} />
+                    <Route path="/detalles/:id" element={<ProductDetails />}/>
+                  </Route>
                   <Route path="/createAccount" element={<CreateAccount/>} />
                   <Route path="/login" element={
                     <Redirect>
@@ -40,7 +45,6 @@ const App = () => {
                     </Redirect>
                   } />
                   <Route path="/recuperarCuenta" element={<PasswordRecovery/>}/>
-                  <Route path="/detalles/:id" element={<ProductDetails />}/>
 
                   
                   <Route path="/checkout" > 
@@ -84,6 +88,7 @@ const App = () => {
                   <Route path="*" element={<h1>PAGE NOT FOUND</h1>} />
                 </Routes>
             </BrowserRouter>
+        </FavoritesProvider>
         </AdminProvider>
         </BuyProvider>
         </CartProvider>

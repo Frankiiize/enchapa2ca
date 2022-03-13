@@ -102,7 +102,6 @@ const useProviderAuth = () => {
   }
   const updateUserData = async (data) => {
     const userDataBaseRef = doc(db, "users", userState.currentUser.uid);
-    // Set the "capital" field of the city 'DC'
     await updateDoc(userDataBaseRef, {
       name: data.name,
       lastName:data.lastName ,

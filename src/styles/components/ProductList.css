@@ -26,12 +26,10 @@
   font-size: var(--fs-details);
 } */
 .Products__list{
-  width: 100%;
   display: flex;
-  flex-direction: row;
-  overflow-x:  scroll;
-  overflow-y: hidden;
-  padding-bottom: 15px;
+  overflow: scroll;
+  gap: 15px;
+  padding: 10px;
 }
 .Products__grid{
   width: 100%;

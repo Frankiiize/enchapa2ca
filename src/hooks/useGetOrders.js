@@ -25,6 +25,8 @@ const useGetOrders = () => {
   const { userState } = useContext(authContext);
   const [ ordersHistory, dispathOrdersHistory ] = useReducer(orderReducer, initialstate)
   const [ loadingUpdate, setLoadingUpdate ] = useState(false);
+  const [ searchOrders, setSearchOrders ] = useState('');
+  const [ searchOn, setSearchOn ] = useState(false);
  const getOrderUserID = () => {
      try{
        const getOrders = async() => {
@@ -69,7 +71,7 @@ const useGetOrders = () => {
     }
  }
 
- /* const getRealTimeOrders = async (docRef) => {
+ const getRealTimeOrders = async (docRef) => {
 
   const unsub =  onSnapshot(doc(db, "ventas", docRef), (doc) => {
     const source = doc.metadata.hasPendingWrites ? "Local" : "Server";
@@ -82,7 +84,7 @@ const useGetOrders = () => {
     dispathOrdersHistory({type: 'ADD_REAL_CHANGE', payload:stateToUpdate})
   });
 
- } */
+ }
 
  const updateStatus = async (docRef, newStatus) => {
    const orderRef = doc(db, 'ventas', docRef)
@@ -90,7 +92,7 @@ const useGetOrders = () => {
    await updateDoc(orderRef, {
      status: newStatus,
     }).then(() => {
-       getAllOrders()
+      getRealTimeOrders(docRef)
     }).then(() => {
       setLoadingUpdate(false)
     })
@@ -105,7 +107,20 @@ const useGetOrders = () => {
    }).catch(error => console.log(error))
  }
 
- 
+  const filterOrders = ordersHistory.filter((orders) => {
+    
+    const byOrderId = orders.orderId.toLowerCase().includes(searchOrders.toLowerCase());
+    const byCedula = orders.cedula.toLowerCase().includes(searchOrders.toLocaleLowerCase());
+    const byTimeStamp = orders.timestamp.toLocaleLowerCase().includes(searchOrders.toLocaleLowerCase());
+    if(byOrderId){ return byOrderId }
+    else if(byCedula){ return byCedula}
+    else if(byTimeStamp){ return byTimeStamp }
+  })
+  const handleOrdersSearch = (ev) => {
+    setSearchOn(true);
+    setSearchOrders(ev.target.value);
+    console.log(ev.target.value);
+  }
 
   return {
     ordersHistory,
@@ -114,7 +129,11 @@ const useGetOrders = () => {
     getOrderUserID,
     updateStatus,
     loadingUpdate,
-    deleteOrder
+    deleteOrder,
+    handleOrdersSearch,
+    searchOrders,
+    filterOrders,
+    searchOn
   }
 }
 

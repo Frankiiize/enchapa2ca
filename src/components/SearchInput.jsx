@@ -3,7 +3,7 @@ import { MdSearch } from 'react-icons/md'
 
 const SearchInput = ({handleSearch, placeholder}) =>{
   return(
-    <form className="headerContainer__search">
+    <form onSubmit={(ev) => {ev.preventDefault()}} className="headerContainer__search">
       <label htmlFor="search" ></label>
       <input 
       type="text" 
