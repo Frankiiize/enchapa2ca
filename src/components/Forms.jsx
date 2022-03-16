@@ -389,21 +389,27 @@ const ProductsForm = ({children, submitNewProducts, form, animation, formValues,
             name="customProduct"
             type="checkbox" 
             checked={formValues.custom}
-            onChange={() => setFormValues({... formValues, custom: true})}
+            onChange={() => {
+              if(!formValues.custom){
+                setFormValues({... formValues, custom: true})
+              }else {
+                setFormValues({... formValues, custom: false})
+              }
+            }}
           />
         </label>
-        <label htmlFor="category">
+        <label htmlFor="categoryId">
           <span>categoria</span>
           <select 
-            id="category" 
-            name="category"
+            id="categoryId" 
+            name="categoryId"
             onChange={onChangeProductsForm}
-            value={formValues.category}
+            value={formValues.categoryId}
             >
-              <option value={1}>valija</option>
-              <option value={2}>etiquetas</option>
-              <option value={3}>tarjetas</option>
-              <option value={4}>mascarillas</option>
+              <option value="1">valija</option>
+              <option value="2">etiquetas</option>
+              <option value="3">tarjetas</option>
+              <option value="4">mascarillas</option>
           </select>
         </label>
       

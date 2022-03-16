@@ -6,6 +6,7 @@ import { Categories } from "../components/Categories.jsx";
 import { SectionProducts } from "../layouts/SectionProducts.jsx";
 import { Footer } from "../components/Footer.jsx";
 import { Hero } from "../components/Hero.jsx";
+import { SearchInput } from "../components/SearchInput.jsx";
 
 
 import imgFAKE from '../assets/images/imagenFAKE.jpg';
@@ -72,7 +73,7 @@ const categorias = [
 
 const Home  = () => {
   const [ categories, setCategories ] = useState(categorias);
-  const { newProducts, getAvailableStock, productsLoading, searchOn, searchedProducts } = useContext(productsContext);
+  const { newProducts, getAvailableStock, productsLoading, searchOn, searchedProducts, handleSearch } = useContext(productsContext);
   useEffect(async () => {
      getAvailableStock();
   },[]);
@@ -83,6 +84,10 @@ const Home  = () => {
   return(
     <Main sectionClass={"main"}>
      <Hero />
+     <SearchInput  
+          handleSearch={handleSearch}
+          placeholder={"buscar productos"}
+        /> 
 
       <Categories categories={categories} />
       

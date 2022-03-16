@@ -15,6 +15,7 @@ const ProductsCard = ({product}) => {
     setAdded(itemAdded)
   },[cart])
   
+  
 
   return(
       <li className="Product__item" >
@@ -23,7 +24,7 @@ const ProductsCard = ({product}) => {
             localStorage.setItem('detailsProduct',JSON.stringify(product))
           }}
           to={`/detalles/${product.id}`}>
-          <img src={product.img} alt={`foto producto ${product.name}`}/>
+          <img loading="lazy" src={product.img} alt={`foto producto ${product.name}`}/>
         </Link>
         <div
           onClick={(e) => {

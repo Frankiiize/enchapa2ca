@@ -11,6 +11,7 @@ import { useImgUploader } from '../../hooks/useImgUploader';
 import { ImgUploadReader } from '../../components/imgUploadReader.jsx';
 import '../../styles/pages/admin/admin.css'
 import { ProductsForm } from '../../components/Forms.jsx';
+import { LoaderElipsis } from '../../components/loaders/loaderElipsis.jsx';
 const Adminpage = () =>{
   const { userState } = useContext(authContext)
   const { ordersHistory, getAllOrders, dispathOrdersHistory, updateStatus, loadingUpdate, deleteOrder, handleOrdersSearch, filterOrders, searchOn, searchError } = useGetOrders();
@@ -27,7 +28,8 @@ const Adminpage = () =>{
     formValuesInitialState,
     formValues,
     setFormValues,
-    onChangeProductsForm
+    onChangeProductsForm,
+    formLoading
   } = useContext(adminContext)
   const {  error, dispatchError } = useForm();
   
@@ -45,14 +47,16 @@ const Adminpage = () =>{
   const submitNewProducts = async (ev) => {
     ev.preventDefault();
     const  formData = new FormData(form.current);
+    //validar DATOS!
     const data = {
       name : formData.get('producName'), 
       price: parseInt(formData.get('producPrice')),
       description: formData.get('description'),
       stockAvalible: parseInt(formData.get('stockAvalible')),
       custom: formValues.custom,
-      category: parseInt(formValues.category)
+      categoryId: parseInt(formValues.categoryId)
     }
+    debugger
     console.log(data)
     try{
       if(!!imgUpload){
@@ -131,30 +135,35 @@ const Adminpage = () =>{
           {showAddProducts && (
             <section className="products">
                   <>
-                    <ProductsForm  
-                      form={form}
-                      submitNewProducts={submitNewProducts}
-                      animation={'fade-in'}
-                      formValues={formValues}
-                      setFormValues={setFormValues}
-                      onChangeProductsForm={onChangeProductsForm}
-                      >
-                      <FileUploader 
-                        setImgUpload={setImgUpload}
-                        imgUpload={imgUpload}
-                        errorForm={error}
-                        dispatchError={dispatchError}
-                        title={'foto'}
-                        btnTitle={'foto'}
-                        addminPage={true}
-                      />
-                    {
-                      !!imgUpload &&
-                      <ImgUploadReader 
-                        imgUpload={imgUpload}
-                      />
-                    }
+                  {
+                    !formLoading
+                    ? <ProductsForm  
+                        form={form}
+                        submitNewProducts={submitNewProducts}
+                        animation={'fade-in'}
+                        formValues={formValues}
+                        setFormValues={setFormValues}
+                        onChangeProductsForm={onChangeProductsForm}
+                        >
+                        <FileUploader 
+                          setImgUpload={setImgUpload}
+                          imgUpload={imgUpload}
+                          errorForm={error}
+                          dispatchError={dispatchError}
+                          title={'foto'}
+                          btnTitle={'foto'}
+                          addminPage={true}
+                        />
+                      {
+                        !!imgUpload &&
+                        <ImgUploadReader 
+                          imgUpload={imgUpload}
+                        />
+                      }
                     </ProductsForm> 
+                    : <LoaderElipsis />
+                  }
+                    
                   </>
             </section>
           )}

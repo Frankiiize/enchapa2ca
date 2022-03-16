@@ -1,26 +1,33 @@
 import React, { useContext, useState } from "react";
 import { fireBaseApp }  from '../services/firebaseConfig.js'
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { Home } from "../pages/Home.jsx";
+
 import { Header } from "../components/Header.jsx";
-import { CreateAccount } from "../pages/CreateAccount.jsx";
-import { Login } from "../pages/Login.jsx";
-import { ProviderAuth } from "../context/AuthContext.js";
-import { PasswordRecovery } from "../pages/PasswordRecovery.jsx";
 import { PrivateRoutes, Redirect } from "../layouts/PrivateRoutes.js";
 import { AdminRoutes } from "../layouts/PrivateRoutes.js";
-import { Profile } from "../pages/Profile.jsx";
+
+//---CONTEXT-----//
+import { ProviderAuth } from "../context/AuthContext.js";
 import { CartProvider } from "../context/cartContext.js";
-import { ProductDetails } from "../pages/ProductDetails.jsx";
 import { ProductsProvider } from "../context/productsContext.js";
-import { Checkout } from "../pages/Checkout.jsx";
-import { PaySucess } from "../pages/PaySucess.jsx";
 import { BuyProvider } from "../context/buyContext.js";
-import { OrderHistory } from "../pages/OrderHistory.jsx";
-import { Adminpage } from "../pages/admin/AdminPage.jsx";
 import { AdminProvider } from "../context/adminContext.js";
-import { MyCart } from "../components/MyCart.jsx";
 import { FavoritesProvider } from "../context/favoritesContext.js";
+//---CONTEXT-----//
+
+//---PAGES-----//
+import { PaySucess } from "../pages/PaySucess.jsx";
+import { Adminpage } from "../pages/admin/AdminPage.jsx";
+import { Home } from "../pages/Home.jsx";
+import { CreateAccount } from "../pages/CreateAccount.jsx";
+import { Login } from "../pages/Login.jsx";
+import { PasswordRecovery } from "../pages/PasswordRecovery.jsx";
+import { Profile } from "../pages/Profile.jsx";
+import { ProductDetails } from "../pages/ProductDetails.jsx";
+import { Checkout } from "../pages/Checkout.jsx";
+import { OrderHistory } from "../pages/OrderHistory.jsx";
+//---PAGES-----//
+
 
 const App = () => {
   return(

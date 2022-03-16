@@ -10,7 +10,7 @@ const formValuesInitialState = {
   description: '',
   stockAvalible: '',
   custom: false,
-  categoryId:undefined,
+  categoryId:'1',
 }
 
 
@@ -24,6 +24,7 @@ const useAdmin = () => {
     status: 'revision',
   })
   const [ formValues , setFormValues ] = useState(formValuesInitialState);
+  const [ formLoading, setFormLoading ] = useState(false);
 
   const onChangeProductsForm = (ev) => {
     setFormValues({
@@ -41,6 +42,7 @@ const useAdmin = () => {
   }
 
   const writeNewProduct = async (validData) => {
+    setFormLoading(true);
     const metadata = {
       contentType: 'image/jpeg'
     };
@@ -74,9 +76,11 @@ const useAdmin = () => {
         available: parseInt(validData.stockAvalible),
         productRef: docRef.id
       }
-      await addDoc(collection(db, 'stock'), stockData).then(async (docRef) => {
-        console.log('stock', docRef)
-      })
+      await addDoc(collection(db, 'stock'), stockData)
+        .then(async (docRef) => {
+          console.log('stock', docRef);
+          setFormLoading(false);
+        })
     })
     .catch(error => {
       console.log(error);
@@ -99,7 +103,8 @@ const useAdmin = () => {
     formValuesInitialState,
     formValues,
     setFormValues,
-    onChangeProductsForm
+    onChangeProductsForm,
+    formLoading
   }
 }
 

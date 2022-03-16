@@ -2,6 +2,7 @@
 :root {
   /* variables COLORS*/
   --brand-color : #437DBC;
+  --aceent-color: #ffca28;
   --black-color: #4F4F4F;
   --black-title-color: #4A4A4A;
   --black-details-color: #666666e8;
@@ -34,7 +35,7 @@
 --swiper-navigation-size: 32px;
 /* slider hero variables */
 /* Others */
---border-curve: 40;
+--border-curve: 20;
 --border-radius : 10px;
 --border-radius-less : 5px;
 --loader-zIndex: 200;

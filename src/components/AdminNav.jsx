@@ -3,61 +3,65 @@ import { adminContext } from "../context/adminContext";
 import { Link, useLocation } from "react-router-dom";
 import star from '../assets/icons/icons8-estrella-relleno-48.png';
 
-const AdminNav = ({userState}) => {
+const AdminNav = ({userState, showUnderNav,setShowUnderNav}) => {
   const [ showAdminNav, setShowAdminNav ] = useState(false);
   const { showOrders, setShowOrders, setShowAddProducts, showAddProducts } = useContext(adminContext)
   const location = useLocation();
-  useEffect(() => {
-    setShowAdminNav(false);
-  },[location])
+
   return(
     <>
       {(userState.currentUser !== null ) ? 
         userState.db.admin && 
         <>
-          <div className="admin__links">
+      
           {
             location.pathname === '/adminEnchapados' ?
             <button 
+              className="menu__links"
               onClick={() => setShowAdminNav(!showAdminNav)}
-              className="admin__links-star" >
-              <img style={{maxWidth: '35px'}} src={star}  alt="star"/>
+              >
+              <img className="menu__links-star" src={star}  alt="star"/>
               <span>admin</span>
             </button> 
             :
-            <Link className="admin__links-star" to="/adminEnchapados" alt="star icon">
-              <img  style={{maxWidth: '35px'}} src={star} />
+            <Link  className="menu__links" to="/adminEnchapados" alt="star icon">
+              <img className="menu__links-star"  src={star} alt="star"/>
               <span>admin</span>
             </Link> 
           }
           {
-            showAdminNav && 
+            showAdminNav && (
             <ul className="admin__links-nav">
               {
                 location.pathname === '/adminEnchapados' &&
                 <>
                   <li>
                     <button
+                      className="menu__links"
                       onClick={() => {
                         console.log('click');
                         setShowOrders(!showOrders)
+                        setShowUnderNav(false)
                       }}
                     >
-                      ordenes
+                      ver ordenes
                     </button>
                   </li>
                   <li>
                     <button
-                      onClick={() => setShowAddProducts(!showAddProducts)}
+                      className="menu__links"
+                      onClick={() =>{
+                         setShowAddProducts(!showAddProducts);
+                         setShowUnderNav(false)
+                         }}
                     >
-                      productos
+                      ver productos
                     </button>
                   </li>
                 </>
               }
-            </ul>
+            </ul>)
           }
-          </div>
           
          
         </>

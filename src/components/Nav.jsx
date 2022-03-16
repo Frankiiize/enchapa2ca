@@ -1,80 +1,71 @@
-import React, { useContext, useState}  from "react";
-import "../styles/components/nav.css"
-import homeIcon from '../assets/icons/HomeIcon.svg';
-import OrderHistoryIcon from '../assets/icons/OrderHistoryIcon.svg';
-import SearchIcon from '../assets/icons/Search5.svg';
-import SmileUserINVER from '../assets/icons/smileINVER.svg';
-import { GoThreeBars } from "react-icons/go";
-import { Link } from "react-router-dom";
+import React, { useContext, useRef, useEffect }  from "react";
+//import "../styles/components/nav.css"
+import "../styles/components/newNav.css"
+import { MdFavorite, MdHomeFilled, MdArticle } from "react-icons/md";
+import { Link, useLocation } from "react-router-dom";
 import { authContext } from "../context/AuthContext";
+import EnchapadoIcon from "../assets/Icomponent/EnchapadoIcon.jsx";
 
-const Nav = ({children, showUnderNav, setShowUnderNav }) => {
+
+const Nav = ({children, showUnderNav, setShowUnderNav,toggleCart }) => {
   const { userState } = useContext(authContext);
+  const link = useRef();
+  const location = useLocation();
+  useEffect(() => {
+    setShowUnderNav(false);
+  },[location.pathname, toggleCart]);
 
   if(userState.currentUser === null) {
     return <span></span>
-  }
+  };
+
   return(
-    <div className="footerContainer">
-      { !!showUnderNav 
-        ? <ul>
+   <>
+    { !!showUnderNav 
+      && <ul className="menu">
             <li>
-              <Link className="footerContainer__links" to="/">
-                <img src={homeIcon} />
+              <Link ref={link} className="menu__links" to="/">
+                <MdHomeFilled size={28} color={"#4F4F4F"} />
                 <span>home</span>
               </Link>
             </li>
             <li>
-              <Link className="footerContainer__links"  to="/perfil/historialOrdenes">
-                <img src={OrderHistoryIcon} alt="ordenes icon" />
-                <span>ordenes</span>
-              </Link>
-            </li>
-            <li>
-              <button className="footerContainer__links" >
-                <img src={SearchIcon} alt="busqueda icon"/>
-                <span>buscar</span>
-              </button>
-            </li>
-            <li>
-              <Link className="footerContainer__links"  to="perfil">
-                <img src={SmileUserINVER} alt="perfil icon"/>
+              <Link className="menu__links"  to="perfil">
+                <EnchapadoIcon className="menu__links-perfil"  />
                 <span>perfil</span>
               </Link>
             </li>
             <li>
-              <div className="footerContainer__links">
-                <div className="footerContainer__links-hammburger">
-                  <GoThreeBars 
-                    size={32}
-                    color={'white'}
-                    onClick={ () => setShowUnderNav(!showUnderNav)}
-                  />
-                </div>
-              </div>
+              <Link className="menu__links"  to="/perfil/historialOrdenes">
+                <MdArticle size={28} color={"#4F4F4F"}/>
+                <span>ordenes</span>
+              </Link>
             </li>
-            <li style={!userState.db.admin ? {display:'none'} : {display:'flex'}}>
-              {children}
+            {/* <li>
+              <button className="menu__links" >
+                <img src={SearchIcon} alt="busqueda icon"/>
+                <span>buscar</span>
+              </button>
+            </li> */}
+            <li>
+              <Link className="menu__links" to="/favoritos" alt="link a favoritos">
+                <MdFavorite size={28} color={"#4F4F4F"}/>
+                <span>favoritos</span>
+              </Link>
             </li>
-           
-          </ul>
-          : 
-          <ul className="hamburger">
             <li >
-                <div className="footerContainer__links" >
-                  <div className="footerContainer__links-hammburger" >
-                    <GoThreeBars
-                        size={32}
-                        color={'white'}
-                        onClick={ () => setShowUnderNav(!showUnderNav)}
-                    />
-                    </div>
-                  </div>
-              </li>
+            {
+              !!userState.db.admin &&
+              <>
+                {children}
+              </>
+            }
+            </li>
           </ul>
-      }
+    }
+   </>
       
-    </div>
+   
   )
 }
 

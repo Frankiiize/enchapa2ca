@@ -8,9 +8,6 @@ import { buyContext } from "../context/buyContext.js";
 import { useNavigate } from "react-router-dom";
 const PaySucess = () => {
   const { buyComplete } = useContext(buyContext); 
-  console.log(buyComplete);
-
-  
   
   if(buyComplete === null ){
     return(
