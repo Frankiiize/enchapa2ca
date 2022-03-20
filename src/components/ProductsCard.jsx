@@ -3,6 +3,7 @@ import ShoppingCart from "../assets/Icomponent/ShoppingCart.jsx";
 import AddedShoppinCart from "../assets/Icomponent/AddedShoppinCart.jsx";
 import { cartContex } from "../context/cartContext";
 import { Link } from "react-router-dom";
+
 import '../styles/components/productCard.css';
 
 
@@ -15,6 +16,8 @@ const ProductsCard = ({product}) => {
     setAdded(itemAdded)
   },[cart])
   
+
+
   
 
   return(

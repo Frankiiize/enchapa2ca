@@ -28,6 +28,9 @@ const useGetProducts = () => {
     }
     
   })
+  useEffect(() => {
+    getAvailableStock();
+  },[]);
 
   const getAvailableStock =() => {
     try{
@@ -90,7 +93,6 @@ const useGetProducts = () => {
       console.log(error);
     }
   }
-console.log(newProducts)
 
  /*  const getAllProducts = () => {
     try{

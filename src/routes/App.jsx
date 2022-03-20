@@ -26,6 +26,7 @@ import { Profile } from "../pages/Profile.jsx";
 import { ProductDetails } from "../pages/ProductDetails.jsx";
 import { Checkout } from "../pages/Checkout.jsx";
 import { OrderHistory } from "../pages/OrderHistory.jsx";
+import { Favorites } from "../pages/Favorites.jsx";
 //---PAGES-----//
 
 
@@ -62,7 +63,7 @@ const App = () => {
                   
                   <Route path="/favoritos" element={
                     <PrivateRoutes>
-                      <h1>favos</h1>
+                      <Favorites />
                     </PrivateRoutes>
                   }/>
 

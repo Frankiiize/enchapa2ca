@@ -5,19 +5,43 @@ import { cartContex } from "../context/cartContext";
 import { Link } from "react-router-dom";
 import { MdFavorite } from "react-icons/md";
 import { favoritesContext } from "../context/favoritesContext.js";
+import { LoaderElipsis } from "./loaders/loaderElipsis.jsx";
+
+
+
 
 
 const ProducDetailsCard = ({product}) => {
-  console.log(product)
   const { handleCart, cart } = useContext(cartContex);
   const [ added, setAdded ] = useState(false);
-  const { favorites, handleAddFav, favLoading } = useContext(favoritesContext);
+  const { favorites, favLoading, getFavorites, addFavorites, removeFavorites } = useContext(favoritesContext);
+
   useEffect(() => {
     const itemAdded = cart.cart.some(item => item.id === product.id)
     setAdded(itemAdded)
   },[cart])
+  useEffect(() => {
+    getFavorites()
+  },[product])
   
- 
+  console.log(favorites)
+  const isFavorite = favorites.some((fav) => fav.id === product.id)
+  
+  console.log(isFavorite)
+
+  const handleAddFav = (product) => {
+    console.log(favorites.some((fav) => fav.id === product.id))
+
+    if(favorites.some((fav) => fav.id === product.id)){
+      console.log(' es favorito--borrar')
+      removeFavorites(product)
+    }
+    else{
+      console.log('no es favorito--añdir')
+      addFavorites(product)
+    }
+
+  }
 
 
   return(
@@ -55,14 +79,18 @@ const ProducDetailsCard = ({product}) => {
             <button
               className="productDetails__footer-favBtn"
               onClick={() => handleAddFav(product)}
+              disabled={ favLoading  ? true : false}
               >
               {
-                favLoading 
-                  ? <span>loading..</span>
+                 isFavorite 
+                  ? <MdFavorite 
+                    size={32}
+                    color={"#ffca28"}
+                  />
                   : <MdFavorite 
-                      size={32}
-                      color={"#4F4F4F"}
-                    />
+                    size={32}
+                    color={"#4F4F4F"}
+                  />
               }
               
             </button>

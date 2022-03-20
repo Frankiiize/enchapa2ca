@@ -74,9 +74,9 @@ const categorias = [
 const Home  = () => {
   const [ categories, setCategories ] = useState(categorias);
   const { newProducts, getAvailableStock, productsLoading, searchOn, searchedProducts, handleSearch } = useContext(productsContext);
-  useEffect(async () => {
+/*   useEffect(async () => {
      getAvailableStock();
-  },[]);
+  },[]); */
 
 
   
