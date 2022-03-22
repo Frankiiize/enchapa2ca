@@ -86,7 +86,10 @@ const useProviderAuth = () => {
       
         console.log(dataToDb)
         const user = userCredential.user;
-        const docRef = await setDoc(doc(db, "users", user.uid), dataToDb);
+        debugger
+        await setDoc(doc(db, "users", user.uid), dataToDb);
+        await setDoc(doc(db, "favorites", user.uid), {favs:[]});
+
       } catch (e) {
         console.error("Error adding document: ", e);
       }

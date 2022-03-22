@@ -280,7 +280,7 @@ const RegisterForm = ({
               <div className="errorContainer"> 
                 <span>{error.message}</span>
               </div>
-            }
+          }
         </label>
 
         </>
@@ -297,11 +297,13 @@ const RegisterForm = ({
               placeholder="contraseña"
               onChange={handleOnChange}
             />
-          </label>
           {
               !!error.password && 
-              <span>{error.message}</span>
+              <div className="errorContainer"> 
+                <span>{error.message}</span>
+              </div>
           }
+          </label>
           <label htmlFor="c_Password">
             <input
               id="c_Password"
@@ -311,11 +313,13 @@ const RegisterForm = ({
               placeholder="confirma contraseña"
               onChange={handleOnChange}
             />
-          </label>
           {
-              !!error.address && 
-              <span>{error.message}</span>
+            !!error.password && 
+              <div className="errorContainer"> 
+                <span>{error.message}</span>
+              </div>
           }
+          </label>
         </>
       }
       {

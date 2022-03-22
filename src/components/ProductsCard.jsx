@@ -3,6 +3,7 @@ import ShoppingCart from "../assets/Icomponent/ShoppingCart.jsx";
 import AddedShoppinCart from "../assets/Icomponent/AddedShoppinCart.jsx";
 import { cartContex } from "../context/cartContext";
 import { Link } from "react-router-dom";
+import { MdKeyboardArrowDown, MdKeyboardArrowUp } from 'react-icons/md'
 
 import '../styles/components/productCard.css';
 
@@ -17,7 +18,6 @@ const ProductsCard = ({product}) => {
   },[cart])
   
 
-
   
 
   return(
@@ -29,13 +29,30 @@ const ProductsCard = ({product}) => {
           to={`/detalles/${product.id}`}>
           <img loading="lazy" src={product.img} alt={`foto producto ${product.name}`}/>
         </Link>
+        {
+          !!product.custom &&
+          <div className="Product__item-customContainer" >
+            <span>{product.custom ? 'personalizable' : undefined}</span>
+          </div>
+
+        }
         <div
           onClick={(e) => {
             console.log(e.target.className)
-            if(e.target.className !== "Products__item-cart"){
+            if(e.target.className !== "Products__item-cart" && window.innerWidth < 700){
               setOverlay(!overlay)
             }
           }} 
+          onMouseLeave={(e) =>{
+            if(e.target.className !== "Products__item-cart" && window.innerWidth > 700){
+              setOverlay(!overlay)
+            }
+          }}
+          onMouseEnter={(e) =>{
+            if(e.target.className !== "Products__item-cart" && window.innerWidth > 700){
+              setOverlay(!overlay)
+            }
+          }}
           className={overlay ? "Products__item-description showOverlay" :" Products__item-description "}>
           <div className="Products__item-description-header">
             <h3>{product.name}</h3>
@@ -44,7 +61,18 @@ const ProductsCard = ({product}) => {
               <span>${product.price}</span>
             
             </div>
-            <div className="Products__item-fakeCart"></div>
+            {
+              !overlay 
+              ? <MdKeyboardArrowUp 
+              size={32}
+              color={'gray'} 
+              />
+              : <MdKeyboardArrowDown 
+                size={32}
+                color={'gray'}
+              />
+            }
+            
           </div>
           <div className="Products__item-descriptionDetails">
             <article>

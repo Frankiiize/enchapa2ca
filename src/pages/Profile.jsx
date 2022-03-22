@@ -4,12 +4,12 @@ import { authContext } from "../context/AuthContext";
 import { useForm } from "../hooks/useForm";
 //UTILS
 import '../styles/pages/profile.css'
-import { regexs } from "../utils/regexExpretions";
 //----UTILS
 //ICONS
 import OrderHistoryIcon from '../assets/Icomponent/OrderHistoryIcon.jsx';
-import SmileUserINVER from '../assets/icons/smileINVER.svg';
-import shoppingCart from '../assets/icons/shoppingCart.svg'
+import { MdArticle } from 'react-icons/md'
+import EnchapadoIcon from "../assets/Icomponent/EnchapadoIcon.jsx";
+import ShoppingCart from "../assets/Icomponent/ShoppingCart.jsx";
 //---ICONS
 //APIS
 import { RegisterForm } from "../components/Forms.jsx";
@@ -83,7 +83,11 @@ const Profile = () => {
       <section className="profileHero">
         <div className="profileHero__wrapper">
           <picture className="profileHero__userPhoto">
-            <img  src={userState.db.photo ? userState.db.photo : SmileUserINVER} alt={`foto de `}/>
+          {
+            userState.db.photo 
+             ? <img src={userState.db.photo } alt="user photo" />
+             : <EnchapadoIcon />
+          }
           </picture>
           <div className="profileHero__userInfo">
             <p>
@@ -104,7 +108,7 @@ const Profile = () => {
         <ul>
           <li>
             <button onClick={() => setShowEdit(!showEdit)}>
-              <img src={SmileUserINVER} alt='user icon'/>
+              <EnchapadoIcon className="menu__links-perfil"  />
               <p>
                 <span>Editar perfil</span>
                 <span>Puedes editar tus datos personales</span>
@@ -138,13 +142,17 @@ const Profile = () => {
           }
           <li>
             <Link to="./historialOrdenes">
-            <OrderHistoryIcon fill={"#4f4f4f"}/>
+            <MdArticle size={28} color={"#4F4F4F"}/>
               <p>Ordenes</p>
             </Link>
           </li>
           <li>
             <Link to="/carrito">
-              <img src={shoppingCart} alt='user icon'/>
+              <ShoppingCart 
+                fill={"#4F4F4F"}
+                width={32}
+                height={32}
+              /> 
               <p>Carrito</p>
             </Link>
           </li>

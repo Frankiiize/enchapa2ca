@@ -24,23 +24,13 @@ const ProducDetailsCard = ({product}) => {
     getFavorites()
   },[product])
   
-  console.log(favorites)
   const isFavorite = favorites.some((fav) => fav.id === product.id)
   
-  console.log(isFavorite)
 
   const handleAddFav = (product) => {
-    console.log(favorites.some((fav) => fav.id === product.id))
-
-    if(favorites.some((fav) => fav.id === product.id)){
-      console.log(' es favorito--borrar')
-      removeFavorites(product)
-    }
-    else{
-      console.log('no es favorito--añdir')
-      addFavorites(product)
-    }
-
+   ( favorites.some((fav) => fav.id === product.id) )
+    ? removeFavorites(product)
+    : addFavorites(product)
   }
 
 

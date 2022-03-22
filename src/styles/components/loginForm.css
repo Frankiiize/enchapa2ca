@@ -40,9 +40,13 @@
   position: absolute;
   width: 100%;
   display: flex;
-  justify-content: center;
+  justify-content: flex-end;
+  padding-right: 20px;
   font-size: var(--fs-small);
   color: var(--error-color);
+}
+.login__form .errorContainer span{
+  word-wrap: break-word;
 }
 
 .login__form label input{

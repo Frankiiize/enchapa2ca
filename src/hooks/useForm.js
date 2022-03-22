@@ -19,6 +19,7 @@ const errorReducer = (state, action) =>{
       return {
         options: true
       }
+    
     default : return state
   }
 }
@@ -47,7 +48,7 @@ const useForm = () => {
     email: yup.string().email('ingresa un email valido').required('email requerido'),
     cedula: yup.string().matches(/[0-9]{5,8}/,{message: 'ingresa un numero de cedula valido'}).required('cedula requerida'),
     envio: yup.string().matches(/^(entrega-personal|delivery)$/g,{message:'selecciona un metodo de envio'}).required('selecciona un metodo de envio'),
-  })
+  });
   let schemaDelivery = yup.object().shape({
     name: yup.string().matches(/\w{2,}/g,{message: 'ingresa tu nombre'}).required('nombre requerido'),
     lastName: yup.string().matches(/\w{2,}/g,{message: 'ingresa tu apellido'}).required('apellido requerido'),
@@ -61,6 +62,17 @@ const useForm = () => {
     paidMethod: yup.string().matches(/^(pago-mobil|transferencia-bancaria)$/g,{message: 'selecciona un metodo de pago'}).required('metodo de pago requerido'),
     userUID: yup.string(),
     totalPrice: yup.number().integer().required('sin articulos')
+  });
+
+  let schemaRegister = yup.object().shape({
+    name: yup.string().matches(/\w{2,}/g,{message: 'ingresa tu nombre'}).required('nombre requerido'),
+    lastName: yup.string().matches(/\w{2,}/g,{message: 'ingresa tu apellido'}).required('apellido requerido'),
+    phone: yup.string().matches(/^(0414|0424|0412|0416|0426)[0-9]{7}$/gm, {message: "Ingrese un número válido."}).required('telefono requerido'),
+    email: yup.string().email('ingresa un email valido').required('email requerido'),
+    cedula: yup.string().matches(/[0-9]{6,8}/,{message: 'ingresa un numero de cedula valido'}).required('cedula requerida'),
+    password: yup.string().required('escribe una contraseña de almenos 8 letras y numeros').min(8),
+    countryState: yup.string().required('selecciona tu estado').nullable(),
+    address: yup.string().matches(/\w{2,}/g,{message: 'ingresa tu direccion'}).required('direccion requerida'),
   })
 
   const handleOnChange = (ev) => {
@@ -81,7 +93,8 @@ const useForm = () => {
     error,
     dispatchError,
     schemaPersonal,
-    schemaDelivery
+    schemaDelivery,
+    schemaRegister
 
   }
 }

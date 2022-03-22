@@ -31,6 +31,7 @@ const useFavorites = () => {
       } else {
         // doc.data() will be undefined in this case
         console.log("No such document!");
+ 
       }
     }catch(error) {
       console.log(error.name)
@@ -50,6 +51,7 @@ const useFavorites = () => {
       })
       console.log('añadr' + product.id)
     }catch(error){
+      debugger
       console.log(error)
     }
   }

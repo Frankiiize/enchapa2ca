@@ -9,8 +9,8 @@ const ProductsList = ({products, sectionClass, productsLoading}) => {
       productsLoading 
       ? <LoaderElipsis />
       : <ul className={sectionClass}>
-          {products.map((product) => (
-            <ProductsCard key={product.id} product={product} />
+          {products.map((product,index) => (
+            <ProductsCard key={product.id ? product.id : product[index]} product={product} />
           ))}
       </ul>
     }
