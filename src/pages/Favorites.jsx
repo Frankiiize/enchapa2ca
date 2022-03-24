@@ -17,7 +17,7 @@ const Favorites = () => {
     <>
       <h1>fav page</h1>
       
-      <SectionProducts  sectionClass={"Products"} button={false}>
+      <SectionProducts  sectionClass={"Products"} button={false} arrowControls ={false}>
         <ProductsList 
           sectionClass={"Products__grid"} 
           products={favorites} 

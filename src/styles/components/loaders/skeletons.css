@@ -1,0 +1,98 @@
+/* ---------DETAILS-CARD--------- */
+.skeleton__details{
+  width: 100%;
+  min-height: 100%;
+  display: grid;
+  grid-template-columns: repeat(1, minmax(100px, 500px));
+  grid-template-rows: 300px 50px 300px;
+  border-radius: calc(var(--curve) * 1px);
+  border-bottom-left-radius: 0;
+  justify-content: center;
+  margin-top: 20px;
+  min-width: 275px;
+  text-decoration: none;
+  overflow: hidden;
+  
+  animation-duration: 3s;
+}
+.skeleton__details-ImgContainer,.skeleton__details-description, .skeleton__details-descriptionHeader, .skeleton__details__footer {
+  border: none;
+  background-color: var(--white-color);
+  width: 100%;
+  display: flex;
+  padding: 1rem;
+  animation-name: preloadAnimation;
+  animation-fill-mode: forwards;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+  animation-duration: 3s;
+  
+  background: linear-gradient(to right, rgba(245,245,245,1) 0%, rgba(79,79,79,0.3925945378151261) 100%);
+  min-height: 50px;
+  align-items: center;
+  justify-content: flex-start;
+}
+.skeleton__details-ImgContainer{
+  background: linear-gradient(to right, rgba(245,245,245,1) 0%, rgba(155, 153, 153, 0.393) 100%)
+}
+.skeleton__details-description{
+  border-top-left-radius: 40px;
+}
+.skeleton__details-ImgContainer{
+  border-top-right-radius: 40px;
+  position: relative;
+  bottom: -30px;
+}
+/* ---------DETAILS-CARD--------- */
+
+/* ---------DETAILS-GRID--------- */
+.Products__grid-skeleton{
+  width: 90%;
+  margin: 0 auto;
+  display: grid;
+  justify-content: center;
+  column-gap: 15px;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-auto-rows: 350px;
+  row-gap: 15px;
+}
+.Products__item-skeleton{
+  background: linear-gradient(to right, rgba(245,245,245,1) 0%, rgba(79,79,79,0.3925945378151261) 100%);
+  animation-name: preloadAnimation;
+  animation-fill-mode: forwards;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+  animation-duration: 3s;
+  border: var(--border-radius);
+      position: relative;
+    display: flex;
+    min-width: 250px;
+    border-radius: calc(var(--border-curve) * 1px);
+    overflow: hidden;
+    text-decoration: none;
+    box-shadow: 3px 1px 7px 3px var(--shadow-color);
+}
+.Products__list-skeleton{
+    display: flex;
+    min-height: 400px;
+    gap: 15px;
+    padding: 10px;
+    overflow-x: scroll;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x proximity;
+    scroll-behavior: smooth;
+}
+
+
+
+
+/* ---------DETAILS-GRID--------- */
+
+@keyframes preloadAnimation{
+  0%{
+      background-position: -769px 0;
+  }
+  100%{
+      background-position: 769px 0;
+  }
+}

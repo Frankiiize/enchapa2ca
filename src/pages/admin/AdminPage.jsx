@@ -53,6 +53,7 @@ const Adminpage = () =>{
       price: parseInt(formData.get('producPrice')),
       description: formData.get('description'),
       stockAvalible: parseInt(formData.get('stockAvalible')),
+      itemsQuantity: parseInt(formData.get('itemsQuantity')),
       custom: formValues.custom,
       categoryId: parseInt(formValues.categoryId)
     }

@@ -11,6 +11,7 @@ const formValuesInitialState = {
   stockAvalible: '',
   custom: false,
   categoryId:'1',
+  itemsQuantity:'',
 }
 
 

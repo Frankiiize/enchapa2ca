@@ -376,15 +376,26 @@ const ProductsForm = ({children, submitNewProducts, form, animation, formValues,
           />
         </label>
         <label htmlFor="stockAvalible">
-        <span>stock</span>
-          <input
-            id="stockAvalible"
-            name="stockAvalible"
-            type="number"
-            autoComplete="off"
-            value={formValues.stockAvalible}
-            onChange={onChangeProductsForm}
-          />
+          <span>stock</span>
+            <input
+              id="stockAvalible"
+              name="stockAvalible"
+              type="number"
+              autoComplete="off"
+              value={formValues.stockAvalible}
+              onChange={onChangeProductsForm}
+            />
+        </label>
+        <label htmlFor="itemsQuantity">
+          <span>cantidad de items</span>
+            <input
+              id="itemsQuantity"
+              name="itemsQuantity"
+              type="number"
+              autoComplete="off"
+              value={formValues.itemsQuantity}
+              onChange={onChangeProductsForm}
+            />
         </label>
         <label htmlFor="customProduct" id="customProduct">
           <span>Personalizable</span>

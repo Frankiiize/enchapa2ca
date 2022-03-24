@@ -70,17 +70,41 @@
   padding: 0 1rem;
   text-align: justify;
 }
-.productDetails__card-descriptionArticle-category {
+.productDetails__caracteristics {
+  width: 100%;
   display: flex;
-  justify-content: flex-end;
-  align-items: center;
+  flex-direction: column;
+  padding:  0 20px 20px;
+
+}
+.productDetails__caracteristics h4 {
+  font-size: var(--fs-body-text);
+  color: var(--black-color);
+  text-transform: capitalize;
+  font-family: var(--font-title);
+}
+.productDetails__caracteristics p {
+  font-family: var(--font-primary);
+  color: var(--black-details-color);
+  font-size: var(--fs-body-text-small);
+  text-transform: capitalize;
+}
+.productDetails__caracteristics-Category {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+.productDetails__caracteristics-options {
+  width: 100%;
+  
+}
+.productDetails__caracteristics-options li {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--black-separador);
 }
 
-.productDetails__card-descriptionArticle h4 {
-  font-size: var(--fs-subtitle);
-  color: inherit;
-  color: var(--black-color);
-}
 .productDetails__footer{
   grid-column: 1 / 2;
   grid-row: 4/ 5;
@@ -91,6 +115,8 @@
   align-items: center;
   min-height: 50px;
   background-color: var(--white-color);
+  border-bottom-right-radius: calc(var(--border-curve) * 1px);    
+  position: relative;
 }
 .productDetails__footer-price{
   font-size: var(--fs-title); 
@@ -100,9 +126,25 @@
 .productDetails__footer-buyBtn, .productDetails__footer-favBtn{
   border: none;
   background-color: transparent;
-
+  position: relative;
 }
-
+.tooltip{
+  background-color: var(--black-color);
+  position: absolute;
+  top: -100%;
+  right: -50%;
+  min-width: 10%;
+  min-height: 10%;
+  border-radius: 5px;
+  padding: 5px;
+}
+.tooltip span{
+  color: var(--white-color);
+  font-family: var(--font-title);
+  letter-spacing: var(--letler-spacing-title);
+  font-size: var(--fs-details);
+  text-transform: capitalize;
+}
 
 
 @media (min-width: 700px) {
@@ -137,6 +179,9 @@
     grid-column: 2 / 4;
     grid-row: 2/ 3;
   
+  }
+  .productDetails__footer button:hover{
+    cursor: pointer;
   }
 
  }

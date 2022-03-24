@@ -1,16 +1,18 @@
 import React,{ useContext, useState} from "react";
 //STYLES
-import '../styles/pages/productDetails.css'
+
 //----STYLES
-import { Navigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { ProducDetailsCard } from "../components/ProducDetailsCard.jsx";
 import { productsContext } from "../context/productsContext";
 import { Main } from "../layouts/Main.jsx";
+import { LoaderElipsis } from "../components/loaders/loaderElipsis.jsx";
+import { SkeletonProductDetails } from "../components/loaders/SkeletonProductDetails.jsx";
 
 
 
 const ProductDetails = () => {
-  const { newProducts } = useContext(productsContext);
+  const { newProducts, productsLoading } = useContext(productsContext);
   const params = useParams();
 
   const detailProduct = newProducts.find(item => item.id === params.id);
@@ -18,23 +20,38 @@ const ProductDetails = () => {
   if(!detailProduct){
     const [ detailsPersintence, setDetailsPersintence ] = useState(JSON.parse(localStorage.getItem('detailsProduct')))
     return (
-    <Main sectionClass={"main-userOn"}>
-      <section className="productDetails">
-        <ProducDetailsCard 
-          product={detailsPersintence}
-        />
-      </section>
-    </Main>
+      <>
+
+        {
+          productsLoading 
+          ? <SkeletonProductDetails />
+          : <Main sectionClass={"main-userOn"}>
+              <section className="productDetails">
+                <ProducDetailsCard 
+                  product={detailsPersintence}
+                />
+              </section>
+            </Main>
+        }
+      </>
+   
     )
   }
   return(
-    <Main sectionClass={"main-userOn"}>
-      <section className="productDetails">
-        <ProducDetailsCard 
-          product={detailProduct}
-        />
-      </section>
-    </Main>
+    <>
+      { 
+        productsLoading 
+        ? <SkeletonProductDetails />
+        : <Main sectionClass={"main-userOn"}>
+            <section className="productDetails">
+              <ProducDetailsCard 
+                product={detailProduct}
+              />
+            </section>
+          </Main>
+      }
+    </>
+  
   );
 }
 

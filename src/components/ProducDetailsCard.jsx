@@ -2,20 +2,24 @@ import React, {  useContext, useEffect, useRef, useState } from "react";
 import ShoppingCart from "../assets/Icomponent/ShoppingCart.jsx";
 import AddedShoppinCart from "../assets/Icomponent/AddedShoppinCart.jsx";
 import { cartContex } from "../context/cartContext";
+import { favoritesContext } from "../context/favoritesContext.js";
+import { authContext } from "../context/AuthContext.js";
+
 import { Link } from "react-router-dom";
 import { MdFavorite } from "react-icons/md";
-import { favoritesContext } from "../context/favoritesContext.js";
+import star from '../assets/icons/icons8-estrella-relleno-48.png';
 import { LoaderElipsis } from "./loaders/loaderElipsis.jsx";
-
+import '../styles/pages/productDetails.css'
 
 
 
 
 const ProducDetailsCard = ({product}) => {
+  const { userState } = useContext(authContext);
   const { handleCart, cart } = useContext(cartContex);
   const [ added, setAdded ] = useState(false);
   const { favorites, favLoading, getFavorites, addFavorites, removeFavorites } = useContext(favoritesContext);
-
+  const [ tooltip, setTooltip ] = useState(false);
   useEffect(() => {
     const itemAdded = cart.cart.some(item => item.id === product.id)
     setAdded(itemAdded)
@@ -33,9 +37,12 @@ const ProducDetailsCard = ({product}) => {
     : addFavorites(product)
   }
 
+  console.log(product.name.split(" ")[0])
 
   return(
-      <li className="productDetails__card">
+    <>
+
+      <section className="productDetails__card">
         <Link
           className="productDetails__card-ImgContainer"
           onClick={() => {
@@ -54,13 +61,36 @@ const ProducDetailsCard = ({product}) => {
             <article>
               <p>{product.description}</p>
             </article>
-            <div className="productDetails__card-descriptionArticle-category" >
+          </div>
+          <div className="productDetails__caracteristics" >
+            <div className="productDetails__caracteristics-Category">
               <h4>categoria</h4>
               <p>{product.category}</p>
             </div>
+
+            <ul className="productDetails__caracteristics-options">
+              <li>
+                <h4>personalizable</h4>
+                <p>{product.custom ? 'si' : 'no'}</p>
+              </li>
+              {
+                product.itemsQuantity && 
+                  <li>
+                    <h4>cantidad</h4>
+                    <p>{product.itemsQuantity} {product.name.split(" ")[0]}</p>
+                  </li>
+              }
+              {
+                product.available &&
+                <li>
+                  <h4>stock</h4>
+                  <p>{product.available} disponibles</p>
+                </li>
+              }
+           
+            </ul>
+             
           </div>
-          
-        
         </div>
         <div className="productDetails__footer">
             <div className="productDetails__footer-price" >
@@ -89,7 +119,10 @@ const ProducDetailsCard = ({product}) => {
                 onClick={(e) => {
                   handleCart({...product});
                   setAdded(!added);
-                }}>
+                }}
+                onMouseEnter={() => setTooltip(true)}
+                onMouseLeave={() => setTooltip(false)}
+                >
                 {
                   !added 
                   ? <ShoppingCart 
@@ -103,9 +136,41 @@ const ProducDetailsCard = ({product}) => {
                       height={32}
                   />
                 }
-            </button> 
+                {
+                  tooltip && 
+                    <div className="tooltip">
+                      <span>agregar</span>
+                    </div>
+                }
+            </button>
         </div>
-      </li>
+      </section>
+      <section>
+        {
+          true && 
+            <ul>
+              <li>
+                <div>
+                  <span>nombre usuario</span>
+                  <img src={userState?.db?.photo} style={{width:"32px"}} />
+                </div>
+                <div>
+                  <article>
+                    <p>me ha parecido un exelente articulo, los recomiendo al 100%</p>
+                  </article>
+                </div>
+                <div>
+                  <img src={star} style={{width:"24px"}}  />
+                  <img src={star} style={{width:"24px"}}  />
+                  <img src={star} style={{width:"24px"}}  />
+                  <img src={star} style={{width:"24px"}}  />
+                  <img src={star} style={{width:"24px"}}  />
+                </div>
+              </li>
+            </ul>
+        }
+      </section>
+    </>
   )
 
 }

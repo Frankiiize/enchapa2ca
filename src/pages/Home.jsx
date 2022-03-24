@@ -39,34 +39,37 @@ const Home  = () => {
       
 
       <SectionProducts  sectionClass={"Products"} button={false}>
-      {
-        !searchOn 
-          ? <ProductsList 
-            sectionClass={"Products__grid"} 
-            products={newProducts} 
-            productsLoading={productsLoading}  
-          />
-          : <ProductsList 
+        {
+          !searchOn 
+            ? <ProductsList 
               sectionClass={"Products__grid"} 
-              products={searchedProducts} 
+              products={newProducts} 
               productsLoading={productsLoading}  
-          />
-      }
-        
+            />
+            : <ProductsList 
+                sectionClass={"Products__grid"} 
+                products={searchedProducts} 
+                productsLoading={productsLoading}  
+            />
+        }
       </SectionProducts>
       
       <SectionProducts 
         sectionClass={'Products'} 
         title={'Nuevos Lanzamientos'} 
         button={true} 
-        arrowControls={true}
-      >
-          <ProductsList sectionClass={"Products__list"}  products={newProducts}  />
+        >
+          <ProductsList 
+            sectionClass={"Products__list"}  
+            products={newProducts}  
+            productsLoading={productsLoading}  
+            arrowControls={true}
+          />
       </SectionProducts>
 
-      <SectionProducts  title={'nuevos productos'} sectionClass={'Products'} button={true}>
+      {/* <SectionProducts  title={'nuevos productos'} sectionClass={'Products'} button={true}>
         <ProductsList sectionClass={"Products__list"} products={[]} />
-      </SectionProducts>
+      </SectionProducts> */}
     
       <Footer/>
     </Main>
